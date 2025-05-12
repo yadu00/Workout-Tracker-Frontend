@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container1">
     <div class="height">
       <h1>What's your Height</h1>
       <div class="input">
@@ -22,8 +22,8 @@
       </div>
     </div>
 
-    <div class="nextpage">
-        <button id="nextpagebtn" @click="addBmi();gotobmi()"><v-icon size="70px">mdi-chevron-right</v-icon></button>
+    <div class="next">
+        <button id="nextpage" @click="addBmi();gotobmi()"><v-icon size="70px">mdi-chevron-right</v-icon></button>
     </div>
   </div>
 </template>
@@ -60,7 +60,7 @@ export default {
         const result = await this.$store.dispatch("User/addBmi",payload);
         
         if (result.success) {
-          alert("Bmi Added successfully!");
+          // alert("Bmi Added successfully!");
         } else {
           alert(`Bmi Adding failed: ${result.error}`);
         }
@@ -73,8 +73,8 @@ export default {
 };
 </script>
 
-<style>
-.container {
+<style scoped>
+.container1 {
   height: 100%;
   width: 100%;
   display: flex;
@@ -96,19 +96,13 @@ export default {
     margin-top: 20px;
     display: flex;
 }
-.nextpage{
+.next{
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100px;
     height: 100px;
    
 }
-#nextpagebtn{
-    width: 70px;
-    height: 70px;
-    border: 1px solid black;
-    border-radius: 50px;
-}
+
 </style>

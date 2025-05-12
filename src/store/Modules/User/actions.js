@@ -1,345 +1,382 @@
-import axios from "axios"
-export default{
+import axios from "axios";
+export default {
 
-//user registration
+  //user registration
   async signupUser({ rootGetters }, payload) {
     try {
-
-      const response = await axios.post(`${rootGetters.getUrl}/api/user/add-user`, payload);
+      const response = await axios.post(
+        `${rootGetters.getUrl}/api/user/add-user`,
+        payload
+      );
 
       if (response.status >= 200 && response.status < 300) {
         console.log("User signed up successfully:", response.data);
         return { success: true, data: response.data };
       }
     } catch (error) {
-
-      return { 
-        success: false, 
+      return {
+        success: false,
       };
     }
   },
 
-
-//add bmi
-async addBmi({ rootGetters },payload) {
+  //add bmi
+  async addBmi({ rootGetters }, payload) {
     try {
-      const response = await axios.post(`${rootGetters.getUrl}/api/user/addBmi`,null,{
-        params:{
-          user_id: payload.user_id,
-          height: payload.height,
-          weight:payload.weight
+      const response = await axios.post(
+        `${rootGetters.getUrl}/api/user/addBmi`,
+        null,
+        {
+          params: {
+            user_id: payload.user_id,
+            height: payload.height,
+            weight: payload.weight,
+          },
         }
-        
-          
-        
-      });
+      );
       if (response.status >= 200 && response.status < 300) {
-        return { success: true, data: response.data }; 
+        return { success: true, data: response.data };
       } else {
-        return { success: false, error: 'Unexpected response status' };
+        return { success: false, error: "Unexpected response status" };
       }
     } catch (error) {
       console.error("Error Adding Bmi:", error);
-      return { success: false, error: error.message || 'An error occurred while Adding Bmi.' };
-    }
-  },
-  //view bmi
-async viewBmi({ rootGetters },payload) {
-  try {
-    const response = await axios.get(`${rootGetters.getUrl}/api/user/viewBmi`,{
-      params:{
-        user_id: payload.user_id,
-      }
-        
-    });
-    if (response.status >= 200 && response.status < 300) {
-      return { success: true, data: response.data }; 
-    } else {
-      return { success: false, error: 'Unexpected response status' };
-    }
-  } catch (error) {
-    console.error("Error Adding Bmi:", error);
-    return { success: false, error: error.message || 'An error occurred while Adding Bmi.' };
-  }
-},
-
-
-
-
- 
-//select tainer
-  async assigntrainer({ rootGetters },payload) {
-    try {
-      const response = await axios.post(`${rootGetters.getUrl}/api/user/assign`,payload);
-      if (response.status >= 200 && response.status < 300) {
-        return { success: true, data: response.data }; 
-      } else {
-        return { success: false, error: 'Unexpected response status' };
-      }
-    } catch (error) {
-      console.error("Error Assigning trainer:", error);
-      return { success: false, error: error.message || 'An error occurred while Assigning trainer.' };
-    }
-  },
-
-
-  async selectTrainers({ rootGetters }) {
-    try {
-      const response = await axios.get(`${rootGetters.getUrl}/api/user/viewTrainers`);
-
-      if (response.status >= 200 && response.status < 300) {
-        return { success: true, data: response.data }; 
-      } else {
-        return { success: false, error: 'Unexpected response status' }; 
-      }
-    } catch (error) {
-      console.error("Error fetching trainers:", error);
-      return { success: false, error: error.message || 'An error occurred while fetching trainers.' }; 
-    }
-  },
-
-
-  async loadspectrainers({ rootGetters },specialization_id) {
-    try {
-      const response = await axios.get(`${rootGetters.getUrl}/api/user/viewTrainers/specialization`,{
-        params:{specialization_id}
-      });
-
-      if (response.status >= 200 && response.status < 300) {
-        return { success: true, data: response.data }; 
-      } else {
-        return { success: false, error: 'Unexpected response status' }; 
-      }
-    } catch (error) {
-      console.error("Error fetching trainers:", error);
-      return { success: false, error: error.message || 'An error occurred while fetching trainers.' }; 
-    }
-  },
-
-
-  async fetchSpecializations({ rootGetters }) {
-    try {
-      const response = await axios.get(`${rootGetters.getUrl}/api/user/viewSpecializations`);
-      if (response.status >= 200 && response.status < 300) {
-        return { success: true, data: response.data }; 
-      } else {
-        return { success: false, error: 'Unexpected response status' };
-      }
-    } catch (error) {
-      console.error("Error fetching specializations:", error);
-      return { success: false, error: error.message || 'An error occurred while fetching specializations.' };
-    }
-  },
-
-
-
-  async loadSpecializations({ rootGetters }) {
-    try {
-      const response = await axios.get(`${rootGetters.getUrl}/api/admin/viewspecialisations`);
-      if (response.status >= 200 && response.status < 300) {
-        return { success: true, data: response.data }; 
-      } else {
-        return { success: false, error: 'Unexpected response status' };
-      }
-    } catch (error) {
-      console.error("Error fetching specializations:", error);
-      return { success: false, error: error.message || 'An error occurred while fetching specializations.' };
-    }
-  },
-
-
-
-  async fetchProfile({ rootGetters },user_id) {
-    try {
-      const response = await axios.get(`${rootGetters.getUrl}/api/user/ViewProfile`,{
-      params: { user_id }
-    });
-      if (response.status >= 200 && response.status < 300) {
-        return { success: true, data: response.data }; 
-      } else {
-        return { success: false, error: 'Unexpected response status' };
-      }
-    } catch (error) {
-      console.error("Error fetching User Profile:", error);
-      return { success: false, error: error.message || 'An error occurred while fetching user Profile.' };
-    }
-  },
-
-
-  //dlete account 
-  async deleteAccount({ rootGetters },user_id) {
-    try {
-      const response = await axios.delete(`${rootGetters.getUrl}/api/user/DeleteProfile`,{
-      params: { user_id }
-    });
-      if (response.status >= 200 && response.status < 300) {
-        return { success: true, data: response.data }; 
-      } else {
-        return { success: false, error: 'Unexpected response status' };
-      }
-    } catch (error) {
-      console.error("Error fetching User Profile:", error);
-      return { success: false, error: error.message || 'An error occurred while deleting user Profile.' };
-    }
-  },
-
-
-  
-
-  async editprofile({ rootGetters }, updatedUser) {
-    try {
-      const response = await axios.put(`${rootGetters.getUrl}/api/user/EditProfile`, updatedUser);
-  
-      return { success: true, data: response.data };
-    } catch (error) {
-      console.error("Error editing user profile:", error);
       return {
         success: false,
-        error: error.response?.data?.message || "An error occurred while editing the user profile.",
+        error: error.message || "An error occurred while Adding Bmi.",
       };
     }
   },
 
-  async fetchExercises({ rootGetters }, payload) {
-      try {
-        const response = await axios.get(`${rootGetters.getUrl}/api/trainer/viewWorkout`, {
-          params: payload, // Use payload instead of separate parameters
-        });
-    
-        if (response.status >= 200 && response.status < 300) {
-          return { success: true, data: response.data };
-        } else {
-          return { success: false, error: "Unexpected response status" };
+
+
+  //view bmi
+  async viewBmi({ rootGetters }, payload) {
+    try {
+      const response = await axios.get(
+        `${rootGetters.getUrl}/api/user/viewBmi`,
+        {
+          params: {
+            user_id: payload.user_id,
+          },
         }
-      } catch (error) {
-        console.error("Error fetching Exercise:", error);
-        return { success: false, error: error.message || "An error occurred while fetching Exercise." };
+      );
+      if (response.status >= 200 && response.status < 300) {
+        return { success: true, data: response.data };
+      } else {
+        return { success: false, error: "Unexpected response status" };
       }
+    } catch (error) {
+      console.error("Error viewing Bmi:", error);
+      return {
+        success: false,
+        error: error.message || "An error occurred while viewing Bmi.",
+      };
     }
-    ,  
-    async fetchWorkout({ rootGetters }, payload) {
-      try {
-        const response = await axios.get(`${rootGetters.getUrl}/api/user/viewWorkouts`, {
+  },
+
+
+  //view trainers
+  async selectTrainers({ rootGetters }) {
+    try {
+      const response = await axios.get(
+        `${rootGetters.getUrl}/api/user/viewTrainers`
+      );
+
+      if (response.status >= 200 && response.status < 300) {
+        return { success: true, data: response.data };
+      } else {
+        return { success: false, error: "Unexpected response status" };
+      }
+    } catch (error) {
+      console.error("Error fetching trainers:", error);
+      return {
+        success: false,
+        error: error.message || "An error occurred while fetching trainers.",
+      };
+    }
+  },
+
+  //view specializations
+  async loadSpecializations({ rootGetters }) {
+    try {
+      const response = await axios.get(
+        `${rootGetters.getUrl}/api/admin/viewspecialisations`
+      );
+      if (response.status >= 200 && response.status < 300) {
+        return { success: true, data: response.data };
+      } else {
+        return { success: false, error: "Unexpected response status" };
+      }
+    } catch (error) {
+      console.error("Error fetching specializations:", error);
+      return {
+        success: false,
+        error:
+          error.message || "An error occurred while fetching specializations.",
+      };
+    }
+  },
+
+  //filter trainers according to specializations
+  async loadspectrainers({ rootGetters }, specialization_id) {
+    try {
+      const response = await axios.get(
+        `${rootGetters.getUrl}/api/user/viewTrainers/specialization`,
+        {
+          params: { specialization_id },
+        }
+      );
+
+      if (response.status >= 200 && response.status < 300) {
+        return { success: true, data: response.data };
+      } else {
+        return { success: false, error: "Unexpected response status" };
+      }
+    } catch (error) {
+      console.error("Error fetching trainers:", error);
+      return {
+        success: false,
+        error: error.message || "An error occurred while fetching trainers.",
+      };
+    }
+  },
+
+  //assign trainer
+  async assigntrainer({ rootGetters }, payload) {
+    try {
+      const response = await axios.post(
+        `${rootGetters.getUrl}/api/user/assign`,
+        payload
+      );
+      if (response.status >= 200 && response.status < 300) {
+        return { success: true, data: response.data };
+      } else {
+        return { success: false, error: "Unexpected response status" };
+      }
+    } catch (error) {
+      console.error("Error Assigning trainer:", error);
+      return {
+        success: false,
+        error: error.message || "An error occurred while Assigning trainer.",
+      };
+    }
+  },
+
+  
+//fetch user profile
+  async fetchProfile({ rootGetters }, user_id) {
+    try {
+      const response = await axios.get(
+        `${rootGetters.getUrl}/api/user/ViewProfile`,
+        {
+          params: { user_id },
+        }
+      );
+      if (response.status >= 200 && response.status < 300) {
+        return { success: true, data: response.data };
+      } else {
+        return { success: false, error: "Unexpected response status" };
+      }
+    } catch (error) {
+      console.error("Error fetching User Profile:", error);
+      return {
+        success: false,
+        error:
+          error.message || "An error occurred while fetching user Profile.",
+      };
+    }
+  },
+
+  //delete user account
+  async deleteAccount({ rootGetters }, user_id) {
+    try {
+      const response = await axios.delete(
+        `${rootGetters.getUrl}/api/user/DeleteProfile`,
+        {
+          params: { user_id },
+        }
+      );
+      if (response.status >= 200 && response.status < 300) {
+        return { success: true, data: response.data };
+      } else {
+        return { success: false, error: "Unexpected response status" };
+      }
+    } catch (error) {
+      console.error("Error deleting User Profile:", error);
+      return {
+        success: false,
+        error:
+          error.message || "An error occurred while deleting user Profile.",
+      };
+    }
+  },
+
+ 
+ //fetch workout
+  async fetchWorkout({ rootGetters }, payload) {
+    try {
+      const response = await axios.get(
+        `${rootGetters.getUrl}/api/user/viewWorkouts`,
+        {
           params: {
             user_id: payload.user_id,
             weekdayId: payload.weekdayId, // Ensure the date format is correct (YYYY-MM-DD)
           },
-        });
-    
-        console.log("API Response:", response.data); // Debugging log
-    
-        if (response.status >= 200 && response.status < 300 && Array.isArray(response.data)) {
-          return { success: true, data: response.data };
-        } else {
-          console.error("Unexpected API response format:", response.data);
-          return { success: false, error: "Unexpected response format" };
         }
-      } catch (error) {
-        console.error("Error fetching Exercise:", error);
-        return { success: false, error: error.message || "An error occurred while fetching Exercise." };
+      );
+
+      console.log("API Response:", response.data); // Debugging log
+
+      if (
+        response.status >= 200 &&
+        response.status < 300 &&
+        Array.isArray(response.data)
+      ) {
+        return { success: true, data: response.data };
+      } else {
+        console.error("Unexpected API response format:", response.data);
+        return { success: false, error: "Unexpected response format" };
       }
-    },
-    async loadWeekdays({ rootGetters },payload) {
-          try {
-            const response = await axios.get(`${rootGetters.getUrl}/api/user/getweekdays` ,{
-              params: {
-                user_id: payload.user_id,
-    
-              },
-            });
-            if (response.status >= 200 && response.status < 300) {
-              return { success: true, data: response.data }; 
-            } else {
-              return { success: false, error: 'Unexpected response status' };
-            }
-          } catch (error) {
-            console.error("Error fetching specializations:", error);
-            return { success: false, error: error.message || 'An error occurred while fetching specializations.' };
-          }
-        },
+    } catch (error) {
+      console.error("Error fetching workout:", error);
+      return {
+        success: false,
+        error: error.message || "An error occurred while fetching workout.",
+      };
+    }
+  },
 
 
-        async viewtrainer({ rootGetters },payload) {
-          try {
-            const response = await axios.get(`${rootGetters.getUrl}/api/user/ViewAssignedTrainer` ,{
-              params: {
-                user_id: payload.user_id,
-    
-              },
-            });
-            if (response.status >= 200 && response.status < 300) {
-              return { success: true, data: response.data }; 
-            } else {
-              return { success: false, error: 'Unexpected response status' };
-            }
-          } catch (error) {
-            console.error("Error fetching specializations:", error);
-            return { success: false, error: error.message || 'An error occurred while fetching specializations.' };
-          }
-        },
+  //fetch weekly workout
+  async loadWeekdays({ rootGetters }, payload) {
+    try {
+      const response = await axios.get(
+        `${rootGetters.getUrl}/api/user/weeklyworkout`,
+        {
+          params: {
+            user_id: payload.user_id,
+          },
+        }
+      );
+      if (response.status >= 200 && response.status < 300) {
+        return { success: true, data: response.data };
+      } else {
+        return { success: false, error: "Unexpected response status" };
+      }
+    } catch (error) {
+      console.error("Error fetching weeklyworkout:", error);
+      return {
+        success: false,
+        error:
+          error.message || "An error occurred while fetching weeklyworkout.",
+      };
+    }
+  },
 
 
+  //view assigned trainer
+  async viewtrainer({ rootGetters }, payload) {
+    try {
+      const response = await axios.get(
+        `${rootGetters.getUrl}/api/user/ViewAssignedTrainer`,
+        {
+          params: {
+            user_id: payload.user_id,
+          },
+        }
+      );
+      if (response.status >= 200 && response.status < 300) {
+        return { success: true, data: response.data };
+      } else {
+        return { success: false, error: "Unexpected response status" };
+      }
+    } catch (error) {
+      console.error("Error fetching trainer:", error);
+      return {
+        success: false,
+        error:
+          error.message || "An error occurred while fetching trainer.",
+      };
+    }
+  },
 
 
-        async logworkout({ rootGetters }, payload) {
-          try {
-            const response = await axios.put(
-              `${rootGetters.getUrl}/api/user/UpdateWorkoutStatus?user_id=${payload.user_id}&workout_id=${payload.workout_id}`
-            );        
-            return { success: true, data: response.data };
-          } catch (error) {
-            console.error("Error updating status", error);
-            return {
-              success: false,
-              error: error.response?.data?.message || "An error occurred while updating status",
-            };
-          }
-        },
+  //update workout status
+  async logworkout({ rootGetters }, payload) {
+    try {
+      const response = await axios.put(
+        `${rootGetters.getUrl}/api/user/UpdateWorkoutStatus?user_id=${payload.user_id}&workout_id=${payload.workout_id}`
+      );
+      return { success: true, data: response.data };
+    } catch (error) {
+      console.error("Error updating workout status", error);
+      return {
+        success: false,
+        error:
+          error.response?.data?.message ||
+          "An error occurred while updating workout status",
+      };
+    }
+  },
 
 
-        async viewtotalworkouts({ rootGetters },payload) {
-          try {
-            const response = await axios.get(`${rootGetters.getUrl}/api/user/totalworkoutsdone`,{
-              params:{
-                user_id: payload.user_id,
-              }
-                
-            });
-            if (response.status >= 200 && response.status < 300) {
-              return { success: true, data: response.data }; 
-            } else {
-              return { success: false, error: 'Unexpected response status' };
-            }
-          } catch (error) {
-            console.error("Error Adding Bmi:", error);
-            return { success: false, error: error.message || 'An error occurred while Adding Bmi.' };
-          }
-        },
+  //fetch total workouts done
+  async viewtotalworkouts({ rootGetters }, payload) {
+    try {
+      const response = await axios.get(
+        `${rootGetters.getUrl}/api/user/totalworkoutsdone`,
+        {
+          params: {
+            user_id: payload.user_id,
+          },
+        }
+      );
+      if (response.status >= 200 && response.status < 300) {
+        return { success: true, data: response.data };
+      } else {
+        return { success: false, error: "Unexpected response status" };
+      }
+    } catch (error) {
+      console.error("Error viewing total workouts:", error);
+      return {
+        success: false,
+        error: error.message || "Error viewing total workouts:.",
+      };
+    }
+  },
 
 
+  //fetch todays workout exercise
+  async fetchTodaysWorkout({ rootGetters }, payload) {
+    try {
+      const response = await axios.get(
+        `${rootGetters.getUrl}/api/user/viewtodaysworkouts`,
+        {
+          params: {
+            user_id: payload.user_id,
+            workoutdate: payload.workoutdate, 
+          },
+        }
+      );
 
-        async fetchTodaysWorkout({ rootGetters }, payload) {
-          try {
-            const response = await axios.get(`${rootGetters.getUrl}/api/user/viewtodaysworkouts`, {
-              params: {
-                user_id: payload.user_id,
-                workoutdate: payload.workoutdate, // Ensure the date format is correct (YYYY-MM-DD)
-              },
-            });
-        
-            console.log("API Response:", response.data); // Debugging log
-        
-            if (response.status >= 200 && response.status < 300 && Array.isArray(response.data)) {
-              return { success: true, data: response.data };
-            } else {
-              console.error("Unexpected API response format:", response.data);
-              return { success: false, error: "Unexpected response format" };
-            }
-          } catch (error) {
-            console.error("Error fetching Exercise:", error);
-            return { success: false, error: error.message || "An error occurred while fetching Exercise." };
-          }
-        },
 
-  
-}
+      if (
+        response.status >= 200 &&
+        response.status < 300 &&
+        Array.isArray(response.data)
+      ) {
+        return { success: true, data: response.data };
+      } else {
+        console.error("Unexpected API response format:", response.data);
+        return { success: false, error: "Unexpected response format" };
+      }
+    } catch (error) {
+      console.error("Error fetching todays Exercises:", error);
+      return {
+        success: false,
+        error: error.message || "An error occurred while fetching todays Exercises.",
+      };
+    }
+  },
+};

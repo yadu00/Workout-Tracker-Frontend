@@ -1,13 +1,15 @@
 <template>
   <div class="container">
     <div class="heading">
-      <h1>View Trainer</h1>
+      <h1>Trainer</h1>
     </div>
     <div class="trainer-card">
       <img :src="require('@/assets/img/profile.png')" alt="" />
       <h3>{{ trainer.name }}</h3>
       <p>Certification: {{ trainer.certification }}</p>
       <p>Experience: {{ trainer.experienceYears }}</p>
+      <p>Mobile No:</p>
+      <p>Email</p>
     </div>
   </div>
 </template>
@@ -50,12 +52,13 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  color: #000;
 }
 .trainer-card {
   display: flex;
@@ -63,12 +66,12 @@ export default {
   align-items: center;
   width: 500px;
   height: 500px;
-  background-color: #000000e3;
-  border-radius: 20px;
+  background-color: #bababae3;
+  border-radius: 25px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.753);
   padding: 15px;
   margin-bottom: 15px;
-  color: white;
+  color: rgb(0, 0, 0);
 }
 .trainer-card img {
   width: 250px;
@@ -82,6 +85,7 @@ export default {
 
 .trainer-card p {
   margin: 5px 0;
-  color: #ffffff;
+  color: #000000;
+  font-size: larger;
 }
 </style>

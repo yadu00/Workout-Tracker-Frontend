@@ -62,7 +62,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .v-main {
   background-color: #ffffff;
   /* padding-left: 20px; */

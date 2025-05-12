@@ -5,17 +5,10 @@ export default{
 
     //view users
      async fetchUsers({ rootGetters }) {
-        try {
-          console.log("Fetching users...");
-    
+        try {    
           const response = await axios.get(`${rootGetters.getUrl}/api/admin/viewUsers`);
-    
-          if (response.status >= 200 && response.status < 300) {
-            console.log("Users fetched successfully:", response.data);
-            return { success: true, data: response.data };
-          }
+          return { success: true, data: response.data };
         } catch (error) {
-          console.error("Failed to fetch users:", error.response?.data || error.message);
           return { 
             success: false, 
             error: error.response?.data?.message || "Failed to fetch users." 
@@ -26,7 +19,6 @@ export default{
       //view trainers
       async fetchTrainers({ rootGetters }) {
         try {
-          console.log("Fetching Trainers...");
     
           const response = await axios.get(`${rootGetters.getUrl}/api/admin/viewTrainers`);
     
@@ -45,7 +37,7 @@ export default{
 
 
 
-  //dlete user account 
+  //delete user 
   async deleteUserAccount({ rootGetters },user_id) {
     try {
       const response = await axios.delete(`${rootGetters.getUrl}/api/admin/delete-User`,{
@@ -57,12 +49,12 @@ export default{
         return { success: false, error: 'Unexpected response status' };
       }
     } catch (error) {
-      console.error("Error fetching User Profile:", error);
-      return { success: false, error: error.message || 'An error occurred while deleting user Profile.' };
+      console.error("Error fetching User :", error);
+      return { success: false, error: error.message || 'An error occurred while deleting user Account.' };
     }
   },
 
-  //dlete trainer account 
+  //delete trainer 
   async deleteTrainerAccount({ rootGetters },trainer_id) {
     try {
       const response = await axios.delete(`${rootGetters.getUrl}/api/admin/delete-Trainer`,{
@@ -74,8 +66,8 @@ export default{
         return { success: false, error: 'Unexpected response status' };
       }
     } catch (error) {
-      console.error("Error fetching User Profile:", error);
-      return { success: false, error: error.message || 'An error occurred while deleting user Profile.' };
+      console.error("Error fetching Trainer :", error);
+      return { success: false, error: error.message || 'An error occurred while deleting trainer Account.' };
     }
   },
 
@@ -84,38 +76,36 @@ export default{
 //view trainer signup requests
 async fetchTrainerRequests({ rootGetters }) {
   try {
-    console.log("Fetching Trainers...");
 
     const response = await axios.get(`${rootGetters.getUrl}/api/admin/viewRequests`);
 
     if (response.status >= 200 && response.status < 300) {
-      console.log("Trainers fetched successfully:", response.data);
+      console.log("Requests fetched successfully:", response.data);
       return { success: true, data: response.data };
     }
   } catch (error) {
-    console.error("Failed to fetch Trainers:", error.response?.data || error.message);
+    console.error("Failed to fetch Requests:", error.response?.data || error.message);
     return { 
       success: false, 
-      error: error.response?.data?.message || "Failed to fetch Trainers." 
+      error: error.response?.data?.message || "Failed to fetch Requests." 
     };
   }
 },
 
-//view trainer
+
+//view trainer details from requests
 async fetchTrainer({ rootGetters },trainer_id) {
   try {
-    console.log("Fetching Trainers...");
-
     const response = await axios.get(`${rootGetters.getUrl}/api/admin/TrainerDetails`,{
       params:{trainer_id}
     });
 
     if (response.status >= 200 && response.status < 300) {
-      console.log("Trainers fetched successfully:", response.data);
+      console.log("Trainer details fetched successfully:", response.data);
       return { success: true, data: response.data };
     }
   } catch (error) {
-    console.error("Failed to fetch Trainers:", error.response?.data || error.message);
+    console.error("Failed to fetch Trainer details:", error.response?.data || error.message);
     return { 
       success: false, 
       error: error.response?.data?.message || "Failed to fetch Trainer." 
@@ -123,9 +113,10 @@ async fetchTrainer({ rootGetters },trainer_id) {
   }
 },
 
+
+//accept request from trainer
 async Approve({ rootGetters }, payload) {
   try {
-    console.log("Approving Trainer with payload:", payload);
 
     const response = await axios.put(`${rootGetters.getUrl}/api/admin/ApproveTrainer`,null, {
       
@@ -148,6 +139,8 @@ async Approve({ rootGetters }, payload) {
   }
 },
 
+
+//reject request from trainer
 async Reject({ rootGetters }, payload) {
   try {
     console.log("Rejecting Trainer with payload:",null, { params: {
@@ -170,6 +163,4 @@ async Reject({ rootGetters }, payload) {
   }
 },
 
-
-
-    }
+}

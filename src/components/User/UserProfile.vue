@@ -99,12 +99,9 @@ export default {
 }
 </script>
 
-<style>
-/* Your styles here */
-</style>
 
 
-<style>
+<style scoped>
 .user-profile{
   display: flex;
   width: auto;

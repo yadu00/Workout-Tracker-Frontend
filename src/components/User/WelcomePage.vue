@@ -1,6 +1,6 @@
 <template>
-    <div class="welcome-container">
-      <h1>Welcome!</h1>
+    <div class="welcome">
+      <h1>Welcome! to FitTrack</h1>
       <h1>We’re excited to have you on board. Let's get started!</h1>
       <button @click="gotoheightweight">Continue</button>
     </div>
@@ -23,8 +23,8 @@
   }
   </script>
   
-  <style>
-  .welcome-container {
+  <style scoped>
+  .welcome {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -33,11 +33,12 @@
     text-align: center;
     color: rgb(0, 0, 0);
 
+
   }
   
   button {
-    background-color: rgb(0, 0, 0);
-    color: white;
+    background-color: rgb(85, 255, 0);
+    color: rgb(0, 0, 0);
     padding: 10px 20px;
     margin-top: 20px;
     border: none;

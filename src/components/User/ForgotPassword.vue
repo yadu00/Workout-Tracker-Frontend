@@ -22,7 +22,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .FPbody{
     display: flex;
     justify-content: center;

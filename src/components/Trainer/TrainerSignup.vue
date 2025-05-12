@@ -58,6 +58,16 @@
   color="yellow"
   class="input-field"
             ></v-text-field>
+            <v-file-input
+  v-model="photo"
+  label="Upload Photo"
+  prepend-icon="mdi-camera"
+  accept="image/*"
+  dense
+  hide-details
+  color="yellow"
+  class="input-field"
+/>
           <!-- <v-select
       id="e"
       v-model="selectedspecialisation"
@@ -74,12 +84,18 @@
   class="input-field"
     ></v-select> -->
       <div class="form">
-        <h3 class="h3heading">Specialization</h3>
-        <select v-model="user.specialization_id" class="select" required>
-          <option value="" disabled></option>
-          <option value="1">Cardio</option>
-          <option value="2">WeightLoss</option>
-        </select>
+        <v-select
+      v-model="user.specialization_id"
+      :items="specializations"
+      item-title="name"
+      item-value="id"
+      item-text="name"
+      label="Select Specialization"
+      class="select"
+      outlined
+      dense
+      required
+    ></v-select>
       </div>
 <div class="buttons" >
  <button @click="signupTrainer" class="regbtn">REGISTER</button>
@@ -106,6 +122,10 @@ export default {
         experienceYears:"",
         specialization_id:"",
       },
+      specializations: [
+        { id: 1, name: 'Cardio' },
+        { id: 2, name: 'WeightLoss' },
+      ],
       selectedspecialisation:"",
       Viewspecialisation:[],
     };
@@ -114,8 +134,29 @@ export default {
     ...mapActions(["signupTrainer"]),
 
 async signupTrainer() {
+  // const formData = new FormData();
+  //     formData.append("cert", this.selectedFile);
+  //     const trainerModel = new Blob(
+  //       [
+  //         JSON.stringify({
+  //           name: this.name,
+  //           email: this.email,
+  //           password: this.password,
+  //           certification: this.certification,
+  //           specialization_id:this.selectedspecialisation,
+  //           experienceYears:this.experienceYears
+  //         }),
+  //       ],
+  //       { type: "application/json" }
+  //     );
+  //     formData.append("trainerModel", trainerModel);
   try {
-    const result = await this.$store.dispatch("Trainer/signupTrainer", this.user);
+    const formData = new FormData();
+    formData.append("trainerModel", new Blob([JSON.stringify(this.user)], { type: "application/json" }));
+    if (this.photo) {
+      formData.append("cert", this.photo);
+    }
+    const result = await this.$store.dispatch("Trainer/signupTrainer",formData);
     if (result.success) {
       alert("Trainer signed up successfully!");
       this.$router.push("/trainerlogin");
@@ -176,19 +217,20 @@ async fetchspecialisation() {
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: rgb(255, 255, 255);
-  background-color: #181818;
+  background-color: rgba(0, 0, 0, 0.722);
+  ;
 }
 .signupbox {
   display: flex;
   flex-direction: column;
   width: 550px;
-  height: 600px;
+  height: 680px;
   padding-left: 40px;
   padding-right: 40px;
   padding-top: 10px;
 
 
-  background-color: #450a6d;  
+  background-color: rgb(22, 22, 22);
   color: #ffffff;
   border-radius: 20px;
 }
@@ -245,6 +287,7 @@ h1 {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.1);
   border-color: #d9ff00;
+  color: wheat;
 }
 
 

@@ -74,7 +74,7 @@
         </div>
         <div class="info certi">
           <h3>Certification</h3><p>{{  trainer.certification}}</p>
-            <button id="viewbtn"><v-icon>mdi-eye-outline</v-icon>View</button>
+            <button id="showbtn"><v-icon>mdi-eye-outline</v-icon>View</button>
         </div>
         <div class="info">
           <h3>Experience</h3><p>{{  trainer.experienceYears}}</p>
@@ -247,166 +247,203 @@ export default {
 <style scoped>
 .one {
   display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
   width: 100%;
-  height: auto;
+  justify-content: space-between;
 }
-.container2{
-  margin-top: 20px;
-  margin-left: 10px;
 
+.container2 {
+  margin-top: 20px;
+  padding: 0 10px;
 }
+
 .item1 {
-  width: 400px;
+  flex: 1 1 300px;
   height: 200px;
   background-color: rgba(241, 241, 241, 0.879);
-  margin: 10px;
   border-radius: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;}
-.item1:hover{
-  background-color: rgb(0, 0, 0);
-  color: white;
-  box-shadow: 2px 5px 10px rgb(0, 0, 0);
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  transition: all 0.3s ease;
 }
-.request{
-  display: flex;
-  flex-direction: column;
-  /* justify-content: center; */
-  width: 99%;
-  height: auto;
-  /* align-items: center; */
-  padding: 10px;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;  border-radius: 2px;
-  background-color: rgba(241, 241, 241, 0.879);
 
+.item1:hover {
+  background-color: #000;
+  color: #fff;
+  box-shadow: 2px 5px 10px #000;
 }
-.requestbody{
-  display: flex;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
-  margin: 10px;
+
+.request {
+  width: 100%;
+  padding: 10px;
+  background-color: rgba(241, 241, 241, 0.879);
+  border-radius: 4px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 }
-.requests{
-  width: 25%;
-  margin: 10px;
+
+.requestbody {
   display: flex;
-  /* justify-content: center; */
-  align-items: center;
+  flex-wrap: wrap;
+  margin: 10px 0;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+.requests {
+  flex: 1 1 25%;
+  display: flex;
   justify-content: center;
-  
+  align-items: center;
+  text-align: center;
 }
-#viewbtn{
+
+#viewbtn {
   width: 100px;
   height: 30px;
-  background-color:blue ;
+  background-color: blue;
   color: white;
   border-radius: 25px;
-  text-align: center;
-  /* margin-right: 100px; */
+  border: none;
+  cursor: pointer;
 }
-.btn{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.title{
+
+.title {
   background-color: black;
   color: white;
+  font-weight: bold;
 }
-.status{
-  background-color: rgb(123, 255, 0);
+
+.status {
+  background-color: #7bff00;
   border-radius: 20px;
   width: 100px;
   height: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
 }
 
-
-
-
-
-
-
-.box{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    position: relative;
-   
-}
-.details{
-    width: 600px;
-    height: 70%;
-    display: flex;
-    flex-direction: column;
-    background-color: rgb(171, 171, 171);
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
-    padding: 20px;
-    color: rgb(0, 0, 0);
-
-}
-.info{
-    width: 100%;
-    display: flex;
-    align-items: center;
-
-
-}
-.info h3{
-  width: 150px;
-}
-.info p{
-    font-size: 20px;
-    margin: 10px;
-    width: 250px;
-    border: 1px solid black;
-    border-radius: 10px;
-    padding-left: 10px;
-
-}
-#viewbtn{
-    width: 100px;
-    height: 40px;
-    border: 1px solid rgb(0, 0, 0);
-    border-radius: 20px
-}
-#approvebtn{
-    width: 150px;
-    height: 40px;
-    /* border: 1px solid rgb(0, 0, 0); */
-    border-radius: 20px;
-    background-color: rgb(51, 255, 0);
-    color: rgb(0, 0, 0);
-
-}
-#declinebtn{
-    width: 150px;
-    height: 40px;
-    /* border: 1px solid rgb(0, 0, 0); */
-    border-radius: 20px;
-    background-color: rgb(255, 0, 0);
-    color: white;
-}
-.btns{
-    display: flex;
-    justify-content: space-around;
-    height: 100px;
-}
-h1{
-    text-align: center;
-}
-#exit{
-  position: absolute;
-  top:0;
-  right: 30%;
-  color: rgb(0, 0, 0);
+.box {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  min-height: 100vh;
+  position: relative;
+  padding: 20px;
+  box-sizing: border-box;
 }
+
+.details {
+  width: 90%;
+  max-width: 600px;
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0 13px 27px -5px,
+              rgba(0, 0, 0, 0.3) 0 8px 16px -8px;
+}
+
+.info {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px 0;
+}
+
+.info h3 {
+  width: 150px;
+  margin: 0;
+}
+
+.info p {
+  flex: 1;
+  font-size: 18px;
+  border: 1px solid #000;
+  border-radius: 10px;
+  padding: 8px;
+  margin: 0;
+}
+
+.btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+#approvebtn, #declinebtn {
+  width: 140px;
+  height: 40px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+}
+
+#approvebtn {
+  background-color: #33ff00;
+  color: #000;
+}
+
+#declinebtn {
+  background-color: red;
+  color: #fff;
+}
+
+#exit {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* RESPONSIVENESS */
+
+@media (max-width: 768px) {
+  .one {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .item1 {
+    width: 100%;
+  }
+
+  .requestbody {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .requests {
+    width: 100%;
+    justify-content: center;
+    margin: 5px 0;
+  }
+
+  .info {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .info h3, .info p {
+    width: 100%;
+  }
+
+  .btns {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #exit {
+    right: 20px;
+    top: 20px;
+  }
+}
+
 </style>

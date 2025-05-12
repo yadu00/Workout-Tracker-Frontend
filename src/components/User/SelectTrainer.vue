@@ -184,7 +184,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .select-trainer {
   width: 100%;
   height: 100%;
@@ -296,7 +296,7 @@ export default {
   width: 50%;
   max-width: 500px;
   border-radius: 8px;
-  background-color: rgb(110, 110, 110);
+  background-color: rgb(255, 255, 255);
   color: rgb(0, 0, 0);
 }
 .inside{
@@ -309,8 +309,8 @@ export default {
   height: 45px;
   display: flex;
   justify-content: space-between;
-  background-color: rgb(57, 57, 57);
-  color: white;
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
   align-items: center;
   font-size: medium;
   padding: 5px;
@@ -321,12 +321,12 @@ export default {
 }
 
 .about{
-  background-color: rgb(97, 97, 97);
+  background-color: rgb(235, 235, 235);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: #000;
+  color: #373737;
   border-radius: 20px;
 
 }
@@ -334,19 +334,21 @@ export default {
   width: 100%;
   height: 300px;
   border-radius: 20px;
-  background-color: white;
+  background-color: rgb(189, 189, 189);
   padding: 10px;
   font-size: large;
 }
 .title{
   width: 100%;
   height: 50px;
-  background-color: yellow;
+  background-color: rgb(105, 105, 105);
   margin-bottom: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: x-large;
   font-weight: bold;
+  color: white;
+  border-radius: 25px;
 }
 </style>

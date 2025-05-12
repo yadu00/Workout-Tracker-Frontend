@@ -26,9 +26,7 @@ const router = createRouter({
 
     { path: "/selectTrainer",component: () => import("./components/User/SelectTrainer.vue"),},
 
-    { path: "/view",component: () => import("./components/Trainer/ScheduleWeek.vue"),},
-
-    { path: "/sch",component: () => import("./components/Trainer/ScheduleWorkout.vue"),},
+   
 
     { path: "/hw",component: () => import("./components/User/HeightWeight.vue"),},
         
@@ -121,6 +119,9 @@ const router = createRouter({
           path: "/TrainerProfile",
           component: () => import("@/components/Trainer/TrainerProfile.vue"),
         },
+        { path: "/view",component: () => import("./components/Trainer/ScheduleWeek.vue"),},
+
+        { path: "/sch",component: () => import("./components/Trainer/ScheduleWorkout.vue"),},
         
       ],
     },

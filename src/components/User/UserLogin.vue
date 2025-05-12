@@ -1,70 +1,60 @@
 <template>
- 
   <div class="loginbody">
-    
     <div class="box">
       <div class="container">
-    Welcome to <br>FitTrack.
-    <p>Your ultimate fitness companion for personalized training,<br> progress tracking, and expert guidance.</p>
-  </div>
-    <div class="loginbox">
-      <h1>Login</h1>
-      <label for="email">Email</label>
-      <input v-model="email" class="inputs" type="text" placeholder="Enter your email">
-      <label for="password">Password</label>
-      <input v-model="password" class="inputs" type="password" placeholder="Enter your password">
-      <div class="password" style="display: flex; justify-content: space-between; height: auto; width: 100%;">
-        <div class="remebermediv" style="display: flex; width: 50%; align-items: center;
-">
-         <!-- <label for="Remember">Remember me</label>
-          <input type="checkbox" style="width: 15px; height: 15px;"> -->
-        </div>
-        <router-link to="/forgotpassword" style="  color: blue;text-decoration: none;">
-          <label for="Forgotpassword">Forgot password? </label>
-        </router-link>
+        <h1>Welcome to <br />FitTrack.</h1>
+        <p>
+          Your ultimate fitness companion for personalized training,
+          progress tracking, and expert guidance.
+        </p>
       </div>
-<div class="button" style="display: flex;flex-direction: column;justify-content: center;align-items: center;margin-top: 20px;">
-  <button class="btn" role="button" @click="login">Login</button>
 
-<router-link to="/signup" class="router">
-  <label  style="text-align: center;color: white;">New User? Sign Up</label>
-</router-link>
-</div>
-      
-      
+      <div class="loginbox">
+        <h1>Login</h1>
 
+        <label for="email">Email</label>
+        <input
+          v-model="email"
+          class="inputs"
+          type="text"
+          placeholder="Enter your email"
+        />
 
+        <label for="password">Password</label>
+        <input
+          v-model="password"
+          class="inputs"
+          type="password"
+          placeholder="Enter your password"
+        />
 
+        <div class="password">
+          <!-- Future use: Remember Me -->
+          <div class="remebermediv"></div>
+          <router-link to="/forgotpassword" class="router-link">Forgot password?</router-link>
+        </div>
+
+        <div class="button">
+          <button class="btn" role="button" @click="login">Login</button>
+          <router-link to="/signup" class="router">
+            <label>New User? Sign Up</label>
+          </router-link>
+        </div>
+      </div>
     </div>
+
+    <!-- Snackbar -->
+    <v-snackbar v-model="snackbar" color="#adff2f" width="400px" location="top">
+      Login Success
+      <template v-slot:actions>
+        <v-btn color="black" variant="text" @click="snackbar = false">
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
   </div>
-  </div>
-  
-
-
-  <!-- Snackbar -->
- <v-snackbar
-    v-model="snackbar"
-    color="#adff2f"
-    width="400px"
-    height="80px"
-    location="top"
-  >
-    Login Success
-
-    <template v-slot:actions>
-      <v-btn
-        color="black"
-        variant="text"
-        @click="snackbar = false"
-        style="font-weight: 700"
-      >
-        Close
-      </v-btn>
-    </template>
-  </v-snackbar>
-  
-
 </template>
+
 
 <script>
 import { mapGetters } from 'vuex';
@@ -132,126 +122,178 @@ export default {
 };
 </script>
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
+<style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Audiowide&display=swap");
+
 * {
-  padding: 0;
   margin: 0;
-}
-.loginbody{
-  width: 100%;
-  height: 100%;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-.box{
+.loginbody {
   width: 100%;
-  height: 100%;
+  height: 100vh;
+  background-color: #343434;
   display: flex;
-  flex-direction: row;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1100px;
+}
+
+.container {
+  flex: 1 1 400px;
   color: #ffffff;
-  /* backdrop-filter: blur(1px); */
-  background-color: #0f0081;
-
+  text-align: center;
+  font-family: "Audiowide", sans-serif;
 }
-.box .container{
-    width: 50%;
-    height: 500px;
-    background-color: #0f0081;
-    font-size: 50px;
-    font-family: "Audiowide", sans-serif;
 
-
+.container h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
 }
-.container p{
-  font-size: 15px;
+
+.container p {
+  font-size: 1rem;
+  color: #cfcfcf;
+  line-height: 1.5;
+  padding: 0 1rem;
 }
 
 .loginbox {
-  display: flex;
-  flex-direction: column;
-  width: 400px;
-  height: 500px;
-  padding: 40px;
-  /* box-shadow: 0px 1px 20px rgb(112, 255, 10); */
- /* box-shadow: rgb(255, 0, 0) 0px 2px px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;  */
-  background-color: #0f0081;
-  /* border-top-right-radius: 30px;
-  border-bottom-right-radius: 30px; */
+  flex: 1 1 400px;
+  background-color: #aeff00;
   border-radius: 30px;
-
-  border: 5px solid rgb(104, 104, 103);
-
-  
-
+  border: 5px solid rgb(132, 255, 0);
+  padding: 2rem;
+  color: #000000;
+  max-width: 400px;
 }
 
-h1 {
+.loginbox h1 {
   text-align: center;
-  margin-bottom: 20px;
-  color: #ffffff;
-
-  
+  margin-bottom: 1.5rem;
 }
-label{
-  margin: 2px 5px;
-  color: #949494;
+
+label {
+  display: block;
+  margin: 0.5rem 0 0.25rem;
+  color: #181818;
 }
 
 .inputs {
   width: 100%;
-  padding: 10px 16px;
-  color: rgb(255, 255, 255);
-  font-size: 14px;
-  background-color: #0707075f;
-  margin-bottom: 15px;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  background-color: #000000a9;
   border-radius: 4px;
-  border: 2px solid #00000000;
-  
-
+  border: 2px solid transparent;
+  color: white;
+  font-size: 1rem;
+  transition: all 0.3s ease;
 }
-.inputs::placeholder{
-  color: rgb(114, 114, 114);
 
+.inputs::placeholder {
+  color: #dddddd;
 }
 
 .inputs:hover {
-  background-color: #0707075f;
-  color: #cecece;
-  border: 2px solid rgb(34, 255, 0);
-
+  border-color: rgb(34, 255, 0);
 }
+
 .inputs:focus {
   outline: none;
-  border: 2px solid #22ff00;
+  border-color: #22ff00;
   background-color: #0707075f;
-  color: #cecece;
 }
 
+.password {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  margin-bottom: 1.5rem;
+}
 
+.router-link {
+  color: #313131;
+  text-decoration: none;
+}
 
+.button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-
-.btn{
+.btn {
+  width: 100%;
+  max-width: 200px;
   height: 50px;
-  width: 200px;
-  border-radius: 25px;
-  background-color: #07e000;
-  margin: 25px;
-  color: #000000;
-  text-align: center;
+  background-color: #000000;
+  color: rgb(255, 255, 255);
   font-weight: bold;
-  font-size: x-large;
-  
+  font-size: 1.2rem;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin-bottom: 1rem;
 }
-.btn:hover{
+
+.btn:hover {
   background-color: #0cff0c;
 }
 
-.router{
+.router {
+  color: white;
+  font-size: 0.9rem;
   text-decoration: none;
-  font-size: small;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .container h1 {
+    font-size: 2rem;
+  }
+
+  .container p {
+    font-size: 0.9rem;
+  }
+
+  .loginbox {
+    padding: 1.5rem;
+  }
+
+  .btn {
+    font-size: 1rem;
+    height: 45px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    text-align: center;
+  }
+
+  .container h1 {
+    font-size: 1.8rem;
+  }
+
+  .container p {
+    font-size: 0.85rem;
+  }
 }
 
 </style>

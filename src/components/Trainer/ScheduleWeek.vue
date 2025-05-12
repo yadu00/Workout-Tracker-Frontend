@@ -154,11 +154,11 @@ export default {
 </script>
 
 
-<style>
+<style scoped>
 .body {
-  width: 100%;
-  height: 100%;
-  background-color: rgb(162, 255, 68);
+  width: 82.5%;
+    height: 100%;
+  background-color: rgb(255, 255, 255);
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -181,7 +181,7 @@ export default {
 #addworkout {
   width: 200px;
   height: 30px;
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(18, 168, 48);
   border-radius: 10px;
   border: none;
 }
@@ -201,7 +201,7 @@ export default {
   margin-top: 10px;
 }
 .day-card {
-  width: 200px;
+  width: 160px;
   height: 150px;
   background-color: rgb(240, 240, 240);
   border-radius: 8px;

@@ -110,7 +110,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .contents{
     width: 100%;
     height: 100%;

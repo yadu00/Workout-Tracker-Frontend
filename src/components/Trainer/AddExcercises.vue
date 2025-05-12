@@ -130,7 +130,7 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 .v-container{
 margin: 0;
 }

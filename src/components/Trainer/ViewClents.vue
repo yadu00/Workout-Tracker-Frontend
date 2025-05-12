@@ -43,7 +43,7 @@
         <p>{{ user.weight }}</p>
       </div>
       <div class="title">
-        <p>{{ user.bmi }}</p>
+        <p>{{ user.bmi.toFixed(2) }}</p>
       </div>
       <div class="title">
         <div class="schedulebtn">
@@ -108,7 +108,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .container {
   width: 82.5%;
   height: 100%;

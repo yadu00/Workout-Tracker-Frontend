@@ -56,7 +56,7 @@
   }
   </script>
   
-  <style>
+  <style scoped>
   .v-main{
     background-color: #747474;
   /* padding-left: 20px; */

@@ -27,7 +27,7 @@
   }
   </script>
   
-  <style>
+  <style scoped>
   .container {
     display: flex;
     flex-direction: column;
@@ -40,8 +40,8 @@
   button {
     width: 200px;
     height: 50px;
-    background-color: rgb(0, 0, 0);
-    color: white;
+    background-color: rgb(34, 255, 0);
+    color: rgb(0, 0, 0);
     padding: 10px 20px;
     margin-top: 20px;
     border: none;

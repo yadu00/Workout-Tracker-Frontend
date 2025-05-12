@@ -13,8 +13,18 @@
         <h1>{{ user.bmi }}</h1>
       </div>
     </div>
-
     <div class="section2">
+      <div class="height">
+         <p>Height</p>
+        <h1>{{ user.bmi }}</h1>
+      </div>
+      <div class="weight">
+         <p>Weight</p>
+        <h1>{{ user.bmi }}</h1>
+      </div>
+
+    </div>
+    <div class="section3">
       <h1>UPDATE BMI</h1>
       <div class="scroll-container">
         <div class="height">
@@ -238,7 +248,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .container {
   width: 100%;
   height: 100%;
@@ -246,7 +256,7 @@ export default {
   flex-direction: column;
 }
 .title {
-  width: 97%;
+  width: 80%;
   height: 100px;
   background-color: black;
   border-radius: 20px;
@@ -255,6 +265,8 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: fixed;
+  z-index: 999;
 }
 .reports {
   width: 97%;
@@ -263,6 +275,7 @@ export default {
   justify-content: space-around;
 }
 .section1 {
+  margin-top: 120px;
   width: 48%;
   height: 150px;
   background-color: #dedede;
@@ -282,16 +295,42 @@ export default {
   font-weight: bold;
 }
 .section2 {
-  width: 94%;
+  width: 97%;
   height: auto;
-  margin-left: 20px;
-  /* background-color: rgb(255, 255, 255); */
-  border-radius: 25px;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
 }
 .section2 h1 {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.section2 .height{
+   width: 48%;
+  height: 150px;
+  background-color: #dedede;
+  /* margin-bottom: 20px; */
+
+  border-radius: 20px;
+  color: rgb(0, 0, 0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.section2 .weight{
+   width: 48%;
+  height: 150px;
+  background-color: #dedede;
+  /* margin-bottom: 20px; */
+
+  border-radius: 20px;
+  color: rgb(0, 0, 0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .scroll-container {

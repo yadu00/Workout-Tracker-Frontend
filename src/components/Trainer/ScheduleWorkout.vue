@@ -240,10 +240,10 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .contents{
-    width: 100%;
-    height: 100%;
+  width: 82.5%;
+      height: 100%;
     background-color: rgb(255, 255, 255);
     display: flex;
     flex-direction: column;

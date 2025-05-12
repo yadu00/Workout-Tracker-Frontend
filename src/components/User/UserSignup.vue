@@ -68,7 +68,7 @@ export default {
 </script>
 
 
-<style>
+<style scoped>
 * {
   padding: 0;
   margin: 0;
@@ -82,7 +82,7 @@ export default {
   justify-content: center;
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
   color: rgb(0, 0, 0);
-  background-color: #1d0464;
+  background-color: #343434;
   font-family: Arial, Helvetica, sans-serif;
   background-size: cover;
 
@@ -94,7 +94,7 @@ export default {
   height: 550px;
   padding: 40px;
   box-shadow: 2px 2px 10px 2px black;
-  background-color: #1d0464;
+  background-color: #343434;
   color: #ffffff;
   border-radius: 25px;
   border: 5px inset rgb(0, 255, 51);

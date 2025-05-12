@@ -65,7 +65,7 @@
 
         <div class="divinside">
           <div class="section1">
-            <h2>BMI : {{ Bmi.bmi }}</h2>
+            <h2>BMI : {{ isNaN(Number(Bmi?.bmi)) ? 'N/A' : Number(Bmi.bmi).toFixed(2) }}</h2>
           </div>
           <div class="graph">
             <h1>Todays Workout</h1>
@@ -200,7 +200,7 @@ export default {
   mounted() {
     this.checkFirstLogin();
     this.updateCalendar();
-    this.Bi();
+    this.viewBmi();
     this.fetchProfile();
     this.fetchTodaysWorkout();
 
@@ -254,7 +254,7 @@ export default {
       today.getDate() === day
     );
   },
-  async Bi() {
+  async viewBmi() {
       try {
         const payload = {
           user_id: this.getuser_id,
@@ -271,9 +271,10 @@ export default {
     },
     async fetchTodaysWorkout() {
   try {
+    const today = new Date();
     const payload = {
       user_id: this.getuser_id,
-      workoutdate: '2025-04-26',
+      workoutdate: today.toISOString().split('T')[0],
     };
 
     const result = await this.$store.dispatch(
