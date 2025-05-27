@@ -91,13 +91,12 @@ export default {
 .trainer-navbar {
   position: fixed;
   width: 260px;
-  background-color: #1eff00;  
+  background-color: #fff200;  
   padding: 25px 20px;
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
   height: 695px;
-  border-radius: 30px;
   
 
 }

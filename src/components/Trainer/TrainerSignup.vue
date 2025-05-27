@@ -3,72 +3,69 @@
     <div class="signupbox">
       <h1>Sign Up</h1>
       <v-text-field
-  v-model="user.name"
-  label="Name"
-  variant="outlined"
-  prepend-inner-icon="mdi-account-outline"
+        v-model="user.name"
+        label="Name"
+        variant="outlined"
+        prepend-inner-icon="mdi-account-outline"
+        dense
+        hide-details
+        color="yellow"
+        class="input-field"
+      />
+      <v-text-field
+        v-model="user.email"
+        label="Email"
+        variant="outlined"
+        prepend-inner-icon="mdi-email-outline"
+        dense
+        hide-details
+        color="yellow"
+        class="input-field"
+      />
 
-  dense
-  hide-details
-  color="yellow"
-  class="input-field"
-/>
-<v-text-field
-  v-model="user.email"
-  label="Email"
- 
-  variant="outlined"
-   prepend-inner-icon="mdi-email-outline"
-  dense
-  hide-details
-  color="yellow"
-  class="input-field"
-/>
-
-            <v-text-field 
-           v-model="user.password"
-            label="Password"
-            variant="outlined"
-
-            type="password"
-            prepend-inner-icon="mdi-lock-outline"
-  dense
-  hide-details
-  color="yellow"
-  class="input-field"
-            ></v-text-field>
-            <v-text-field 
-           v-model="user.certification"
-            label="Certification"
-            variant="outlined"
-            prepend-inner-icon="mdi-file-certificate-outline"
-  dense
-  hide-details
-  color="yellow"
-  class="input-field"
-            ></v-text-field>
-            <v-text-field 
-           v-model="user.experienceYears"
-            label="Experience"
-            variant="outlined"
-             type="number"
-             prepend-inner-icon="mdi-briefcase-outline"
-  dense
-  hide-details
-  color="yellow"
-  class="input-field"
-            ></v-text-field>
-            <v-file-input
-  v-model="photo"
-  label="Upload Photo"
-  prepend-icon="mdi-camera"
-  accept="image/*"
-  dense
-  hide-details
-  color="yellow"
-  class="input-field"
-/>
-          <!-- <v-select
+      <v-text-field
+        v-model="user.password"
+        label="Password"
+        variant="outlined"
+        type="password"
+        prepend-inner-icon="mdi-lock-outline"
+        dense
+        hide-details
+        color="yellow"
+        class="input-field"
+      ></v-text-field>
+      <v-text-field
+        v-model="user.certification"
+        label="Certification"
+        variant="outlined"
+        prepend-inner-icon="mdi-file-certificate-outline"
+        dense
+        hide-details
+        color="yellow"
+        class="input-field"
+      ></v-text-field>
+      <v-text-field
+        v-model="user.experienceYears"
+        label="Experience"
+        variant="outlined"
+        type="number"
+        prepend-inner-icon="mdi-briefcase-outline"
+        dense
+        hide-details
+        color="yellow"
+        class="input-field"
+      ></v-text-field>
+      <v-file-input
+        v-model="photo"
+        label="Upload Photo"
+        prepend-icon="mdi-camera"
+        accept="image/*"
+        dense
+        hide-details
+        color="yellow"
+        class="input-field"
+      />
+      <!-- <v-select
       id="e"
       v-model="selectedspecialisation"
       :items="Viewspecialisation"
@@ -85,26 +82,27 @@
     ></v-select> -->
       <div class="form">
         <v-select
-      v-model="user.specialization_id"
-      :items="specializations"
-      item-title="name"
-      item-value="id"
-      item-text="name"
-      label="Select Specialization"
-      class="select"
-      outlined
-      dense
-      required
-    ></v-select>
+          v-model="user.specialization_id"
+          :items="Viewspecialisation"
+          item-title="specialization_name"
+          item-value="specialization_id"
+          label="Select Specialization"
+          class="select"
+          outlined
+          dense
+          required
+        ></v-select>
       </div>
-<div class="buttons" >
- <button @click="signupTrainer" class="regbtn">REGISTER</button>
+      <div class="buttons">
+        <button @click="signupTrainer" class="regbtn">REGISTER</button>
 
-
-  <router-link to="/Trainerlogin"><h5 style="text-align: center;color: white;">Already Registered? Login</h5></router-link>
-
-</div>
+        <router-link to="/Trainerlogin"
+          ><h5 style="text-align: center; color: white">
+            Already Registered? Login
+          </h5></router-link
+        >
       </div>
+    </div>
   </div>
 </template>
 
@@ -118,57 +116,59 @@ export default {
         name: "",
         email: "",
         password: "",
-        certification:"",
-        experienceYears:"",
-        specialization_id:"",
+        certification: "",
+        experienceYears: "",
+        specialization_id: "",
       },
-      specializations: [
-        { id: 1, name: 'Cardio' },
-        { id: 2, name: 'WeightLoss' },
-      ],
-      selectedspecialisation:"",
-      Viewspecialisation:[],
+      selectedspecialisation: "",
+      Viewspecialisation: [],
     };
   },
   methods: {
     ...mapActions(["signupTrainer"]),
 
-async signupTrainer() {
-  // const formData = new FormData();
-  //     formData.append("cert", this.selectedFile);
-  //     const trainerModel = new Blob(
-  //       [
-  //         JSON.stringify({
-  //           name: this.name,
-  //           email: this.email,
-  //           password: this.password,
-  //           certification: this.certification,
-  //           specialization_id:this.selectedspecialisation,
-  //           experienceYears:this.experienceYears
-  //         }),
-  //       ],
-  //       { type: "application/json" }
-  //     );
-  //     formData.append("trainerModel", trainerModel);
-  try {
-    const formData = new FormData();
-    formData.append("trainerModel", new Blob([JSON.stringify(this.user)], { type: "application/json" }));
-    if (this.photo) {
-      formData.append("cert", this.photo);
-    }
-    const result = await this.$store.dispatch("Trainer/signupTrainer",formData);
-    if (result.success) {
-      alert("Trainer signed up successfully!");
-      this.$router.push("/trainerlogin");
-    } else {
-      alert(`Signup failed: ${result.error}`);
-    }
-  } catch (error) {
-    alert("Unexpected error during sign-up. Please check console.");
-  }
-},
-  
-async fetchspecialisation() {
+    async signupTrainer() {
+      // const formData = new FormData();
+      //     formData.append("cert", this.selectedFile);
+      //     const trainerModel = new Blob(
+      //       [
+      //         JSON.stringify({
+      //           name: this.name,
+      //           email: this.email,
+      //           password: this.password,
+      //           certification: this.certification,
+      //           specialization_id:this.selectedspecialisation,
+      //           experienceYears:this.experienceYears
+      //         }),
+      //       ],
+      //       { type: "application/json" }
+      //     );
+      //     formData.append("trainerModel", trainerModel);
+      try {
+        const formData = new FormData();
+        formData.append(
+          "trainerModel",
+          new Blob([JSON.stringify(this.user)], { type: "application/json" })
+        );
+        if (this.photo) {
+          formData.append("cert", this.photo);
+        }
+        const result = await this.$store.dispatch(
+          "Trainer/signupTrainer",
+          formData
+        );
+        if (result.success) {
+          alert("Trainer signed up successfully!");
+          this.$router.push("/trainerlogin");
+        } else {
+          alert(`Signup failed: ${result.error}`);
+        }
+      } catch (error) {
+        alert("Unexpected error during sign-up. Please check console.");
+      }
+    },
+
+    async fetchspecialisation() {
       try {
         const result = await this.$store.dispatch(
           "Trainer/fetchspecialisation"
@@ -191,21 +191,19 @@ async fetchspecialisation() {
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Audiowide&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 * {
   padding: 0;
   margin: 0;
   font-family: "Roboto", sans-serif;
-
 }
 
-.roboto-<uniquifier> {
+.roboto-<uniquifier>{
   font-family: "Roboto", sans-serif;
   font-optical-sizing: auto;
   font-weight: <weight>;
   font-style: normal;
-  font-variation-settings:
-    "wdth" 100;
+  font-variation-settings: "wdth" 100;
 }
 .box1 {
   width: 100%;
@@ -218,7 +216,6 @@ async fetchspecialisation() {
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: rgb(255, 255, 255);
   background-color: rgba(0, 0, 0, 0.722);
-  ;
 }
 .signupbox {
   display: flex;
@@ -229,7 +226,6 @@ async fetchspecialisation() {
   padding-right: 40px;
   padding-top: 10px;
 
-
   background-color: rgb(22, 22, 22);
   color: #ffffff;
   border-radius: 20px;
@@ -238,11 +234,9 @@ async fetchspecialisation() {
 h1 {
   text-align: center;
   margin-bottom: 20px;
-
 }
 
-
-.buttons{
+.buttons {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -250,7 +244,7 @@ h1 {
   height: 200px;
 }
 
-.regbtn{
+.regbtn {
   width: 150px;
   height: 50px;
   background-color: #d9ff00;
@@ -259,7 +253,6 @@ h1 {
   font-weight: bold;
   border-radius: 25px;
 }
-
 
 .input-field {
   background-color: rgba(75, 75, 75, 0.08);
@@ -271,25 +264,20 @@ h1 {
 .input-field:hover {
   background-color: rgba(0, 0, 0, 0.1);
   border-color: #d9ff00;
-
 }
 
 .input-field input {
   color: white !important;
-
 }
 
 .input-field .v-label {
   color: #ffffff !important;
 }
-.select{
+.select {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.1);
   border-color: #d9ff00;
   color: wheat;
 }
-
-
-
 </style>

@@ -307,7 +307,7 @@ export default {
 }
 
 .user-body {
-  background-color: #cccccd;
+  background-color: #dadada;
   padding-left: 20px;
   height: 100vh;
   width: 100%;
@@ -318,7 +318,7 @@ export default {
 .user-sidenav {
   position: fixed;
   width: 260px;
-  background-color: #0f0081;
+  background-color: #da9500;
 
   padding: 25px 20px;
   display: flex;
@@ -336,7 +336,7 @@ export default {
 } */
 
 .user-sidenav-links li a {
-  color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
   display: flex;
   align-items: center;
   padding: 15px 10px;
@@ -401,7 +401,7 @@ export default {
 .main-content {
   position: fixed;
   width: calc(100% - 270px); /* 260px for sidebar + 20px margin */
-  background-color: #cccccd;
+  background-color: #dadada;
   overflow-y: auto;
   border-top-right-radius: 30px;
   border-bottom-right-radius: 30px;
@@ -417,13 +417,13 @@ export default {
 
 .user-sidenav-links .router-link-active {
   background-color: rgba(255, 255, 255, 0);
-  color: #ffffff; /* Black text */
+  color: #000000; /* Black text */
   /* border-radius: 4px; */
 }
 
 /* For exact match (useful for /dashboard vs /dashboard/details) */
 .user-sidenav-links .router-link-exact-active {
-  background-color: #cccccd;
+  background-color: #dadada;
   color: #000000 !important;
   /* border-top-left-radius: 25px;
   border-bottom-left-radius: 25px; */
@@ -441,7 +441,7 @@ export default {
   height: 20px;
   /* background-color: aqua; */
   border-top-right-radius: 20px;
-  box-shadow: 5px -5px 0px 5px #cccccd;
+  box-shadow: 5px -5px 0px 5px #dadada;
 }
 .user-sidenav-links .router-link-exact-active::before {
   content: "";
@@ -452,7 +452,7 @@ export default {
   height: 20px;
   /* background-color: aqua; */
   border-bottom-right-radius: 20px;
-  box-shadow: 5px 5px 0px 5px #cccccd;
+  box-shadow: 5px 5px 0px 5px #dadada;
 }
 
 .div1 {
@@ -464,7 +464,7 @@ export default {
   display: flex;
   align-items: center;
   margin-left: 25px;
-  background-color: #0f0081;
+  background-color: #ffa600;
   margin: 20px;
   padding-left: 50px;
   

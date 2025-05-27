@@ -1,96 +1,117 @@
 <template>
   <div>
     <!-- <h2>Admin Home</h2> -->
-     <div class="head">
-
-     </div>
+    <div class="head"></div>
     <div class="container">
       <div class="one">
         <div class="item1">
-          <h1><v-icon>mdi-account-multiple</v-icon>Users: {{ users.length }}</h1>
+          <h1>
+            <v-icon>mdi-account-multiple</v-icon>Users: {{ users.length }}
+          </h1>
         </div>
         <div class="item1">
-          <h1><v-icon>mdi-account-multiple</v-icon>Trainers: {{ trainers.length }}</h1>
+          <h1>
+            <v-icon>mdi-account-multiple</v-icon>Trainers: {{ trainers.length }}
+          </h1>
         </div>
       </div>
     </div>
 
     <div class="container2">
       <div class="request">
-        <h2>Trainer Join Requests</h2>  
+        <h2>Trainer Join Requests</h2>
         <!-- <div v-if="requests.length === 0">No Trainer Requests</div> -->
-      <div class="requestbody title">
-        <div class="requests ">
-          <p style="font-weight: bold;">SL No</p>
+        <div class="requestbody title">
+          <div class="requests">
+            <p style="font-weight: bold">SL No</p>
+          </div>
+          <div class="requests">
+            <p style="font-weight: bold">Name</p>
+          </div>
+          <div class="requests">
+            <p style="font-weight: bold">status</p>
+          </div>
+          <div class="requests btn">
+            <!-- <router-link to="/approve"><button id="viewbtn"><v-icon>mdi-eye-outline</v-icon>View</button></router-link> -->
+          </div>
         </div>
-        <div class="requests">
-          <p style="font-weight: bold;">Name</p>
-        </div>
-        <div class="requests">
-          <p style="font-weight: bold;">status</p>
-        </div>
-        <div class="requests btn">
-          <!-- <router-link to="/approve"><button id="viewbtn"><v-icon>mdi-eye-outline</v-icon>View</button></router-link> -->
-
-        </div> 
-        </div> 
         <div v-if="requests.length === 0" class="requestbody">
-  <div class="requests" style="width: 100%; justify-content: center;">
-    <p style="font-weight: bold;">No Trainer Requests</p>
-  </div>
-</div>     
-<div v-else>
-<div class="requestbody" v-for="(request, index) in requests" :key="request.trainer_id">
-        <div class="requests">
-          <p>{{ index + 1 }}</p>
+          <div class="requests" style="width: 100%; justify-content: center">
+            <p style="font-weight: bold">No Trainer Requests</p>
+          </div>
         </div>
-        <div class="requests">
-          <p>{{ request.name }}</p>
+        <div v-else>
+          <div
+            class="requestbody"
+            v-for="(request, index) in requests"
+            :key="request.trainer_id"
+          >
+            <div class="requests">
+              <p>{{ index + 1 }}</p>
+            </div>
+            <div class="requests">
+              <p>{{ request.name }}</p>
+            </div>
+            <div class="requests">
+              <p class="status">{{ request.status }}</p>
+            </div>
+            <div class="requests btn">
+              <button
+                id="viewbtn"
+                @click="
+                  viewTrainerDetails = true;
+                  trainerDetails(request.trainer_id);
+                "
+              >
+                <v-icon>mdi-eye-outline</v-icon>View
+              </button>
+            </div>
+          </div>
         </div>
-        <div class="requests">
-          <p class="status">{{ request.status}}</p>
-        </div>
-        <div class="requests btn">
-          <button id="viewbtn" @click="viewTrainerDetails=true;trainerDetails(request.trainer_id)"><v-icon>mdi-eye-outline</v-icon>View</button>
-
-        </div> 
       </div>
     </div>
-    </div>
-      
-    </div>    
   </div>
 
   <v-dialog v-model="viewTrainerDetails">
     <div class="box">
-    <button id="exit"><v-icon  size="40px" @click="viewTrainerDetails = false">mdi-close</v-icon>Close</button>
-    <div class="details">
+      <button id="exit">
+        <v-icon class="close" size="40px" @click="viewTrainerDetails = false"
+          >mdi-close-circle</v-icon
+        >
+      </button>
+      <div class="details">
         <h1>Details</h1>
         <div class="info">
-            <h3>Name</h3><p> {{ trainer.name }}</p>
+          <h3>Name</h3>
+          <p>{{ trainer.name }}</p>
         </div>
         <div class="info">
-          <h3>Email</h3><p>{{  trainer.email}}</p>
+          <h3>Email</h3>
+          <p>{{ trainer.email }}</p>
         </div>
         <div class="info certi">
-          <h3>Certification</h3><p>{{  trainer.certification}}</p>
-            <button id="showbtn"><v-icon>mdi-eye-outline</v-icon>View</button>
+          <h3>Certification</h3>
+          <p>{{ trainer.certification }}</p>
+          <button id="showbtn"><v-icon>mdi-eye-outline</v-icon>View</button>
         </div>
         <div class="info">
-          <h3>Experience</h3><p>{{  trainer.experienceYears}}</p>
+          <h3>Experience</h3>
+          <p>{{ trainer.experienceYears }}</p>
         </div>
         <div class="info">
-          <h3>Specialization</h3><p>{{trainer.specialisationName  }}</p>
+          <h3>Specialization</h3>
+          <p>{{ trainer.specialisationName }}</p>
         </div>
         <div class="info btns">
-            <button id="approvebtn" @click="approveTrainer(trainer.trainer_id)"><v-icon>mdi-check</v-icon>Approve</button>
-            <button id="declinebtn" @click="rejectTrainer(trainer.trainer_id)"><v-icon>mdi-close</v-icon>Reject</button>
-        </div>   
-        
+          <button id="approvebtn" @click="approveTrainer(trainer.trainer_id)">
+            <v-icon>mdi-check</v-icon>Approve
+          </button>
+          <button id="declinebtn" @click="rejectTrainer(trainer.trainer_id)">
+            <v-icon>mdi-close</v-icon>Reject
+          </button>
+        </div>
+      </div>
     </div>
-
-  </div>
-      
   </v-dialog>
 </template>
 
@@ -101,20 +122,17 @@ export default {
   data() {
     return {
       trainer: {
-  trainer_id: "", 
-  name: "",
-  email: "",
-  certification: "",
-  experienceYears: "",
-  specialisationName: "",
-},
-      viewTrainerDetails:false,
+        trainer_id: "",
+        name: "",
+        email: "",
+        certification: "",
+        experienceYears: "",
+        specialisationName: "",
+      },
+      viewTrainerDetails: false,
       trainers: [],
       users: [],
-      requests:[],
-      
-
-
+      requests: [],
     };
   },
   methods: {
@@ -122,7 +140,7 @@ export default {
       fetchTrainers: "Admin/fetchTrainers",
       fetchUsers: "Admin/fetchUsers",
       fetchRequests: "Admin/fetchTrainerRequests",
-      fetchTrainer:"Admin/fetchTrainer",
+      fetchTrainer: "Admin/fetchTrainer",
     }),
 
     async loadTrainers() {
@@ -137,7 +155,6 @@ export default {
         console.error("Error loading Trainers:", error);
       }
     },
-
 
     async loadUsers() {
       try {
@@ -164,82 +181,72 @@ export default {
       }
     },
 
-    async trainerDetails(trainer_id){
+    async trainerDetails(trainer_id) {
       try {
-        const result = await this.$store.dispatch("Admin/fetchTrainer",trainer_id);
+        const result = await this.$store.dispatch(
+          "Admin/fetchTrainer",
+          trainer_id
+        );
         if (result.success) {
           this.trainer = result.data;
           this.viewTrainerDetails = true;
-
         } else {
           alert(`Error: ${result.error}`);
-
         }
       } catch (error) {
         console.error("Error loading Trainer:", error);
       }
     },
-    async approveTrainer(trainer_id){
-      
+    async approveTrainer(trainer_id) {
       try {
         const confirmation = confirm("Approve Trainer Request");
-        if (!confirmation) return; 
+        if (!confirmation) return;
         const payload = {
-      trainer_id: trainer_id,
-      statusId: 2
-         };
-        const result = await this.$store.dispatch("Admin/Approve",payload);
+          trainer_id: trainer_id,
+          statusId: 2,
+        };
+        const result = await this.$store.dispatch("Admin/Approve", payload);
         if (result.success) {
-          alert("Approved")
-          
-          this.fetchTrainerRequests();
-          this.viewTrainerDetails=false;
+          alert("Approved");
 
+          this.fetchTrainerRequests();
+          this.viewTrainerDetails = false;
         } else {
           alert(`Error: ${result.error}`);
-
         }
       } catch (error) {
         console.error("Error Approving Trainer:", error);
       }
     },
-    async rejectTrainer(trainer_id){
-      
+    async rejectTrainer(trainer_id) {
       try {
         const confirmation = confirm("Reject Trainer Request");
-        if (!confirmation) return; 
+        if (!confirmation) return;
         const payload = {
-      trainer_id: trainer_id,
-      statusId: 3
-    };
-        const result = await this.$store.dispatch("Admin/Reject",payload);
+          trainer_id: trainer_id,
+          statusId: 3,
+        };
+        const result = await this.$store.dispatch("Admin/Reject", payload);
         if (result.success) {
-          alert("Rejected")
+          alert("Rejected");
           this.fetchTrainerRequests();
-          this.viewTrainerDetails=false;
-
+          this.viewTrainerDetails = false;
         } else {
           alert(`Error: ${result.error}`);
-
         }
       } catch (error) {
         console.error("Error Rejecting Trainer:", error);
       }
     },
   },
-  
 
-
-  
-
-  mounted(){
+  mounted() {
     this.fetchTrainerRequests();
   },
 
   created() {
     this.loadUsers();
     this.loadTrainers();
-    
   },
 };
 </script>
@@ -266,7 +273,8 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px,
+    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
   transition: all 0.3s ease;
 }
 
@@ -281,7 +289,8 @@ export default {
   padding: 10px;
   background-color: rgba(241, 241, 241, 0.879);
   border-radius: 4px;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px,
+    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 }
 
 .requestbody {
@@ -301,10 +310,10 @@ export default {
 }
 
 #viewbtn {
-  width: 100px;
+  width: 90px;
   height: 30px;
-  background-color: blue;
-  color: white;
+  background-color: rgb(225, 225, 225);
+  color: rgb(47, 47, 47);
   border-radius: 25px;
   border: none;
   cursor: pointer;
@@ -317,7 +326,7 @@ export default {
 }
 
 .status {
-  background-color: #7bff00;
+  background-color: #fff200;
   border-radius: 20px;
   width: 100px;
   height: 30px;
@@ -344,7 +353,7 @@ export default {
   border-radius: 20px;
   padding: 20px;
   box-shadow: rgba(50, 50, 93, 0.25) 0 13px 27px -5px,
-              rgba(0, 0, 0, 0.3) 0 8px 16px -8px;
+    rgba(0, 0, 0, 0.3) 0 8px 16px -8px;
 }
 
 .info {
@@ -356,15 +365,19 @@ export default {
 .info h3 {
   width: 150px;
   margin: 0;
+  text-align: center;
+  display: flex;
+  align-items: center;
 }
 
 .info p {
   flex: 1;
   font-size: 18px;
-  border: 1px solid #000;
-  border-radius: 10px;
-  padding: 8px;
+  /* border: 1px solid #000; */
+  border-radius: 30px;
+  padding: 8px 30px;
   margin: 0;
+  background-color: #ddd;
 }
 
 .btns {
@@ -375,8 +388,9 @@ export default {
   margin-top: 20px;
 }
 
-#approvebtn, #declinebtn {
-  width: 140px;
+#approvebtn,
+#declinebtn {
+  width: 120px;
   height: 40px;
   border-radius: 20px;
   border: none;
@@ -384,12 +398,12 @@ export default {
 }
 
 #approvebtn {
-  background-color: #33ff00;
+  background-color: #2bd700;
   color: #000;
 }
 
 #declinebtn {
-  background-color: red;
+  background-color: rgb(189, 0, 0);
   color: #fff;
 }
 
@@ -401,6 +415,11 @@ export default {
   border: none;
   font-size: 18px;
   cursor: pointer;
+}
+.close{
+  top: 85px;
+  right:440px;
+  color: #ffffff;
 }
 
 /* RESPONSIVENESS */
@@ -431,7 +450,8 @@ export default {
     align-items: flex-start;
   }
 
-  .info h3, .info p {
+  .info h3,
+  .info p {
     width: 100%;
   }
 
@@ -445,5 +465,4 @@ export default {
     top: 20px;
   }
 }
-
 </style>

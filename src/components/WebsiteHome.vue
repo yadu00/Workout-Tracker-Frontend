@@ -3,6 +3,7 @@
 
     <div class="nav">
         <div class="logo">
+            <img :src="require('@/assets/img/logo.png')" alt="" style="width: 70px;height: 70px;margin-right: 10px;">
             <h1>FitTrack</h1>
         </div>
         <div class="links">
@@ -128,8 +129,8 @@ export default {
 }
 .nav{
     width: 100%;
-    height: 100px;
-    background-color: rgba(0, 0, 0, 0.722);
+    height: 75px;
+    background-color: rgba(37, 37, 37, 0.834);
     display: flex;
     position: fixed;
     z-index: 999;
@@ -151,7 +152,11 @@ export default {
     align-items: center;
 }
 .link{
-    color: white;
+    color: rgb(171, 171, 171);
+    
+}
+.link:hover{
+     color: rgb(68, 255, 0);
 }
 .loginBtn{
     width: 20%;
@@ -160,13 +165,18 @@ export default {
     align-items: center;
 }
 #login{
-    width:200px ;
+    width:100px ;
     height: 50px;
     background-color: rgb(162, 255, 0);
     border-radius: 25px;
     font-size: larger;
     font-weight: bold;
-    color: #595959;
+    color: #282828;
+}
+#login:hover{
+    background-color: #595959;
+    color: rgb(162, 255, 0);
+
 }
 .section1{
     width: 100%; 
@@ -252,8 +262,8 @@ export default {
 #getstarted{
     width: 200px;
     height: 40px;
-    background-color: rgb(162, 255, 0);
-    color: rgb(0, 0, 0);
+    background-color: rgb(209, 209, 209);
+    color: rgb(43, 43, 43);
     border-top-left-radius: 10px;
     border-bottom-right-radius: 10px;
     transition: transform 0.3s ease-in-out;
@@ -265,6 +275,8 @@ export default {
     background-color: rgb(162, 255, 0);
     transform: scale(1.1);
     font-weight: bold;
+        color: rgb(0, 0, 0);
+
 
 }
 .section3{

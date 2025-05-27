@@ -83,53 +83,55 @@ export default {
 </script>
 
 <style scoped>
+
 .container {
-  width: 100%;
-  height: auto;
-}
-
-.trainerlistheading {
-  display: flex;
-  width: 100%;
-  justify-content: space-between; 
-}
-
-.list {
-  flex: 1; 
+  width: 90%;
+  margin: 20px auto;
   text-align: center;
 }
 
-.list h4 {
-  margin: 0; 
-}
-
-.trainerlist {
+table {
   width: 100%;
-  height: 70px;
-  display: flex;
-  align-items: center;
-  margin: 10px 0; 
-  padding: 10px;
-  background-color: white;
-  box-shadow: 2px 1px 1px black;
+  border-collapse: collapse;
+  background: #fff;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-.trainerlist p {
-  margin: 0; 
+thead {
+  background-color: #000000;
+  color: white;
 }
 
-#deletebtn {
-  background-color: rgb(186, 186, 186);
-  color: rgb(0, 0, 0);
-  width: 70px;
-  height: 25px;
-  border: 1px solid rgb(0, 0, 0);
-  border-radius: 4px;
-  cursor: pointer; 
+th, td {
+  padding: 12px;
+  border: 1px solid #ddd;
 }
 
-#deletebtn:hover {
-  background-color: rgb(255, 0, 0); 
-  color: white; 
+th {
+  text-transform: uppercase;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tr:hover {
+  background-color: #f1f1f1;
+}
+
+button {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #cc0000;
 }
 </style>

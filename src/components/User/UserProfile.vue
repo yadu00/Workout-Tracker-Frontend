@@ -46,23 +46,23 @@ export default {
 
 
   computed: {
-    ...mapGetters(['getuser_id']),  // Map the getter directly
+    ...mapGetters(['getuser_id']),  
   },
   methods: {
     async fetchProfile() {
       try {
-        const user_id = this.getuser_id;  // Use the user_id from the Vuex store
+        const user_id = this.getuser_id; 
         if (!user_id) {
           console.error("User ID is not available.");
         
-          this.$router.push("/userlogin");  // Redirect to login page if user_id is not set
+          this.$router.push("/userlogin"); 
           return;
         }
         
         const result = await this.$store.dispatch("User/fetchProfile", user_id);
         if (result.success) {
           this.user = result.data;
-          console.log("API Response:", result.data);    // Assuming you are saving the result in the 'user' data
+          console.log("API Response:", result.data);   
         } else {
           alert(`Error: ${result.error}`);
         }
@@ -108,11 +108,13 @@ export default {
   height: auto;
   padding: 20px;
   border-radius: 25px;
-  color: white;
+  color: rgb(255, 255, 255);
  
   
 }
-
+h1{
+  color: white;
+}
 
 .profile-content{
   display: flex;
@@ -133,7 +135,7 @@ export default {
 .image{
   width: 300px;
   height: 500px;
-  background-color: rgb(0, 0, 0);
+  background-color: rgb(73, 73, 73);
   border-bottom-left-radius: 25px;
   border-top-left-radius: 25px;
   display: flex;
@@ -148,7 +150,7 @@ img{
 .details{
   width: 500px;
   height: 500px;
-  background-color: rgba(255, 255, 255, 0.703);
+  background-color: rgba(147, 146, 146, 0.703);
   color: black;
   padding: 50px;
   display: flex;
@@ -165,8 +167,9 @@ img{
   margin-left: 20px;
   margin-bottom: 15px;
   background-color: rgb(213, 213, 213);
-  padding: 10px;
+  padding: 10px 25px;
   border-radius: 20px;
+  font-size: large;
 }
 
 .button{

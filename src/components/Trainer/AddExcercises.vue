@@ -27,7 +27,7 @@
             <div class="names">
               <p>{{ exercise.focusarea }}</p>            </div>
             <div class="names">
-              <button id="btn-delete">Delete</button>
+              <button id="btn-delete" @click="deleteExercise(exercise.exercise_id)">Delete</button>
             </div>
             
             
@@ -123,6 +123,24 @@ export default {
           console.error("Error adding exercise:", error);
         }
       }
+    },
+
+     async deleteExercise(exercise_id) {
+      const confirmDelete = window.confirm("Delete Exercise");
+      if (confirmDelete) {
+      try {
+        const trainer_id = this.gettrainer_id;
+        const result = await this.$store.dispatch("Trainer/deleteExercise",trainer_id,exercise_id);
+        if (result.success) {
+          this.user = result.data;
+          alert("Exercise deleted.")
+        } else {
+          alert(`Error: ${result.error}`); 
+        }
+      } catch (error) {
+        console.error("Error deleting Exercise:", error);
+      }
+    }
     },
   },
   mounted() {

@@ -135,7 +135,7 @@ export default {
 .loginbody {
   width: 100%;
   height: 100vh;
-  background-color: #343434;
+  background-color: #d6cfd7;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -154,7 +154,7 @@ export default {
 
 .container {
   flex: 1 1 400px;
-  color: #ffffff;
+  color: #000000;
   text-align: center;
   font-family: "Audiowide", sans-serif;
 }
@@ -166,16 +166,16 @@ export default {
 
 .container p {
   font-size: 1rem;
-  color: #cfcfcf;
+  color: #252525;
   line-height: 1.5;
   padding: 0 1rem;
 }
 
 .loginbox {
   flex: 1 1 400px;
-  background-color: #aeff00;
+  background-color: #4dff00;
   border-radius: 30px;
-  border: 5px solid rgb(132, 255, 0);
+  border: 5px solid rgb(0, 0, 0);
   padding: 2rem;
   color: #000000;
   max-width: 400px;

@@ -63,7 +63,9 @@ export default {
         alert("Unexpected error during sign-up. Please check console.");
       }
     },
+   
   },
+  
 };
 </script>
 

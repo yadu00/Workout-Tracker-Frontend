@@ -1,6 +1,6 @@
 <template>
   <div class="contents">
-    <h1>Add Workout</h1>
+    <h1>Create Workout</h1>
     <div class="section2">
         <h2>No of Workouts: {{ exercises.length }}</h2>
         <div class="title">
@@ -18,7 +18,7 @@
         </div>
         <div class="names">
           <v-btn class="addexercise" @click="addExerciseDialog = true">
-          <v-icon>mdi-plus</v-icon>Add Exercise</v-btn
+          <v-icon>mdi-plus</v-icon>Create Workout</v-btn
         >
         </div>
         </div> 
@@ -49,7 +49,7 @@
   </div>
   <v-dialog v-model="addExerciseDialog" max-width="500px">
     <v-card class="custom-dialog-card">
-        <v-card-title class="custom-dialog-title">Add Workout</v-card-title>
+        <v-card-title class="custom-dialog-title">Create Workout</v-card-title>
         <v-card-text>
           <label for="e">SELECT EXERCISE</label>
           <v-select

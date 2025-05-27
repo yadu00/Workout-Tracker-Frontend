@@ -292,5 +292,21 @@ async loadExercise({ rootGetters },payload) {
     },  
 
 
+    //delete exercise  
+    async deleteExercise({ rootGetters },trainer_id,exercise_id) {
+      try {
+        const response = await axios.delete(`${rootGetters.getUrl}/api/trainer/deleteExercise`,{
+        params: { trainer_id,exercise_id }
+      });
+        if (response.status >= 200 && response.status < 300) {
+          return { success: true, data: response.data }; 
+        } else {
+          return { success: false, error: 'Unexpected response status' };
+        }
+      } catch (error) {
+        return { success: false, error: error.message || 'An error occurred while deleting exercise.' };
+      }
+    },
+
   
 }

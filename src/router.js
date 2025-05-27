@@ -36,6 +36,8 @@ const router = createRouter({
 
     { path: '/chart',  component: () => import('./components/User/ChartView.vue'), },
 
+    { path: '/pay',  component: () => import('./components/User/PayMent.vue'), },
+
 
 
     {
@@ -67,6 +69,14 @@ const router = createRouter({
         {
           path: "/viewTrainer",
           component: () => import("./components/User/ViewTrainer.vue"),
+        },
+        {
+          path: "/updateweight",
+          component: () => import("./components/User/UpdateWeight.vue"),
+        },
+        {
+          path: "/addrating",
+          component: () => import("./components/User/TrainerRating.vue"),
         },
       ],
     },

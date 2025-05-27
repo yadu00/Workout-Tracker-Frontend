@@ -25,10 +25,23 @@
         :key="trainer.id"
         @click="(showdescription = true), showabout(trainer)"
       >
-        <img :src="require('@/assets/img/profile.png')" alt="" />
+        <!-- <img :src="require('@/assets/img/profile.png')" alt="" /> -->
+        <v-icon size="150px">mdi-account-circle</v-icon>
         <h3>{{ trainer.name }}</h3>
         <p>Certification: {{ trainer.certification }}</p>
         <p>Experience: {{ trainer.experienceYears }} years</p>
+         <div class="stars">
+         <span
+  v-for="n in 5"
+  :key="n"
+  class="star"
+  :class="{ filled: n <= Math.round(trainer.rating || 0) }"
+>
+  ★
+</span>
+
+        </div>
+        <div class="rate"><v-icon>mdi-currency-inr</v-icon><span style="font-size: 30px;font-weight: bolder;">1000</span>/month</div>
         <button id="select" @click="assigntrainer(trainer)">
           Assign Trainer
         </button>
@@ -66,6 +79,8 @@ export default {
       specializations: [],
       showdescription: false,
       about: "",
+      selectedRating: 0,
+      hoverRating: 0,
     };
   },
 
@@ -133,6 +148,8 @@ export default {
         );
         if (result.success) {
           console.log("Trainer assigned successfully:", result.data);
+          // this.$router.push({ path: "/pay", query: { trainer_id: trainer.trainer_id } });
+
           this.$router.push("/userdetails");
         } else {
           console.error("Error assigning trainer:", result.error);
@@ -296,7 +313,7 @@ export default {
   width: 50%;
   max-width: 500px;
   border-radius: 8px;
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(51, 51, 51);
   color: rgb(0, 0, 0);
 }
 .inside{
@@ -309,10 +326,10 @@ export default {
   height: 45px;
   display: flex;
   justify-content: space-between;
-  background-color: rgb(255, 255, 255);
-  color: rgb(0, 0, 0);
+  background-color: rgb(51, 51, 51);
+  color: rgb(255, 255, 255);
   align-items: center;
-  font-size: medium;
+  font-size: larger;
   padding: 5px;
   border-top-right-radius: 8px;
   border-top-left-radius: 8px;
@@ -334,14 +351,15 @@ export default {
   width: 100%;
   height: 300px;
   border-radius: 20px;
-  background-color: rgb(189, 189, 189);
+  background-color: rgb(51, 51, 51);
   padding: 10px;
   font-size: large;
+  color: white;
 }
 .title{
   width: 100%;
   height: 50px;
-  background-color: rgb(105, 105, 105);
+  background-color: rgb(51, 51, 51);
   margin-bottom: 20px;
   display: flex;
   justify-content: center;
@@ -350,5 +368,25 @@ export default {
   font-weight: bold;
   color: white;
   border-radius: 25px;
+}
+
+
+.stars {
+  display: flex;
+  gap: 10px;
+}
+.star {
+  font-size: 40px;
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.star.filled {
+  color: gold;
+}
+
+.rate{
+  display: flex;
+  align-items: center;
 }
 </style>

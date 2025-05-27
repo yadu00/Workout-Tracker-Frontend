@@ -235,9 +235,8 @@ img{
 .details p{
   margin-bottom: 15px;
   background-color: #c8c8c8;
-  padding: 10px 10px;
+  padding: 10px 20px;
   border-radius: 20px;
-  border: 1px solid black;
 }
 
 .action{

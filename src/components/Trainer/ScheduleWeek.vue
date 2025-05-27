@@ -5,7 +5,7 @@
     </div>
     <div class="content">
       <div class="content-addbtn">
-        <button id="addworkout" @click="workoutnameDialog = true">Add Week</button>
+        <button id="addworkout" @click="workoutnameDialog = true">Schedule Week</button>
       </div>
 
       <div class="weeks">
@@ -179,11 +179,12 @@ export default {
   justify-content: end;
 }
 #addworkout {
-  width: 200px;
-  height: 30px;
-  background-color: rgb(18, 168, 48);
-  border-radius: 10px;
+  width: 150px;
+  height: 40px;
+  background-color: rgb(0, 42, 255);
+  border-radius: 25px;
   border: none;
+  color: white;
 }
 .weeks {
   margin-top: 20px;
@@ -218,8 +219,8 @@ export default {
   width: 150px;
   height: 30px;
   border-radius: 25px;
-  background-color: white;
-  border: 1px solid black;
+  background-color: rgb(255, 200, 0);
+  /* border: 1px solid black; */
   color: #000;
 }
 .input{

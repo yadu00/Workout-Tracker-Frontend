@@ -9,91 +9,22 @@
         <h1>{{ user.totalworkouts }}</h1>
       </div>
       <div class="section1">
-        <p>BMI</p>
-        <h1>{{ user.bmi }}</h1>
+        <p>Pending Workouts</p>
+        <h1>{{ user.pendingworkouts }}</h1>
       </div>
     </div>
     <div class="section2">
       <div class="height">
-         <p>Height</p>
-        <h1>{{ user.bmi }}</h1>
+        <p>Height</p>
+        <h1>{{ user.height }} cm</h1>
       </div>
       <div class="weight">
-         <p>Weight</p>
-        <h1>{{ user.bmi }}</h1>
-      </div>
-
-    </div>
-    <div class="section3">
-      <h1>UPDATE BMI</h1>
-      <div class="scroll-container">
-        <div class="height">
-          <div class="vertical-scroll-container">
-            <div ref="middleLineHeight" class="center-line vertical"></div>
-            <div
-              ref="scrollBoxHeight"
-              class="scroll-box vertical"
-              @scroll="updateSelectedHeight"
-            >
-              <div class="marks-list">
-                <div
-                  v-for="(mark, index) in heightMarks"
-                  :key="index"
-                  :class="{
-                    'mark-item': true,
-                    highlighted: mark === selectedHeightMark,
-                  }"
-                  class="mark-item"
-                >
-                  {{ mark }}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Display selected height -->
-          <div class="selected-mark-display">
-            Height: {{ selectedHeightMark }}
-          </div>
-        </div>
-        <div class="weight">
-          <!-- Horizontal scroll for weight -->
-          <div class="horizontal-scroll-container">
-            <div ref="middleLineWeight" class="center-line horizontal"></div>
-            <div
-              ref="scrollBoxWeight"
-              class="scroll-box horizontal"
-              @scroll="updateSelectedWeight"
-            >
-              <div class="marks-list horizontal">
-                <div
-                  v-for="(mark, index) in weightMarks"
-                  :key="index"
-                  :class="{
-                    'mark-item1': true,
-                    highlighted: mark === selectedWeightMark,
-                  }"
-                  class="mark-item1"
-                >
-                  {{ mark }}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Display selected weight -->
-          <div class="selected-mark-display">
-            Weight: {{ selectedWeightMark }}
-          </div>
-        </div>
-        <div class="cards three">
-          <h1>BMI</h1>
-          <div class="bmi-display">
-            <h4>Your BMI: {{ calculateBMI() }}</h4>
-            <h4>{{ BMICategory() }}</h4>
-          </div>
-          <button id="bmi-save-btn" @click="addBmi">Save</button>
-        </div>
+        <p>Weight : {{ user.weight }} kg</p>
+        <router-link to="/updateweight" style="text-decoration: none; color: black;text-align: center;"
+          >
+          <v-icon size="70px">mdi-chevron-right</v-icon>
+        <p style="font-size: 25px;">update</p></router-link>
+        
       </div>
     </div>
   </div>
@@ -116,6 +47,9 @@ export default {
         bmi: "",
         name: "",
         totalworkouts: "",
+        pendingworkouts: "",
+        height: "",
+        weight: "",
       },
     };
   },
@@ -217,6 +151,24 @@ export default {
         console.error("Error loading Trainers:", error);
       }
     },
+    async viewPendingworkouts() {
+      try {
+        const payload = {
+          user_id: this.getuser_id,
+        };
+        const result = await this.$store.dispatch(
+          "User/viewPendingworkouts",
+          payload
+        );
+        if (result.success) {
+          this.user.pendingworkouts = result.data;
+        } else {
+          alert(`Error: ${result.error}`);
+        }
+      } catch (error) {
+        console.error("Error loading Trainers:", error);
+      }
+    },
   },
 
   mounted() {
@@ -244,6 +196,7 @@ export default {
 
     this.viewBmi();
     this.viewtotalworkouts();
+    this.viewPendingworkouts();
   },
 };
 </script>
@@ -257,11 +210,11 @@ export default {
 }
 .title {
   width: 80%;
-  height: 100px;
-  background-color: black;
-  border-radius: 20px;
+  height: 75px;
+  background-color: rgb(155, 155, 155);
+  border-radius: 50px;
   margin-bottom: 20px;
-  color: white;
+  color: rgb(0, 0, 0);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -278,7 +231,7 @@ export default {
   margin-top: 120px;
   width: 48%;
   height: 150px;
-  background-color: #dedede;
+  background-color: #d2cf01;
   /* margin-bottom: 20px; */
 
   border-radius: 20px;
@@ -306,10 +259,10 @@ export default {
   justify-content: center;
   align-items: center;
 }
-.section2 .height{
-   width: 48%;
+.section2 .height {
+  width: 48%;
   height: 150px;
-  background-color: #dedede;
+  background-color: #d2d2d2;
   /* margin-bottom: 20px; */
 
   border-radius: 20px;
@@ -319,205 +272,31 @@ export default {
   align-items: center;
   flex-direction: column;
 }
-.section2 .weight{
-   width: 48%;
+.section2 .weight {
+  width: 48%;
   height: 150px;
-  background-color: #dedede;
+  background-color: #c3c4c4;
   /* margin-bottom: 20px; */
 
   border-radius: 20px;
   color: rgb(0, 0, 0);
   display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
-.scroll-container {
-  height: 390px;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 20px;
-  /* background-color: rgb(0, 0, 0); */
-  padding: 50px 50px;
-  align-items: center;
-  justify-content: space-around;
-  border-radius: 25px;
-  color: rgb(0, 0, 0);
-  box-shadow: 0px 8px 16px 0px #00000033;
-}
-.height {
-  height: 350px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: white;
-}
-.weight {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: white;
-}
-
-/* Vertical Scrollbox (Height) */
-.vertical-scroll-container {
-  position: relative;
-  width: 100px;
-  height: 300px;
-  overflow: hidden;
-  border-radius: 8px;
-  background-color: #dedede;
-  box-shadow: 0px 8px 16px 0px #00000033;
-}
-
-.scroll-box.vertical {
-  width: 100%;
-  height: 100%;
-  overflow-y: scroll;
-  position: relative;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-.scroll-box.vertical::-webkit-scrollbar {
-  display: none;
-}
-
-.center-line.vertical {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  z-index: 10;
-}
-
-.marks-list {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-}
-
-.mark-item {
-  font-size: 14px;
-  height: 30px;
-  display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 80px;
-  color: #757575;
-  transition: transform 0.5s ease;
-}
-
-.mark-item::after {
-  content: "";
-  display: block;
-  width: 40px;
-  height: 2px;
-  background-color: #000000;
-  margin-left: 10px;
-}
-
-.highlighted {
-  font-weight: bold;
-  color: #ff1900;
-  transform: scale(1.1) !important;
-  transition: transform 0.5s ease !important;
-}
-
-.selected-mark-display {
-  font-size: 15px;
-  margin-top: 10px;
-  font-weight: bold;
-  color: #000000;
-}
-
-/* Horizontal Scrollbox (Weight) */
-.horizontal-scroll-container {
-  position: relative;
-  width: 300px;
-  height: 100px;
-  overflow: hidden;
-  border-radius: 8px;
-  background-color: #dedede;
-  box-shadow: 0px 8px 16px 0px #00000033;
-}
-
-.scroll-box.horizontal {
-  width: 100%;
-  height: 100%;
-  overflow-x: scroll;
-  position: relative;
-  white-space: nowrap;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-.scroll-box.horizontal::-webkit-scrollbar {
-  display: none;
-}
-
-.center-line.horizontal {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 2px;
-  height: 100%;
-  z-index: 10;
-  transform: translateX(-50%);
-}
-.marks-list.horizontal {
-  display: flex;
   flex-direction: row;
-  justify-content: flex-start; /* Ensure scrolling starts from the left */
-  align-items: center;
-  gap: 10px;
-  width: max-content; /* Ensures the width is based on content size */
 }
 
-.mark-item1 {
-  font-size: 18px;
-  width: 30px; /* Adjust width for horizontal layout */
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: #757575;
-  transition: transform 0.5s ease;
-  margin-top: 30px;
-}
-
-.mark-item1::after {
-  content: "";
-  display: block;
-  width: 2px;
-  height: 40px;
-  margin-left: 10px;
-}
-.cards {
-  height: 290px;
-  width: 400px;
-  display: flex;
-  /* border-radius: 20px; */
-  background-color: #dedede;
-  color: rgb(0, 0, 0);
-  flex-direction: column;
-  margin-bottom: 10px;
-  transition: 1s ease;
-  box-shadow: 0px 8px 16px 0px #00000033;
-  align-items: center;
-  justify-content: center;
+.weight p {
+  width: 80%;
+  height: 100%;
+  font-size: 35px;
+  font-weight: bold;
   text-align: center;
-}
-.three {
-  height: 200px;
-  width: 200px;
-  border-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-top-left-radius: 20px;
+  background-color: #c8c8c8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

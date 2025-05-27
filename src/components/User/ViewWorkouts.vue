@@ -108,7 +108,7 @@ export default {
 }
 .body h1 {
   text-align: center;
-  color: #000;
+  color: #e3e3e3;
 }
 .content {
   display: flex;

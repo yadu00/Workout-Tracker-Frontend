@@ -29,7 +29,7 @@
         </li> -->
         </ul>
         <div class="user-profile mt-auto p-4">
-          <v-icon size="40px">mdi-logout</v-icon>
+          <!-- <v-icon size="40px">mdi-logout</v-icon> -->
           <button id="logout" @click="logout">Logout</button>
         </div>
       </aside>
@@ -133,7 +133,7 @@
   .user-profile{
     display: flex;
     align-items: center;
-    justify-content: start;
+    justify-content: center;
     color: rgb(255, 255, 255);
 
   
@@ -148,10 +148,10 @@
   }
   
   #logout{
-    background-color: rgb(255, 187, 0);
+    background-color: rgb(255, 0, 0);
     width: 100px;
     height: 35px;
-    color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
     border-radius:25px ;
     width: 100px;
 

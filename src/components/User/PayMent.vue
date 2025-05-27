@@ -4,10 +4,14 @@
       <div class="profileimg">
         
                 <v-icon size="100px">mdi-account-circle</v-icon>
-<h1>Name</h1>
+<h1>{{trainer.name}}</h1>
       </div>
       <div class="about">
         <p>About</p>
+        <div class="descripton">
+
+            <p>{{ about }}</p>
+          </div>
       </div>
       <div class="info">
       <p>Certification: {{ trainer.certification }}</p>
@@ -40,26 +44,46 @@ export default {
         mobile: "",
         email: "",
       },
+      about: "",
     }
-  },methods:{
-    async viewTrainer() {
+
+  },
+  methods:{
+    async fetchTrainerProfile() {
       try {
-        const payload = {
-          user_id: this.getuser_id,
-        };
-        const result = await this.$store.dispatch("User/viewtrainer", payload);
+        const trainer_id = this.$route.query.trainer_id;
+        console.log(trainer_id);
+        
+        const result = await this.$store.dispatch("Trainer/fetchTrainerProfile",trainer_id);
         if (result.success) {
           this.trainer = result.data;
         } else {
-          alert(`Error: ${result.error}`);
+          alert(`Error: ${result.error}`); 
         }
       } catch (error) {
-        console.error("Error loading Trainer:", error);
+        console.error("Error loading Profile:", error);
       }
     },
-  },mounted(){
-    this.viewTrainer();
-  }
+     async showabout() {
+      try {
+        const trainer_id = this.$route.query.trainer_id;
+        
+        const result = await this.$store.dispatch("Trainer/showabout",trainer_id);
+        if (result.success) {
+          this.about = result.data;
+        } else {
+          alert(`Error: ${result.error}`); 
+        }
+      } catch (error) {
+        console.error("Error loading about:", error);
+      }
+    },
+  },
+  mounted(){
+    this.fetchTrainerProfile();
+    this.showabout();
+    
+  },
 }
 </script>
 
@@ -110,7 +134,7 @@ export default {
   height: 30%;
   display: flex;
   flex-direction: column;
-  background-color: rgb(249, 249, 249);
+  background-color: rgb(184, 184, 184);
   padding: 10px 30px;
   font-size: larger;
 }
@@ -134,5 +158,26 @@ export default {
    border-radius: 35px;
     background-color: blue;
     color: white;
+}
+
+.descripton{
+  background-color: rgb(235, 235, 235);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #373737;
+  border-radius: 20px;
+  width: 100%;
+  height: 100%;
+
+}
+.descripton p{
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  padding: 10px;
+  font-size: large;
+  color: rgb(0, 0, 0);
 }
 </style>

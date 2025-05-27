@@ -345,6 +345,31 @@ export default {
       };
     }
   },
+  //fetch total workouts pending
+  async viewPendingworkouts({ rootGetters }, payload) {
+    try {
+      const response = await axios.get(
+        `${rootGetters.getUrl}/api/user/totalworkoutspending`,
+        {
+          params: {
+            user_id: payload.user_id,
+          },
+        }
+      );
+      if (response.status >= 200 && response.status < 300) {
+        return { success: true, data: response.data };
+      } else {
+        return { success: false, error: "Unexpected response status" };
+      }
+    } catch (error) {
+      console.error("Error viewing total workouts:", error);
+      return {
+        success: false,
+        error: error.message || "Error viewing total workouts:.",
+      };
+    }
+  },
+  
 
 
   //fetch todays workout exercise
@@ -379,4 +404,104 @@ export default {
       };
     }
   },
+
+
+  //Log Weight
+async logweight({ rootGetters }, payload) {
+  try {
+    const { user_id, ...weightModel } = payload;
+
+    const response = await axios.post(
+      `${rootGetters.getUrl}/api/user/logWeight?user_id=${user_id}`,
+      weightModel  // this is the body
+    );
+
+    if (response.status >= 200 && response.status < 300) {
+      console.log("Weight logged successfully:", response.data);
+      return { success: true, data: response.data };
+    }
+  } catch (error) {
+    console.error("Error logging weight:", error);
+    return { success: false };
+  }
+},
+
+//fetch weight history
+  async weightHistory({ rootGetters }, payload) {
+    try {
+      const response = await axios.get(
+        `${rootGetters.getUrl}/api/user/weightHistory`,
+        {
+          params: {
+            user_id: payload.user_id,
+          },
+        }
+      );
+      if (response.status >= 200 && response.status < 300) {
+        return { success: true, data: response.data };
+      } else {
+        return { success: false, error: "Unexpected response status" };
+      }
+    } catch (error) {
+      console.error("Error viewing total workouts:", error);
+      return {
+        success: false,
+        error: error.message || "Error viewing total workouts:.",
+      };
+    }
+  },
+
+
+
+  //post rating
+async addRating({ rootGetters }, payload) {
+  try {
+   
+
+    const response = await axios.post(
+      `${rootGetters.getUrl}/api/user/addRating`,
+        null,
+        {
+          params: {
+            user_id: payload.user_id,
+            rating: payload.rating,
+          },
+        }
+      );
+
+    if (response.status >= 200 && response.status < 300) {
+      console.log("rating posted successfully:", response.data);
+      return { success: true, data: response.data };
+    }
+  } catch (error) {
+    console.error("Error posting rating:", error);
+    return { success: false };
+  }
+},
+
+//fetch rating 
+  async fetchrating({ rootGetters }, payload) {
+    try {
+      const response = await axios.get(
+        `${rootGetters.getUrl}/api/user/showRating`,
+        {
+          params: {
+            trainer_id: payload.trainer_id,
+          },
+        }
+      );
+      if (response.status >= 200 && response.status < 300) {
+        return { success: true, data: response.data };
+      } else {
+        return { success: false, error: "Unexpected response status" };
+      }
+    } catch (error) {
+      console.error("Error viewing rating", error);
+      return {
+        success: false,
+        error: error.message || "Error viewing rating:.",
+      };
+    }
+  },
+
 };
