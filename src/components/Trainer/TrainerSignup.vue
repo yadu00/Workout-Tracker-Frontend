@@ -34,6 +34,17 @@
         color="yellow"
         class="input-field"
       ></v-text-field>
+       <v-text-field
+        v-model="user.confirmpassword"
+        label="Confirm Password"
+        variant="outlined"
+        type="password"
+        prepend-inner-icon="mdi-lock-outline"
+        dense
+        hide-details
+        color="yellow"
+        class="input-field"
+      ></v-text-field>
       <v-text-field
         v-model="user.certification"
         label="Certification"
@@ -119,6 +130,8 @@ export default {
         certification: "",
         experienceYears: "",
         specialization_id: "",
+                confirmpassword: "",
+
       },
       selectedspecialisation: "",
       Viewspecialisation: [],
@@ -126,6 +139,12 @@ export default {
   },
   methods: {
     ...mapActions(["signupTrainer"]),
+    passwordMismatch() {
+      return (
+        this.user.confirmpassword.trim() !== "" &&
+        this.user.password.trim() !== this.user.confirmpassword.trim()
+      );
+    },
 
     async signupTrainer() {
       // const formData = new FormData();
@@ -145,6 +164,10 @@ export default {
       //     );
       //     formData.append("trainerModel", trainerModel);
       try {
+        if (this.passwordMismatch()) {
+          alert("Passwords do not match!");
+          return;
+        }
         const formData = new FormData();
         formData.append(
           "trainerModel",
@@ -215,7 +238,7 @@ export default {
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: rgb(255, 255, 255);
-  background-color: rgba(0, 0, 0, 0.722);
+    background: linear-gradient(135deg, #051230, #0c0095, #000000);
 }
 .signupbox {
   display: flex;
@@ -226,7 +249,7 @@ export default {
   padding-right: 40px;
   padding-top: 10px;
 
-  background-color: rgb(22, 22, 22);
+  background-color: rgba(35, 35, 38, 0.547);
   color: #ffffff;
   border-radius: 20px;
 }
@@ -252,6 +275,12 @@ h1 {
   font-size: larger;
   font-weight: bold;
   border-radius: 25px;
+              box-shadow: 0 6px 18px #000000;
+
+}
+.regbtn:hover{
+    background-color: rgb(221, 206, 0);
+
 }
 
 .input-field {

@@ -4,43 +4,61 @@
       <h1>Schedule Workout</h1>
     </div>
     <div class="content">
+      <div class="name">
+        <h2>Client Name : {{name}}</h2>
+      </div>
       <div class="content-addbtn">
-        <button id="addworkout" @click="workoutnameDialog = true">Schedule Week</button>
+        <button id="weekschedule" @click="workoutnameDialog = true">Schedule Day</button>
       </div>
 
       <div class="weeks">
-        <div v-for="(week, weekIndex) in weeks" :key="weekIndex" class="week-container">
-          <h3>{{ week.weekNumber }}</h3>
+        <div class="week-container">
+          <!-- <h3>{{ week.weekNumber }}</h3> -->
 
           <div class="days">
-            <div v-for="(day, dayIndex) in week.days" :key="dayIndex" class="day-card">
-              <h4>Day {{ dayIndex + 1 }}</h4>
-              <p>{{ day.name }}</p>
-              <router-link :to="{ path: '/sch', query: { weekdayId: day.weekdayId,user_id: user_id } }">
+            <div v-for="(day, dayIndex) in daycards" :key="dayIndex" class="day-card">
+              <h4>{{ day.day }}</h4>
+              <p>{{ day.workoutName }}</p>
+              <p>{{ day.date }}</p>
+              <router-link :to="{ path: '/sch', query: { id: day.id, user_id: user_id } }">
                 <button id="selectday">Schedule Workout</button>
               </router-link>
             </div>
           </div>
         </div>
       </div>
-      
     </div>
 
-    <!-- Dialog for Workout Names for Each Day -->
-    <v-dialog v-model="workoutnameDialog" max-width="500px">
-      <v-card class="custom-dialog-card">
-        <v-card-title class="custom-dialog-title">Add Workouts for Each Day</v-card-title>
+    <!-- Vuetify Dialog -->
+    <v-dialog v-model="workoutnameDialog" max-width="500">
+      <v-card>
+        <v-card-title>Add Daily Workout</v-card-title>
+       <v-card-text>
+  <v-form @submit.prevent="addWeekDay">
+   
+     
+        <v-text-field 
+            v-model="form.date"
+            label="Date"
+            type="date"
+            outlined:max="maxDate"
+            required
+            variant="outlined"
+            ></v-text-field>
+    
 
-        <div v-for="(name, index) in weekNames" :key="index">
-          <v-text-field
-            v-model="weekNames[index]"
-            :label="`Workout Name for Day ${index + 1}`"
-            variant="outlined" class="input"
-          ></v-text-field>
-        </div>
-
-        <v-card-actions>
-          <v-btn color="red" text @click="workoutnameDialog = false">Cancel</v-btn>
+    <!-- Workout Name -->
+    <v-text-field
+      v-model="form.workoutName"
+      label="Workout Name"
+      required
+    ></v-text-field>
+  </v-form>
+</v-card-text>
+ <v-card-actions>
+          <v-btn color="red" text @click="workoutnameDialog = false"
+            >Cancel</v-btn
+          >
           <v-btn color="green" @click="addWeekDay">Add</v-btn>
         </v-card-actions>
       </v-card>
@@ -55,97 +73,66 @@ export default {
   data() {
     return {
       workoutnameDialog: false,
-      weeks: [],
-      weekNames: Array(7).fill(""), // Different names for each day
+      daycards: [],
       currentWeek: 1,
-      user_id: null, // Initialize user_id
+      user_id: null,
+          datePickerMenu: false,
+
+      form: {
+        date: '',
+        workoutName: '',
+      },
+      weeks: [], // Make sure this is defined if you loop through it
     };
   },
-  computed:{
-      ...mapGetters(['gettrainer_id']),
-      trainer_id(){
-        return this.gettrainer_id;
-      }
+  computed: {
+    ...mapGetters(['gettrainer_id']),
+    trainer_id() {
+      return this.gettrainer_id;
+    },
+   
   },
   created() {
-    this.user_id = this.$route.query.user_id; // Get user_id from URL
+    this.user_id = this.$route.query.user_id;
+    this.name = this.$route.query.name;
+
   },
   methods: {
-    
     async addWeekDay() {
-      if (this.weekNames.some(name => !name.trim())) {
-        alert("Please enter a workout name for each day.");
-        return;
-      }
-
-      const newWeek = {
-        weekNumber: this.currentWeek,
-        days: this.weekNames.map((name, i) => ({ day: `Day ${i + 1}`, name })),
-      };
-
-      const trainer_id=this.gettrainer_id;
-      console.log(trainer_id);
-      
-      const weekData = this.weekNames.map((name, i) => ({
-        week: `Week ${this.currentWeek}`,
-        day: `Day ${i + 1}`,
-        name,
-        user_id: this.user_id, // Include user_id when sending data
-        trainer_id : this.gettrainer_id,
-        
-        // Include trainer_id from Vuex
-      }));
-
       try {
-        const result = await this.$store.dispatch("Trainer/addWeekDay", weekData);
+        const payload = {
+          trainer_id: this.trainer_id,
+          user_id: this.user_id,
+          date: this.form.date,
+  workoutName: this.form.workoutName,
+        };
+        const result = await this.$store.dispatch('Trainer/dailyworkouts', payload);
         if (result.success) {
-          this.weeks.push(newWeek);
-          this.currentWeek += 1;
           this.workoutnameDialog = false;
-          this.weekNames = Array(7).fill(""); // Reset names after adding
-          alert("Week added successfully!");
+          this.loadWeekdays(); // Refresh list
+          alert('Day added successfully!');
         } else {
           alert(`Failed: ${result.error}`);
         }
       } catch (error) {
-        console.error("Error adding week:", error);
-        alert("Unexpected error while adding the week.");
+        console.error('Error adding week:', error);
+        alert('Unexpected error while adding the week.');
       }
     },
 
     async loadWeekdays() {
-  try {
-    const payload = { user_id: this.user_id };
-    const result = await this.$store.dispatch("Trainer/loadWeekdays", payload);
-    
-    if (result.success) {
-      const weekMap = {}; // Object to store weeks and their days
-
-      result.data.forEach(item => {
-        if (!weekMap[item.week]) {
-          weekMap[item.week] = { 
-            weekNumber: item.week, 
-            days: [] 
-          };
+      try {
+        const payload = { user_id: this.user_id };
+        const result = await this.$store.dispatch('Trainer/loaddaylyworkouts', payload);
+        if (result.success) {
+          this.daycards = result.data;
+        } else {
+          alert(`Error: ${result.error}`);
         }
-        weekMap[item.week].days.push({
-          day: item.day,
-          name: item.name,
-          weekdayId: item.weekdayId,
-        });
-      });
-
-      // Convert weekMap object into an array
-      this.weeks = Object.values(weekMap);
-      this.currentWeek = this.weeks.length + 1;
-    } else {
-      alert(`Error: ${result.error}`);
-    }
-  } catch (error) {
-    console.error("Error loading weeks:", error);
-  }
-}
-,
+      } catch (error) {
+        console.error('Error loading weeks:', error);
+      }
+    },
   },
   mounted() {
     this.loadWeekdays();
@@ -154,78 +141,103 @@ export default {
 </script>
 
 
+
 <style scoped>
 .body {
-  width: 82.5%;
-    height: 100%;
-  background-color: rgb(255, 255, 255);
+  min-height: 100vh;
+  /* background: linear-gradient(135deg, #1f1c2c, #928dab); */
   display: flex;
   flex-direction: column;
-  padding: 20px;
-  overflow-y: auto;
+  padding: 40px 20px;
+  font-family: 'Segoe UI', sans-serif;
+  color: #f4f4f4;
 }
-.body::-webkit-scrollbar {
-  display: none;
-}
-.body h1 {
+
+.heading h1 {
   text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  color: #ffffff;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
 }
-.content {
-  display: flex;
-  flex-direction: column;
-}
-.content-addbtn {
-  display: flex;
-  justify-content: end;
-}
-#addworkout {
-  width: 150px;
-  height: 40px;
-  background-color: rgb(0, 42, 255);
-  border-radius: 25px;
-  border: none;
-  color: white;
+.name{
+  margin-left: 150px;
+  margin-bottom: 50px;
 }
 .weeks {
-  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
 }
+
 .week-container {
-  background-color: white;
-  border-radius: 10px;
-  padding: 10px;
-  margin-bottom: 20px;
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  
 }
+
+.week-container h3 {
+  font-size: 1.4rem;
+  margin-bottom: 15px;
+  color: #a0e0ff;
+}
+
 .days {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+  
 }
+
 .day-card {
-  width: 160px;
-  height: 150px;
-  background-color: rgb(240, 240, 240);
-  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s ease, background 0.3s ease;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  gap: 8px;
+  color: #ffffff;
+  
 }
-.day-card:hover {
-  background-color: rgb(6, 6, 6);
-  color: white;
-}
-#selectday {
-  width: 150px;
-  height: 30px;
-  border-radius: 25px;
-  background-color: rgb(255, 200, 0);
-  /* border: 1px solid black; */
-  color: #000;
-}
-.input{
-  margin-left: 20px;
-  margin-right: 20px;
 
+.day-card:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.day-card h4 {
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+}
+
+#selectday {
+  background-color: #e64900;
+  color: black;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: 600;
+}
+
+#selectday:hover {
+  background-color: #c80000;
+}
+#weekschedule{
+   background-color: #2793d6;
+   width: 150px;
+   height: 40px;
+   margin-bottom: 10px;
+   border-radius: 4px;
 }
 </style>

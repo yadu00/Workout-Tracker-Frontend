@@ -32,11 +32,13 @@ const router = createRouter({
         
     { path: "/temp",component: () => import("./components/Trainer/TemperoryHome.vue"),},
 
-    { path: '/bmi',  component: () => import('./components/User/BmiPage.vue'), },
-
     { path: '/chart',  component: () => import('./components/User/ChartView.vue'), },
 
     { path: '/pay',  component: () => import('./components/User/PayMent.vue'), },
+
+     { path: '/paycomplete',  component: () => import('./components/User/PaymentComplete.vue'), },
+         
+
 
 
 
@@ -78,6 +80,10 @@ const router = createRouter({
           path: "/addrating",
           component: () => import("./components/User/TrainerRating.vue"),
         },
+
+         { path: '/bmiHistory',  component: () => import('./components/User/BmiHistory.vue'), },
+
+               { path: '/bmi',  component: () => import('./components/User/BmiPage.vue'), },
       ],
     },
 

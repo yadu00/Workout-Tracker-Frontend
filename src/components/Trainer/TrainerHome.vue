@@ -1,10 +1,10 @@
 <template>
   <div class="Trainerbody">
-    <aside class="trainer-navbar">
-      <div class="trainer-navbar-title">
+    <aside class="navbar">
+      <div class="navbar-title">
         <img :src="require('@/assets/logo.png')" alt="" style="width: 30px; height: 30px;">
       </div>
-      <ul class="trainer-navbar-links">
+      <ul class="navbar-links">
         <li>
           <router-link to="/TrainerViewUsers">
             <v-icon size="40px">mdi-view-dashboard-outline</v-icon>Dashboard
@@ -12,13 +12,13 @@
         </li>
         <li>
           <router-link to="/AddExcercise">
-            <img :src="require('@/assets/img/trainer.png')" alt="">Exercises
+            <v-icon size="40px">mdi-weight-lifter</v-icon>Exercises
           </router-link>
         </li>
         
         <li>
           <router-link to="/ScheduleWorkouts">
-            <v-icon size="40px">mdi-weight-lifter</v-icon>Clients
+            <v-icon size="40px">mdi-account-multiple-outline</v-icon>Clients
           </router-link>
         </li>
         <li>
@@ -35,7 +35,6 @@
       </ul>
       <div class="user-profile mt-auto p-4">
         <!-- <img :src="require('@/assets/img/logout.png')" alt="Logout"> -->
-         <v-icon>mdi-logout</v-icon>
         <button id="logoutbtn" @click="logout">Logout</button>
       </div>
     </aside>
@@ -63,17 +62,6 @@ export default {
 </script>
 
 <style scoped>
-.v-main {
-  background-color: #ffffff;
-  /* padding-left: 20px; */
-  height: 100vh;
-  /* padding-top: 20px; */
-}
-
-
-
-
-
 
 .Trainerbody {
   /* display: flex; */
@@ -88,30 +76,36 @@ export default {
 
 }
 
-.trainer-navbar {
+.navbar {
   position: fixed;
   width: 260px;
-  background-color: #fff200;  
+  background-color: #ff8800;  
   padding: 25px 20px;
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
   height: 695px;
   
+  
 
 }
 
 .maincontent {
-  position: fixed;
-  width: calc(100% - 300px); /* 260px for sidebar + 20px margin */
-  background-color: rgba(255, 255, 255, 0.968);
+  /* 260px for sidebar + 20px margin */
+  background-color: #252525;
+  /* background: linear-gradient(135deg, #171717, #2a2727, #0c0c0c); */
+
+
+   position: fixed;
+  width: calc(100% - 270px); /* 260px for sidebar + 20px margin */
   overflow-y: auto;
-  border-top-right-radius: 30px;
-  border-bottom-right-radius: 30px;
+  /* border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px; */
   margin-left: 260px;
-  height: 695px;
-  width: 100%;
-  /* padding: 20px 30px; */
+
+  /* padding: 10px; */
+  height: 100%;
+  padding: 10px;
 }
 
 
@@ -119,7 +113,7 @@ export default {
 
 
 /* Sidebar Links */
-.trainer-navbar-links li a {
+.navbar-links li a {
   color: rgb(0, 0, 0);
   display: flex;
   align-items: center;
@@ -128,29 +122,34 @@ export default {
   text-decoration: none;
   gap: 0 20px;
   margin-top: 15px;
-  width: 260px;
+  padding-left: 30px;
+  
+  
 
 }
 
-.trainer-navbar-links {
+.navbar-links {
   list-style: none;
   /* margin-top: 10px; */
+  
 }
 
-/* .trainer-navbar-links li a:hover {
-  background-color: rgb(0, 0, 0);
+.navbar-links li a:hover {
+  background-color: #414141;
   color: rgb(255, 255, 255);
-  /* border-radius: 25px; */
+  border-radius: 4px;
+   
+  
  
-/* } */
+}
 
-.trainer-navbar-links li img {
+.navbar-links li img {
   width: 35px;
   height: 35px;
 }
 
 /* Sidebar Header */
-.trainer-navbar-title {
+.navbar-title {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -171,12 +170,14 @@ export default {
 
 #logoutbtn{
   text-align: center;
-  background-color: black;
+  background-color: rgb(245, 0, 0);
   color: aliceblue;
-  border-radius: 20px;
+  border-radius: 4px;
   border: none;
-  height: 35px;
-  width: 100px;
+  height: 45px;
+  width: 150px;
+          box-shadow: 0 6px 18px #000000;
+
 
   /* cursor: pointer; */
 }
@@ -184,45 +185,20 @@ export default {
 #logoutbtn:hover{
   background-color: #f60000;
 }
-.trainer-navbar-links .router-link-active {
-  background-color: rgb(255, 255, 255);
-  color: #000000; /* Black text */
-  /* border-radius: 4px; */
-}
+
 
 /* For exact match (useful for /dashboard vs /dashboard/details) */
-.trainer-navbar-links .router-link-exact-active {
-  background-color: rgb(255, 255, 255);
-  color: #000000 !important;
-  /* border-top-left-radius: 25px;
-  border-bottom-left-radius: 25px; */
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
+.navbar-links .router-link-exact-active {
+  background-color: #414141;
+  color: #ffffff !important;
+  border-radius: 4px;
   position: relative;
+          box-shadow: 0 6px 18px #000000;
+
   /* border-radius: 0px 0px 25px 0px; */
 
 }
-.trainer-navbar-links .router-link-exact-active::after{
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 84.5%;
-  width: 20px;
-  height: 20px;
-  /* background-color: aqua; */
-  border-top-right-radius: 20px;
-  box-shadow: 5px -5px 0px 5px rgb(255, 255, 255);
-}
-.trainer-navbar-links .router-link-exact-active::before{
-  content: "";
-  position: absolute;
-  top: -20px;
-  left: 84.5%;
-  width: 20px;
-  height: 20px;
-  /* background-color: aqua; */
-  border-bottom-right-radius: 20px;
-  box-shadow: 5px 5px 0px 5px rgb(255, 255, 255);
-}
+
+
 
 </style>

@@ -1,6 +1,8 @@
 <template>
   <div class="select-trainer">
-    <div class="title"> <p>Before Moving to Next Page You Have to Select a Trainer</p></div>
+    <div class="title">
+      <p>Before Moving to Next Page You Have to Select a Trainer</p>
+    </div>
     <div class="filter-container">
       <label for="specialization">Filter by Specialization:</label>
       <select
@@ -26,45 +28,33 @@
         @click="(showdescription = true), showabout(trainer)"
       >
         <!-- <img :src="require('@/assets/img/profile.png')" alt="" /> -->
-        <v-icon size="150px">mdi-account-circle</v-icon>
+        <img :src="require('@/assets/img/profile.png')" alt="" />
         <h3>{{ trainer.name }}</h3>
         <p>Certification: {{ trainer.certification }}</p>
         <p>Experience: {{ trainer.experienceYears }} years</p>
-         <div class="stars">
-         <span
-  v-for="n in 5"
-  :key="n"
-  class="star"
-  :class="{ filled: n <= Math.round(trainer.rating || 0) }"
->
-  ★
-</span>
-
+        <div class="stars">
+          <span
+            v-for="n in 5"
+            :key="n"
+            class="star"
+            :class="{ filled: n <= Math.round(trainer.rating || 0) }"
+          >
+            ★
+          </span>
         </div>
-        <div class="rate"><v-icon>mdi-currency-inr</v-icon><span style="font-size: 30px;font-weight: bolder;">1000</span>/month</div>
+        <div class="rate">
+          <v-icon>mdi-currency-inr</v-icon
+          ><span style="font-size: 30px; font-weight: bolder">{{
+            trainer.salary
+          }}</span
+          >/month
+        </div>
         <button id="select" @click="assigntrainer(trainer)">
           Assign Trainer
         </button>
       </div>
     </div>
-    <v-dialog v-model="showdescription">
-      <div class="box">
-        <div class="dialoguetitle">
-          <p>About</p>
-          <v-icon size="40px" @click="showdescription = false"
-            >mdi-close-box</v-icon
-          >
-        </div>
-
-        <div class="inside">
-          <div class="about">
-            <v-icon size="200px">mdi-account-circle-outline</v-icon>
-
-            <p>{{ about }}</p>
-          </div>
-        </div>
-      </div>
-    </v-dialog>
+    
   </div>
 </template>
 
@@ -77,7 +67,6 @@ export default {
       filteredTrainers: [],
       selectedSpecialization: "",
       specializations: [],
-      showdescription: false,
       about: "",
       selectedRating: 0,
       hoverRating: 0,
@@ -135,28 +124,9 @@ export default {
     },
 
     async assigntrainer(trainer) {
-      try {
-        const user_id = this.getuser_id;
-        const payload = {
-          user_id: user_id, // User ID of the person getting assigned a trainer
-          trainer_id: trainer.trainer_id, // Trainer ID that is being assigned
-        };
-
-        const result = await this.$store.dispatch(
-          "User/assigntrainer",
-          payload
-        );
-        if (result.success) {
-          console.log("Trainer assigned successfully:", result.data);
-          // this.$router.push({ path: "/pay", query: { trainer_id: trainer.trainer_id } });
-
-          this.$router.push("/userdetails");
-        } else {
-          console.error("Error assigning trainer:", result.error);
-        }
-      } catch (error) {
-        console.error("Error loading Specializations:", error);
-      }
+      
+       this.$router.push({ path: "/pay", query: { trainer_id: trainer.trainer_id } });
+        
     },
 
     filterTrainers() {
@@ -207,6 +177,7 @@ export default {
   height: 100%;
   padding: 20px;
   border-radius: 10px;
+  background: linear-gradient(135deg, #181818, #232326, #030303);
 }
 
 .filter-container {
@@ -214,6 +185,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  color: #ffffff;
 }
 
 .filter-container label {
@@ -237,20 +209,29 @@ export default {
   align-items: center;
   width: 320px;
   height: 450px;
-  background-color: #000000e3;
-  border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.753);
-  padding: 15px;
-  margin-bottom: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 12px;
+  padding: 20px;
+  color: #f0f0f0;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
   color: white;
   transition: transform 0.3s ease-in-out;
 }
 .trainer-card:hover {
-  transform: scale(1.1, 1.1);
+  /* transform: scale(1.1, 1.1); */
+  background: rgba(255, 255, 255, 0.096);
 }
 .trainer-card img {
-  width: 250px;
-  height: 250px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+  border: 3px solid #fff;
 }
 
 .trainer-card h3 {
@@ -270,6 +251,7 @@ export default {
   border: none;
   border-radius: 25px;
   cursor: pointer;
+  box-shadow: 0 6px 18px #000000;
 }
 
 #select:hover {
@@ -316,12 +298,12 @@ export default {
   background-color: rgb(51, 51, 51);
   color: rgb(0, 0, 0);
 }
-.inside{
+.inside {
   width: 100%;
   padding: 30px;
   color: rgb(206, 206, 206);
 }
-.dialoguetitle{
+.dialoguetitle {
   width: 100%;
   height: 45px;
   display: flex;
@@ -333,11 +315,9 @@ export default {
   padding: 5px;
   border-top-right-radius: 8px;
   border-top-left-radius: 8px;
-
-
 }
 
-.about{
+.about {
   background-color: rgb(235, 235, 235);
   display: flex;
   flex-direction: column;
@@ -345,9 +325,8 @@ export default {
   align-items: center;
   color: #373737;
   border-radius: 20px;
-
 }
-.about p{
+.about p {
   width: 100%;
   height: 300px;
   border-radius: 20px;
@@ -356,7 +335,7 @@ export default {
   font-size: large;
   color: white;
 }
-.title{
+.title {
   width: 100%;
   height: 50px;
   background-color: rgb(51, 51, 51);
@@ -369,7 +348,6 @@ export default {
   color: white;
   border-radius: 25px;
 }
-
 
 .stars {
   display: flex;
@@ -385,7 +363,7 @@ export default {
   color: gold;
 }
 
-.rate{
+.rate {
   display: flex;
   align-items: center;
 }

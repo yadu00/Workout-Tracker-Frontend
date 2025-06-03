@@ -4,8 +4,18 @@
       <h1>Login</h1>
       <label for="email">Email</label>
       <input v-model="email" class="inputs" type="text" placeholder="Enter your email">
-      <label for="password">Password</label>
-      <input v-model="password" class="inputs" type="password" placeholder="Enter your password">
+       <label for="password">Password</label>
+        <div class="password-wrapper">
+          <input
+            v-model="password"
+            class="inputs"
+            :type="showPassword ? 'text' : 'password'"
+            placeholder="Enter your password"
+          />
+          <span class="toggle-icon" @click="togglePassword">
+            <v-icon>{{ showPassword ? "mdi-eye-off" : "mdi-eye" }}</v-icon>
+          </span>
+        </div>
       <div class="password" style="display: flex; justify-content: space-between; height: auto; width: 100%;">
         <div class="remebermediv" style="display: flex; width: 50%; align-items: center;
 ">
@@ -68,6 +78,8 @@ export default {
       email: "",
       password: "",
       snackbar: false,
+      showPassword: false,
+
 
     };
   },
@@ -78,6 +90,9 @@ export default {
       }
   },
   methods: {
+     togglePassword() {
+      this.showPassword = !this.showPassword;
+    },
     async login() {
   if (!this.email || !this.password) {
     alert("Please fill in both fields.");
@@ -99,7 +114,7 @@ export default {
       if (responseData.statusID === 1) {
         this.$router.push("/temp"); 
       } else {
-        this.$router.push("/trainerHome"); 
+        this.$router.push("/TrainerViewUsers"); 
       }
     }, 1000);
     
@@ -126,12 +141,12 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #9a9a9a;
+    background: linear-gradient(135deg, #051230, #0c0095, #000000);
   padding: 1rem;
 }
 
 .loginbox {
-  background-color: #121212;
+  background-color: #1212126c;
   color: #ffffff;
   border-radius: 20px;
   padding: 2rem;
@@ -152,6 +167,21 @@ label {
   color: #b7b7b7;
   font-size: 0.95rem;
   margin-bottom: 0.25rem;
+}
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.inputs {
+  padding-right: 2.5rem; /* space for the icon */
+}
+.toggle-icon {
+  position: absolute;
+  right: 10px;
+  top: 11px;
+  cursor: pointer;
+  color: #666;
 }
 
 .inputs {
@@ -221,6 +251,12 @@ label {
   font-weight: bold;
   cursor: pointer;
   margin-bottom: 1rem;
+            box-shadow: 0 6px 18px #000000;
+
+}
+button:hover{
+    background-color: rgb(221, 206, 0);
+
 }
 
 .v-snackbar {

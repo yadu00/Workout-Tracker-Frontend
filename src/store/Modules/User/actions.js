@@ -54,7 +54,7 @@ export default {
   async viewBmi({ rootGetters }, payload) {
     try {
       const response = await axios.get(
-        `${rootGetters.getUrl}/api/user/viewBmi`,
+        `${rootGetters.getUrl}/api/user/latestBmi`,
         {
           params: {
             user_id: payload.user_id,
@@ -221,7 +221,7 @@ export default {
         {
           params: {
             user_id: payload.user_id,
-            weekdayId: payload.weekdayId, // Ensure the date format is correct (YYYY-MM-DD)
+            id: payload.id, // Ensure the date format is correct (YYYY-MM-DD)
           },
         }
       );
@@ -252,7 +252,7 @@ export default {
   async loadWeekdays({ rootGetters }, payload) {
     try {
       const response = await axios.get(
-        `${rootGetters.getUrl}/api/user/weeklyworkout`,
+        `${rootGetters.getUrl}/api/user/getdaylyWorkouts`,
         {
           params: {
             user_id: payload.user_id,
@@ -380,7 +380,7 @@ export default {
         {
           params: {
             user_id: payload.user_id,
-            workoutdate: payload.workoutdate, 
+            date: payload.date, 
           },
         }
       );
@@ -407,12 +407,12 @@ export default {
 
 
   //Log Weight
-async logweight({ rootGetters }, payload) {
+async logBmi({ rootGetters }, payload) {
   try {
     const { user_id, ...weightModel } = payload;
 
     const response = await axios.post(
-      `${rootGetters.getUrl}/api/user/logWeight?user_id=${user_id}`,
+      `${rootGetters.getUrl}/api/user/logBmi?user_id=${user_id}`,
       weightModel  // this is the body
     );
 
@@ -427,10 +427,10 @@ async logweight({ rootGetters }, payload) {
 },
 
 //fetch weight history
-  async weightHistory({ rootGetters }, payload) {
+  async bmiHistory({ rootGetters }, payload) {
     try {
       const response = await axios.get(
-        `${rootGetters.getUrl}/api/user/weightHistory`,
+        `${rootGetters.getUrl}/api/user/BmiHistory`,
         {
           params: {
             user_id: payload.user_id,
@@ -503,5 +503,103 @@ async addRating({ rootGetters }, payload) {
       };
     }
   },
+
+
+  async logworkoutstatus({ rootGetters }, payload) {
+  try {
+   
+
+    const response = await axios.put(
+      `${rootGetters.getUrl}/api/user/logWorkoutStatus`,
+        payload,
+        {
+          params: {
+            workout_id: payload.workout_id,
+          },
+        }
+      );
+
+    if (response.status >= 200 && response.status < 300) {
+      console.log("logged successfully:", response.data);
+      return { success: true, data: response.data };
+    }
+  } catch (error) {
+    console.error("Error logging workout:", error);
+    return { success: false };
+  }
+},
+//fetch workout day
+  async fetchworkouttoday({ rootGetters }, payload) {
+    try {
+      const response = await axios.get(
+        `${rootGetters.getUrl}/api/user/gettodaysWorkout`,
+        {
+          params: {
+            user_id: payload.user_id,
+            date:payload.date,
+          },
+        }
+      );
+      if (response.status >= 200 && response.status < 300) {
+        return { success: true, data: response.data };
+      } else {
+        return { success: false, error: "Unexpected response status" };
+      }
+    } catch (error) {
+      console.error("Error viewing total workouts:", error);
+      return {
+        success: false,
+        error: error.message || "Error viewing total workouts:.",
+      };
+    }
+  },
+
+  //fetch monthly payment 
+  async fetchmonthlypayment({ rootGetters }, payload) {
+    try {
+      const response = await axios.get(
+        `${rootGetters.getUrl}/api/user/viewPaymentPlan`,
+        {
+          params: {
+            user_id: payload.user_id,
+          },
+        }
+      );
+      if (response.status >= 200 && response.status < 300) {
+        return { success: true, data: response.data };
+      } else {
+        return { success: false, error: "Unexpected response status" };
+      }
+    } catch (error) {
+      console.error("Error viewing total workouts:", error);
+      return {
+        success: false,
+        error: error.message || "Error viewing total workouts:.",
+      };
+    }
+  },
+
+   async SubscribedPlan({ rootGetters },user_id) {
+    try {
+
+      const response = await axios.get(`${rootGetters.getUrl}/api/user/payment/status`,{params:{
+        user_id:user_id
+      }});
+
+      if (response.status >= 200 && response.status < 300) {
+        return { success: true, data: response.data };
+      } else {
+        return { success: false, error: "Unexpected response status" };
+      }
+    } catch (error) {
+      console.error("Error viewing plan", error);
+      return {
+        success: false,
+        error: error.message || "Error viewing plan.",
+      };
+    }
+  },
+
+
 
 };

@@ -138,7 +138,7 @@ async fetchWorkout({ rootGetters }, payload) {
     const response = await axios.get(`${rootGetters.getUrl}/api/trainer/viewWorkout`, {
       params: {
         user_id: payload.user_id,
-        weekdayId: payload.weekdayId,
+        id: payload.id,
       },
     });
 
@@ -210,11 +210,47 @@ async loadExercise({ rootGetters },payload) {
         };
       }
     },
+     //create weekly workout
+    async dailyworkouts({ rootGetters }, payload) {
+      try {
+    
+        const response = await axios.post(`${rootGetters.getUrl}/api/trainer/dailylyworkout`, payload);
+    
+        if (response.status >= 200 && response.status < 300) {
+          console.log("weekly workout added successfully:", response.data);
+          return { success: true, data: response.data };
+        }
+      } catch (error) {
+    
+        return { 
+          success: false, 
+        };
+      }
+    },
 
     //view weekdays
     async loadWeekdays({ rootGetters },payload) {
       try {
         const response = await axios.get(`${rootGetters.getUrl}/api/trainer/getweekday` ,{
+          params: {
+            user_id: payload.user_id,
+
+          },
+        });
+        if (response.status >= 200 && response.status < 300) {
+          return { success: true, data: response.data }; 
+        } else {
+          return { success: false, error: 'Unexpected response status' };
+        }
+      } catch (error) {
+        console.error("Error fetching weekly workout:", error);
+        return { success: false, error: error.message || 'An error occurred while fetching weekly workout.' };
+      }
+    },
+    //view weekdays
+    async loaddaylyworkouts({ rootGetters },payload) {
+      try {
+        const response = await axios.get(`${rootGetters.getUrl}/api/trainer/getdaylyWorkouts` ,{
           params: {
             user_id: payload.user_id,
 
@@ -307,6 +343,49 @@ async loadExercise({ rootGetters },payload) {
         return { success: false, error: error.message || 'An error occurred while deleting exercise.' };
       }
     },
+
+
+
+     //view clients workout not scheduled
+  async workoutNotScheduled({ rootGetters },trainerId) {
+    try {
+
+      const response = await axios.get(`${rootGetters.getUrl}/api/trainer/unscheduled-users`,{
+        params: { trainerId }
+      });
+
+      if (response.status >= 200 && response.status < 300) {
+        console.log("clients fetched successfully:", response.data);
+        return { success: true, data: response.data };
+      }
+    } catch (error) {
+      console.error(" Failed to fetch clients:", error.response?.data || error.message);
+      return { 
+        success: false, 
+        error: error.response?.data?.message || "Failed to fetch clients." 
+      };
+    }
+  },
+
+  async Subscribedclients({ rootGetters },trainer_id) {
+    try {
+
+      const response = await axios.get(`${rootGetters.getUrl}/api/trainer/payment/status`,{
+        params: { trainer_id }
+      });
+
+      if (response.status >= 200 && response.status < 300) {
+        console.log("clients fetched successfully:", response.data);
+        return { success: true, data: response.data };
+      }
+    } catch (error) {
+      console.error(" Failed to fetch clients:", error.response?.data || error.message);
+      return { 
+        success: false, 
+        error: error.response?.data?.message || "Failed to fetch clients." 
+      };
+    }
+  },
 
   
 }

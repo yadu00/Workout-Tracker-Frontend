@@ -3,7 +3,6 @@
 
     <div class="nav">
         <div class="logo">
-            <img :src="require('@/assets/img/logo.png')" alt="" style="width: 70px;height: 70px;margin-right: 10px;">
             <h1>FitTrack</h1>
         </div>
         <div class="links">
@@ -121,7 +120,10 @@ export default {
 .container{
     width: 100%;
     height: auto;
-    background-color: rgb(13, 12, 12);
+    background: linear-gradient(135deg, #000000, #2b2b2b, #373636);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
 }
 *{
@@ -130,14 +132,17 @@ export default {
 .nav{
     width: 100%;
     height: 75px;
-    background-color: rgba(37, 37, 37, 0.834);
+    /* background-color: rgba(37, 37, 37, 0.834); */
     display: flex;
     position: fixed;
     z-index: 999;
-    backdrop-filter: blur(10px);
+   
 }
 .nav h1{
     color: white;
+    text-shadow: 2px 2px 5px rgb(0, 0, 0);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 40px;
 }
 .logo{
     width: 20%;
@@ -150,9 +155,13 @@ export default {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    background-color: #0000009e;
+    border-radius: 20px;
+     backdrop-filter: blur(10px);
+    border-radius: 20px;
 }
 .link{
-    color: rgb(171, 171, 171);
+    color: rgb(239, 239, 239);
     
 }
 .link:hover{
@@ -165,29 +174,33 @@ export default {
     align-items: center;
 }
 #login{
-    width:100px ;
+    width:150px ;
     height: 50px;
-    background-color: rgb(162, 255, 0);
-    border-radius: 25px;
+    background-color: rgb(0, 0, 0);
+    border-radius: 20px;
     font-size: larger;
     font-weight: bold;
-    color: #282828;
+    color: #a5a5a5;
 }
 #login:hover{
     background-color: #595959;
     color: rgb(162, 255, 0);
 
 }
-.section1{
-    width: 100%; 
+.section1 {
+    width: 100%;
     height: 700px;
-    padding-top:100px ;
+    padding-top: 100px;
     color: white;
     padding-left: 100px;
-    /* background-color: rgb(162, 255, 0); */
-    background-image: url(/src/assets/img/newbg.PNG);
+    display: flex;
+    /* background-image: url(/src/assets/img/newbg.PNG);
     background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed; <--- This keeps the background fixed when scrolling */
 }
+
 .section2{
     width: 100%; 
     height: 500px;
@@ -210,7 +223,7 @@ export default {
 
 .head{
     font-family: "Revalia", sans-serif;
-    background-color: #464646;
+    /* background-color: #464646; */
 
 }
 
@@ -222,14 +235,16 @@ export default {
     align-items: center;
     color:rgb(12, 11, 11);
     padding-bottom: 20px;
+    background-color: #28282800;
 }
 .card{
     width: 300px;
     height: 300px;
     background-color: rgb(162, 255, 0);
     margin: 20px;
-    border-top-right-radius:50px;
-    border-bottom-left-radius:50px;
+    /* border-top-right-radius:50px;
+    border-bottom-left-radius:50px; */
+    border-radius: 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -243,7 +258,7 @@ export default {
 }
 .card:hover{
     transform: scale(1.1);
-    box-shadow: 1px 1px 10px 1px rgb(81, 255, 0);
+    box-shadow: 1px 1px 10px 1px rgb(0, 0, 0);
    
 }/* .card h5{
     margin-left: 100px;
@@ -256,17 +271,26 @@ export default {
     justify-content: space-evenly;
 }
 .two{
-    width: 40%;
+    width: 35%;
     height: auto;
+    background-image: url(/src/assets/new.png); 
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 50px;
+
 }
 #getstarted{
     width: 200px;
     height: 40px;
-    background-color: rgb(209, 209, 209);
+    background-color: rgb(239, 239, 239);
     color: rgb(43, 43, 43);
-    border-top-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+    /* border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px; */
+    border-radius: 20px;
     transition: transform 0.3s ease-in-out;
+                  box-shadow: 0 6px 18px #000000;
+
 
 
 
@@ -329,8 +353,8 @@ export default {
 .section4 .contents{
     width: 80%;
     height: 200px;
-    background-color: #62ff00;
-    color: #000;
+    background-color: #4d4d4d61;
+    color: #e3e3e3;
     border-radius: 20px;
     padding: 25px;
     font-size: 20px;

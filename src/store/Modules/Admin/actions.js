@@ -20,7 +20,7 @@ export default{
       async fetchTrainers({ rootGetters }) {
         try {
     
-          const response = await axios.get(`${rootGetters.getUrl}/api/admin/viewTrainers`);
+          const response = await axios.get(`${rootGetters.getUrl}/api/admin/viewApprovedTrainers`);
     
           if (response.status >= 200 && response.status < 300) {
             console.log("Trainers fetched successfully:", response.data);

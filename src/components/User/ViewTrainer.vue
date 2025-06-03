@@ -124,138 +124,164 @@ export default {
   },
 };
 </script>
-
 <style scoped>
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  color: #000;
+  padding: 3rem 1rem;
+  font-family: 'Segoe UI', sans-serif;
+  color: #ffffff;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  min-height: 100vh;
 }
+
+h1 {
+  margin-bottom: 2rem;
+  color: #fff;
+  font-size: 2.5rem;
+}
+
 .trainer-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 600px;
-  height: 500px;
-  background-color: #000000;
-  border-radius: 25px;
-  box-shadow: rgb(0, 0, 0) 0px 5px 15px;
-  margin-bottom: 15px;
-  color: rgb(55, 255, 0);
-  margin-top: 5px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  border-radius: 16px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 450px;
+  text-align: center;
+  color: #ffffff;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
 }
+
 .trainer-card img {
-  width: 150px;
-  height: 150px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+  border: 3px solid #fff;
 }
 
 .trainer-card h3 {
-  margin: 0;
-  font-size: 18px;
+  font-size: 1.8rem;
+  margin: 0.5rem 0;
 }
 
 .trainer-card p {
-  margin: 5px 0;
-  color: #7bff00;
-  font-size: larger;
+  margin: 0.4rem 0;
+  font-size: 1rem;
+  color: #e0e0e0;
 }
+
 .ratingbtn {
-  width: 600px;
-  height: 190px;
-  display: flex;
-  justify-content: end;
-  align-items: end;
+  margin-top: 1.5rem;
 }
+
 #rating {
+  background: #ffeb3b;
+  color: #000;
+  font-weight: bold;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s ease;
   width: 100%;
-  height: 40px;
-  background-color: #0040ff;
-  color: #ffffff;
-  border-bottom-right-radius: 25px;
-  border-bottom-left-radius: 25px;
 }
 
+#rating:hover {
+  background-color: #fdd835;
+}
 
-
-
-
+/* Dialog box styling */
 .box {
-  width: 100%;
-  height: 100%;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-.close{
-  left: 227px;
-  top: 4px;
-  color: #ff0000;
-}
-.card {
-  width: 30%;
-  height: 400px;
-  background-color: rgb(199, 199, 201);
-  color: white;
-  border-radius: 5px;
   display: flex;
   flex-direction: column;
-  border-top-right-radius: 5px;
-}
-.heading {
-  width: 100%;
-  height: 20%;
-  background-color: rgb(232, 232, 232);
-  display: flex;
-  justify-content: center;
   align-items: center;
-  border-top-right-radius: 5px;
-  border-top-left-radius: 5px;
-  color: rgb(0, 0, 0);
-}
-.content {
-  width: 100%;
-  height: 60%;
-  background-color: rgb(16, 182, 41);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgb(107, 107, 107);
-  flex-direction: column;
+  padding: 2rem 1rem;
   color: #000;
 }
-.submit {
-  width: 100%;
-  height: 20%;
-  background-color: rgb(18, 75, 50);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-bottom-right-radius: 5px;
-  border-bottom-left-radius: 5px;
-  background-color: rgb(232, 232, 232);
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 30px;
+  color: #ffffff;
+  cursor: pointer;
+  z-index: 10;
 }
-#submit {
-  width: 40%;
-  height: 50%;
-  background-color: rgb(37, 246, 0);
-  color: black;
-  border-radius: 5px;
+
+.card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  max-width: 480px;
+  width: 90%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
 }
+
+.heading {
+  background: #2c3e50;
+  padding: 1rem;
+  text-align: center;
+  color: white;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.content {
+  padding: 2rem;
+  text-align: center;
+}
+
+.content h1 {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
 .stars {
   display: flex;
-  gap: 10px;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 1rem;
 }
+
 .star {
-  font-size: 40px;
+  font-size: 2.5rem;
   color: #ccc;
   cursor: pointer;
-  transition: color 0.2s;
+  transition: transform 0.2s, color 0.2s;
 }
+
+.star:hover {
+  transform: scale(1.2);
+}
+
 .star.filled {
-  color: gold;
+  color: #ff9800;
+}
+
+.submit {
+  padding: 1rem;
+  background-color: #f0f0f0;
+  text-align: center;
+}
+
+#submit {
+  background-color: #4caf50;
+  color: white;
+  padding: 0.7rem 2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#submit:hover {
+  background-color: #43a047;
 }
 </style>

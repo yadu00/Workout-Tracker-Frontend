@@ -18,6 +18,9 @@
         Weight
       </div>
       <div class="title">
+        Payment
+      </div>
+      <div class="title">
         Bmi
       </div>
       <div class="title">
@@ -43,11 +46,14 @@
         <p>{{ user.weight }}</p>
       </div>
       <div class="title">
+        <p>{{ user.paymentStatus === 1 ? 'Done' : 'Pending' }}</p>
+      </div>
+      <div class="title">
         <p>{{ user.bmi.toFixed(2) }}</p>
       </div>
       <div class="title">
         <div class="schedulebtn">
-          <router-link :to="{ path: '/view', query: { user_id: user.user_id } }">
+          <router-link :to="{ path: '/view', query: { user_id: user.user_id,name:user.name } }">
           <button id="selectuser">Schedule Workout</button>
         </router-link>
       </div>
@@ -110,85 +116,92 @@ export default {
 
 <style scoped>
 .container {
-  width: 82.5%;
-  height: 100%;
-  margin-left: 10px;
+  width: 90%;
+  max-width: 1200px;
+  margin: 40px auto;
+  font-family: 'Segoe UI', sans-serif;
+  color: #fff;
+  padding: 20px;
 }
+
 .container h1 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 20px;
-}
-.info{
-  width: 100%;
-  height: 50px;
-  display: flex;
-  border: 1px solid black;
-  margin: 5px;
-
-}
-.head{
-  background-color: rgb(57, 189, 0);
-  color: white;
-}
-.title{
-  width: 15%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  
-}
-.card{
-  width: 100%;
-  height: 100%;
-}
-.usrbox {
-  width: 100%;
-  height: 150px;
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-  background-color: rgb(0, 0, 0);
-  color: rgb(174, 174, 174);
-  border-radius: 20px;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
-
-}
-.usrbox .profile{
-  width: 40%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.usrbox .info{
-  width: 40%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  justify-content: center;
-}
-.usrbox .schedulebtn{
-  width: 20%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-.usrbox:hover {
-  background-color: rgb(77, 77, 77);
-  color: rgb(0, 0, 0);
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  color: #ffffff;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
 }
 
+.head {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #ffffff;
+  font-weight: bold;
+  border-radius: 12px;
+  padding: 10px 0;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: background 0.3s ease;
+}
+
+.info:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.title {
+  flex: 1;
+  text-align: center;
+  font-size: 0.95rem;
+  font-weight: 500;
+  word-wrap: break-word;
+}
+
+.card {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.schedulebtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 #selectuser {
-  background-color: rgb(0, 42, 255);
-  color: rgb(255, 255, 255);
-  width: 150px;
-  height: 40px;
+  background: rgba(0, 123, 255, 0.7);
+  color: white;
+  border: none;
+  padding: 8px 18px;
   border-radius: 25px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 20px rgba(0, 123, 255, 0.2);
 }
+
+#selectuser:hover {
+  background: rgba(0, 123, 255, 1);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 123, 255, 0.3);
+}
+
+p {
+  margin: 0;
+}
+
 </style>

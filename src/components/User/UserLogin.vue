@@ -4,8 +4,8 @@
       <div class="container">
         <h1>Welcome to <br />FitTrack.</h1>
         <p>
-          Your ultimate fitness companion for personalized training,
-          progress tracking, and expert guidance.
+          Your ultimate fitness companion for personalized training, progress
+          tracking, and expert guidance.
         </p>
       </div>
 
@@ -21,17 +21,23 @@
         />
 
         <label for="password">Password</label>
-        <input
-          v-model="password"
-          class="inputs"
-          type="password"
-          placeholder="Enter your password"
-        />
+        <div class="password-wrapper">
+          <input
+            v-model="password"
+            class="inputs"
+            :type="showPassword ? 'text' : 'password'"
+            placeholder="Enter your password"
+          />
+          <span class="toggle-icon" @click="togglePassword">
+            <v-icon>{{ showPassword ? "mdi-eye-off" : "mdi-eye" }}</v-icon>
+          </span>
+        </div>
 
         <div class="password">
-          <!-- Future use: Remember Me -->
           <div class="remebermediv"></div>
-          <router-link to="/forgotpassword" class="router-link">Forgot password?</router-link>
+          <router-link to="/forgotpassword" class="router-link"
+            >Forgot password?</router-link
+          >
         </div>
 
         <div class="button">
@@ -55,29 +61,29 @@
   </div>
 </template>
 
-
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 
 export default {
- 
   data() {
     return {
       email: "",
       password: "",
       snackbar: false,
-
-      
+      showPassword: false,
     };
   },
-  computed:{
-      ...mapGetters(['getuser_id']),
-      user_id(){
-        return this.getuser_id;
-      }
+  computed: {
+    ...mapGetters(["getuser_id"]),
+    user_id() {
+      return this.getuser_id;
+    },
   },
 
   methods: {
+    togglePassword() {
+      this.showPassword = !this.showPassword;
+    },
     async login() {
   if (!this.email || !this.password) {
     alert("Please fill in both fields.");
@@ -88,29 +94,34 @@ export default {
     const payload = {
       email: this.email,
       password: this.password,
-    }
+    };
 
-    const response = await this.$store.dispatch('loginUser',payload)
+    const response = await this.$store.dispatch("loginUser", payload);
 
     if (response) {
-      this.snackbar = true;// ✅ Use user-specific key
-        const userKey = `firstLogin_${this.user_id}`;
+      this.snackbar = true;
 
-        if (!localStorage.getItem(userKey)) {
-          localStorage.setItem(userKey, "true"); // Mark as first login
-          setTimeout(() => {
-            this.$router.push("/welcome");
-          }, 1000);
-        } else {
-          setTimeout(() => {
-            this.$router.push(`/userHome?user=${this.user_id}`); 
-            // Redirect after a delay
-          }, 1000);
-        }// Show snackbar on success
-          
-      
+      // ✅ Get user_id from Vuex store
+      const userId = this.$store.state.auth?.user_id;
+      if (!userId) {
+        console.error("User ID not set in store.");
+        return;
+      }
+
+      const userKey = `firstLogin_${userId}`;
+
+      if (!localStorage.getItem(userKey)) {
+        localStorage.setItem(userKey, "true"); // Mark as first login
+        setTimeout(() => {
+          this.$router.push("/welcome");
+        }, 1000);
+      } else {
+        setTimeout(() => {
+          this.$router.push(`/userHome?user=${userId}`);
+        }, 1000);
+      }
     } else {
-      alert(response.message || "Invalid credentials.");
+      alert("Invalid credentials.");
     }
   } catch (error) {
     alert("Error!! No Account Found");
@@ -135,7 +146,7 @@ export default {
 .loginbody {
   width: 100%;
   height: 100vh;
-  background-color: #d6cfd7;
+  background: linear-gradient(135deg, #020202, #b52a00, #000000);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -162,41 +173,72 @@ export default {
 .container h1 {
   font-size: 2.5rem;
   margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+  color: #ffffff;
+  font-size: 2.5rem;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.4);
 }
 
 .container p {
   font-size: 1rem;
-  color: #252525;
+  color: #c4c4c4;
   line-height: 1.5;
   padding: 0 1rem;
 }
 
 .loginbox {
   flex: 1 1 400px;
-  background-color: #4dff00;
-  border-radius: 30px;
-  border: 5px solid rgb(0, 0, 0);
-  padding: 2rem;
-  color: #000000;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 12px;
+  padding: 20px;
+  color: #f0f0f0;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
   max-width: 400px;
 }
 
 .loginbox h1 {
   text-align: center;
   margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #000000;
+  font-size: 2.5rem;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.4);
 }
 
 label {
   display: block;
   margin: 0.5rem 0 0.25rem;
-  color: #181818;
+  color: #fbfbfb;
 }
-
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.inputs {
+  padding-right: 2.5rem; /* space for the icon */
+}
+.toggle-icon {
+  position: absolute;
+  right: 10px;
+  top: 11px;
+  cursor: pointer;
+  color: #666;
+}
 .inputs {
   width: 100%;
   padding: 0.75rem;
   margin-bottom: 1rem;
-  background-color: #000000a9;
+  background-color: #00000035;
   border-radius: 4px;
   border: 2px solid transparent;
   color: white;
@@ -205,16 +247,16 @@ label {
 }
 
 .inputs::placeholder {
-  color: #dddddd;
+  color: #d5d5d5;
 }
 
 .inputs:hover {
-  border-color: rgb(34, 255, 0);
+  border-color: rgb(255, 0, 0);
 }
 
 .inputs:focus {
   outline: none;
-  border-color: #22ff00;
+  border-color: #000000;
   background-color: #0707075f;
 }
 
@@ -227,7 +269,7 @@ label {
 }
 
 .router-link {
-  color: #313131;
+  color: #ececec;
   text-decoration: none;
 }
 
@@ -241,8 +283,8 @@ label {
   width: 100%;
   max-width: 200px;
   height: 50px;
-  background-color: #000000;
-  color: rgb(255, 255, 255);
+  background-color: #cf9800;
+  color: rgb(0, 0, 0);
   font-weight: bold;
   font-size: 1.2rem;
   border-radius: 25px;
@@ -250,10 +292,11 @@ label {
   cursor: pointer;
   transition: background 0.3s ease;
   margin-bottom: 1rem;
+  box-shadow: 0 6px 18px #000000;
 }
 
 .btn:hover {
-  background-color: #0cff0c;
+  background-color: #f3b200;
 }
 
 .router {
@@ -295,5 +338,4 @@ label {
     font-size: 0.85rem;
   }
 }
-
 </style>

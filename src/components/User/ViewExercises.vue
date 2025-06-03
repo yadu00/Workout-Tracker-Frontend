@@ -1,16 +1,19 @@
 <template>
   <div class="contents">
-     <h1>Today's Exercises</h1>
+    <h1>Today's Exercises</h1>
     <div class="heading" v-if="exercises.length > 0">
-          <h3>No of Exercises: {{ exercises.length }}</h3>
-          <h4>Date : {{ exercises[0].date }}</h4>
+      <h3>No of Exercises: {{ exercises.length }}</h3>
+      <h4>Date : {{ exercises[0].date }}</h4>
     </div>
-   
+
     <div class="section2">
       <div class="card" v-for="(exercise, index) in exercises" :key="index">
         <div class="cards">
           <div class="info">
             <h4>Exercise: {{ exercise.excercise_name }}</h4>
+          </div>
+           <div class="info">
+            <h4>Focus Area: {{ exercise.focusarea }}</h4>
           </div>
           <div class="info">
             <h4>Sets: {{ exercise.sets }}</h4>
@@ -21,10 +24,11 @@
           <div class="info">
             <h4>Weights: {{ exercise.weights }}</h4>
           </div>
+
           <div class="info">
             <button
               id="logworkout"
-              @click="logworkout(exercise.workout_id)"
+              @click="exercise.showLogForm = !exercise.showLogForm"
               :disabled="loggedWorkouts.includes(exercise.workout_id)"
             >
               {{
@@ -33,9 +37,50 @@
             </button>
           </div>
         </div>
-        <div class="info">
-          <h4>Rest 30 Seconds</h4>
+
+        <!-- Inline Logging Form -->
+        <div
+          v-if="
+            exercise.showLogForm &&
+            !loggedWorkouts.includes(exercise.workout_id)
+          "
+          class="log-form"
+        >
+          <label>Status:</label>
+          <select v-model="exercise.workoutStatus" class="select">
+            <option disabled value="">-- Select --</option>
+            <option value="completed">Completed</option>
+            <option value="skipped">Skipped</option>
+            <option value="partially done">Partially Done</option>
+          </select>
+
+          <div
+            v-if="exercise.workoutStatus === 'partially done'"
+            class="partially done-inputs"
+          >
+            <input class="input"
+              type="number"
+              v-model.number="exercise.setsDone"
+              placeholder="Sets done"
+              min="0"
+            />
+            <input  class="input"
+              type="number"
+              v-model.number="exercise.repsDone"
+              placeholder="Reps done"
+              min="0"
+            />
+             <input  class="input"
+              type="text"
+              v-model.number="exercise.remarks"
+              placeholder="Remarks"
+            />
+          </div>
+
+          <button @click="logworkout(exercise)">Submit</button>
         </div>
+
+        <div class="info"><h4>Rest 30 Seconds</h4></div>
       </div>
     </div>
   </div>
@@ -56,7 +101,7 @@ export default {
     ...mapGetters(["getuser_id"]), // Map the getter directly
   },
   created() {
-    this.weekdayId = this.$route.query.weekdayId;
+    this.id = this.$route.query.id;
     // Get user_id from URL
   },
   methods: {
@@ -64,7 +109,7 @@ export default {
       try {
         const payload = {
           user_id: this.getuser_id,
-          weekdayId: this.weekdayId,
+          id: this.id,
         };
 
         const result = await this.$store.dispatch("User/fetchWorkout", payload);
@@ -87,16 +132,30 @@ export default {
       }
     },
 
-    async logworkout(workout_id) {
+    async logworkout(exercise) {
       try {
         const payload = {
-          user_id: Number(this.getuser_id),
-          workout_id: workout_id,
+          workout_id: exercise.workout_id,
+          workoutStatus: exercise.workoutStatus,
+          setsDone:
+            exercise.workoutStatus === "partially done"
+              ? exercise.setsDone
+              : null,
+          repsDone:
+            exercise.workoutStatus === "partially done"
+              ? exercise.repsDone
+              : null,
+              remarks:exercise.workoutStatus === "partially done"
+              ? exercise.remarks
+              : null,
         };
-        const result = await this.$store.dispatch("User/logworkout", payload);
+        const result = await this.$store.dispatch(
+          "User/logworkoutstatus",
+          payload
+        );
         if (result.success) {
           // Add to loggedWorkouts list
-          this.loggedWorkouts.push(workout_id);
+          this.loggedWorkouts.push(exercise.workout_id);
           alert("Logged");
         } else {
           alert(`Logging failed: ${result.error}`);
@@ -111,78 +170,163 @@ export default {
   },
 };
 </script>
-
 <style scoped>
 .contents {
   width: 100%;
-  height: 100%;
-  /* background-color: rgb(0, 0, 0); */
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
   display: flex;
   flex-direction: column;
+  padding: 30px 20px;
+  font-family: "Segoe UI", sans-serif;
   color: white;
 }
+
 .contents h1 {
-  width: 100%;
   text-align: center;
-  color: rgb(244, 244, 244);
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: #ffffff;
 }
-.addbtn {
+
+.heading {
   display: flex;
-  justify-content: start;
-}
-#addExercise {
-  width: 200px;
-  height: 40px;
-  background-color: black;
-  color: white;
-  border-radius: 25px;
+  justify-content: space-between;
+  padding: 10px 0 30px 0;
+  font-size: 1.1rem;
+  color: #ddd;
 }
 
 .section2 {
-  background-color: white;
-  padding: 10px;
-  border-radius: 4px;
-  margin-top: 10px;
-  color: rgb(0, 0, 0);
-}
-.heading {
-  width: 99%;
   display: flex;
-  justify-content: space-between;
-  padding: 20px;
-  background-color: rgb(60, 60, 60);
+  flex-direction: column;
+  gap: 20px;
+}
 
-}
 .card {
-  background-color: rgb(29, 29, 29);
-  padding: 15px;
-  border-radius: 4px;
-  color: rgb(205, 205, 205);
-  margin-bottom: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 12px;
+  padding: 20px;
+  color: #f0f0f0;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
 }
+
+.card:hover {
+  transform: scale(1.02);
+}
+
 .cards {
-  background-color: rgb(242, 145, 0);
-  padding: 15px;
-  border-radius: 4px;
-  color: rgb(0, 0, 0);
-  justify-content: space-between;
-  margin-bottom: 10px;
   display: flex;
-  align-items: center;
-}
-#logworkout {
-  width: 150px;
-  height: 40px;
-  background-color: blue;
-  color: white;
-  border-radius: 4px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .info {
-  width: 20%;
-  height: 40px;
+  flex: 1 1 120px;
+  min-width: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
+}
+
+#logworkout {
+  padding: 8px 18px;
+  border-radius: 20px;
+  border: none;
+  font-weight: bold;
+  background-color: #00e676;
+  color: black;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#logworkout:hover {
+  background-color: #00c853;
+  transform: scale(1.05);
+}
+
+#logworkout:disabled {
+  background-color: #888;
+  color: white;
+  cursor: default;
+}
+
+.log-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 15px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.log-form label {
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 5px;
+}
+
+.log-form select,
+.log-form input {
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  background: rgba(255, 255, 255, 0.155);
+  color: #ffffff;
+  font-size: 1rem;
+  outline: none;
+  transition: background-color 0.3s ease;
+}
+
+.log-form select:focus,
+.log-form input:focus {
+  background: rgb(0, 0, 0);
+}
+
+.partially\ done-inputs {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  
+}
+
+.partially\ done-inputs input {
+  flex: 1 1 100px;
+  justify-content: space-evenly;
+ 
+}
+.input{
+  margin-right: 20px;
+}
+.input::placeholder {
+  color: #c0c0c0; /* Change to any color you want */
+  opacity: 1;   /* Ensure color shows up in all browsers */
+}
+
+.log-form button {
+  align-self: flex-start;
+  padding: 8px 16px;
+  border-radius: 20px;
+  background-color: #29b6f6;
+  color: black;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.log-form button:hover {
+  background-color: #0288d1;
+  transform: scale(1.05);
 }
 </style>

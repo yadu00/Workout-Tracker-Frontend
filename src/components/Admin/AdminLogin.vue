@@ -6,17 +6,16 @@
       <h1>Login</h1>
       <div class="inputs">
         <label for="username">Username</label>
-        <input type="text" v-model="username" placeholder="username">
-        <label for="username" >Password</label>
-        <input type="password" v-model="password" placeholder="password">
+        <input type="text" v-model="username" placeholder="username" />
+        <label for="username">Password</label>
+        <input type="password" v-model="password" placeholder="password" />
       </div>
-        <button @click="login">Login</button>
+      <button @click="login">Login</button>
     </div>
-    
   </div>
-  
- <!-- Snackbar -->
- <v-snackbar
+
+  <!-- Snackbar -->
+  <v-snackbar
     v-model="snackbar"
     color="#adff2f"
     width="400px"
@@ -38,7 +37,7 @@
   </v-snackbar>
 
   <!-- Snackbar -->
- <v-snackbar
+  <v-snackbar
     v-model="snackbar2"
     color="#adff2f"
     width="400px"
@@ -58,10 +57,9 @@
       </v-btn>
     </template>
   </v-snackbar>
-
 </template>
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 
 export default {
   data() {
@@ -70,50 +68,47 @@ export default {
       password: "",
       snackbar: false, // Snackbar state
       snackbar2: false,
-
     };
   },
-  computed:{
-      ...mapGetters(['getadmin_id']),
-      admin_id(){
-        return this.getadmin_id;
-      }
+  computed: {
+    ...mapGetters(["getadmin_id"]),
+    admin_id() {
+      return this.getadmin_id;
+    },
   },
   methods: {
     async login() {
-  if (!this.username || !this.password) {
-    this.snackbar2 = true; // Show snackbar on success
-          setTimeout(() => {
+      if (!this.username || !this.password) {
+        this.snackbar2 = true; // Show snackbar on success
+        setTimeout(() => {
           // Redirect after a delay
-          }, 1000);
-    return;
-  }
+        }, 1000);
+        return;
+      }
 
-  try {
-    const payload = {
-      username: this.username,
-      password: this.password,
-    }
+      try {
+        const payload = {
+          username: this.username,
+          password: this.password,
+        };
 
-    const response = await this.$store.dispatch('loginAdmin',payload)
+        const response = await this.$store.dispatch("loginAdmin", payload);
 
-    if (response) { 
-      this.snackbar = true; // Show snackbar on success
+        if (response) {
+          this.snackbar = true; // Show snackbar on success
           setTimeout(() => {
-            this.$router.push("/adminDashboard"); // Redirect after a delay
+            this.$router.push("/adminHome"); // Redirect after a delay
           }, 1000);
-    } else {
-      alert(response.message || "Invalid credentials.");
-    }
-  } catch (error) {
-    alert("Error during login.");
-    console.error(error);
-    console.error("Login Error:", error);
+        } else {
+          alert(response.message || "Invalid credentials.");
+        }
+      } catch (error) {
+        alert("Error during login.");
+        console.error(error);
+        console.error("Login Error:", error);
         alert("Error during login. Check the console for details.");
-      
-  }
-}
-
+      }
+    },
   },
 };
 </script>
@@ -126,7 +121,7 @@ export default {
   width: 100vw;
   height: 100vh;
   flex-direction: column;
-  background-color: #313131;
+    background: linear-gradient(135deg, #020202, #950000, #000000);
   padding: 1rem;
   box-sizing: border-box;
 }
@@ -139,10 +134,10 @@ export default {
   padding: 2rem;
   border-radius: 20px;
   align-items: center;
-  background-color: #0e0e0e;
+  background-color: #0e0e0eb5;
   color: #ffffff;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
-              rgba(0, 0, 0, 0.22) 0px 15px 12px;
+    rgba(0, 0, 0, 0.22) 0px 15px 12px;
   box-sizing: border-box;
 }
 
@@ -176,7 +171,7 @@ input::placeholder {
 }
 
 button {
-  background-color: white;
+  background-color: rgb(185, 173, 10);
   color: black;
   height: 50px;
   width: 100%;
@@ -185,11 +180,16 @@ button {
   margin-top: 1.5rem;
   font-size: 1.2rem;
   cursor: pointer;
+          box-shadow: 0 6px 18px #000000;
+
+}
+button:hover{
+    background-color: rgb(221, 206, 0);
+
 }
 
 .v-snackbar {
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
-
 </style>

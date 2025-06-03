@@ -1,276 +1,260 @@
 <template>
-  <div class="content">
-    <div class="heading">
-      <h1>Profile</h1>
-    </div>
-    <div class="profile">
-      <div class="about">
-        <v-icon size="200px">mdi-account-circle-outline</v-icon>
-
-        <p></p>
+  <div class="profile-wrapper">
+    <div class="profile-card">
+      <div class="left-section">
+        <v-icon size="140" class="profile-icon">mdi-account-circle-outline</v-icon>
         <v-textarea
-  label="About" width="100%" color="black"
-  placeholder="Write your description about yourself here..."
-  rows=""
-  auto-grow v-model="about"
-></v-textarea>
-        <button id="add" @click="addabout">Add</button>
-        <!-- <p>Specialities</p>
-        <v-textarea width="100%">
-
-</v-textarea>
-<button id="add">Add</button> -->
+          v-model="about"
+          label="About Me"
+          placeholder="Write something about yourself..."
+          auto-grow
+          outlined
+          rows="2"
+          class="about-text"
+        ></v-textarea>
+        <button class="btn primary" @click="addabout">Save About</button>
       </div>
-      
-      <div class="details">
-        
-          <h3>Name</h3>
-          <p>{{ trainer.name }}</p>
-          <h3>Email </h3>
-          <p> {{ trainer.email }}</p>
-          <h3>Password  </h3>
-          <p>{{ trainer.password }}</p>
-          <h3>Certification</h3>
-          <p>{{ trainer.certification }}</p>
-          <h3>Experience</h3>
-          <p>{{ trainer.experienceYears }}</p>
-          <h3>Specialization</h3>
-          <p>{{ trainer.specialisationName }}</p>
-          <div class="action btn">
-            <button id="editbtn" @click="editprofile"><v-icon>mdi-pencil</v-icon>Edit Details</button>
-            <button id="deletebtn" @click="deletetrainer"><v-icon>mdi-delete</v-icon>Delete Account</button>
-          </div>
-            
-  
+
+      <div class="right-section">
+        <h2 class="title">Trainer Profile</h2>
+        <div class="info-box" v-for="(value, key) in displayInfo" :key="key">
+          <span class="label">{{ key }}</span>
+          <span class="value">{{ value }}</span>
         </div>
+        <div class="button-group">
+          <button class="btn outline" @click="editprofile">
+            <v-icon>mdi-pencil</v-icon>Edit
+          </button>
+          <button class="btn danger" @click="deletetrainer">
+            <v-icon>mdi-delete</v-icon>Delete
+          </button>
+        </div>
+      </div>
     </div>
   </div>
-  
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
 
 export default {
-  data(){
+  data() {
     return {
       trainer: {
-        id: 1, 
         name: "",
         email: "",
         password: "",
-        certification:"",
-        experienceYears:"",
-        specialisationName:"",
+        certification: "",
+        experienceYears: "",
+        specialisationName: "",
       },
-      about:"",
-    }
-    
+      about: "",
+    };
   },
-  computed:{
-      ...mapGetters(['gettrainer_id']),
-      trainer_id(){
-        return this.gettrainer_id;
-      }
+  computed: {
+    ...mapGetters(['gettrainer_id']),
+    displayInfo() {
+      return {
+        Name: this.trainer.name,
+        Email: this.trainer.email,
+        Password: this.trainer.password,
+        Certification: this.trainer.certification,
+        Experience: this.trainer.experienceYears + " years",
+        Specialization: this.trainer.specialisationName,
+      };
+    },
   },
-    methods: {
+  methods: {
     async fetchTrainerProfile() {
       try {
-        const trainer_id = Number(this.gettrainer_id);
-        console.log(trainer_id);
-        
-        const result = await this.$store.dispatch("Trainer/fetchTrainerProfile",trainer_id);
+        const id = this.gettrainer_id;
+        const result = await this.$store.dispatch("Trainer/fetchTrainerProfile", id);
         if (result.success) {
           this.trainer = result.data;
-        } else {
-          alert(`Error: ${result.error}`); 
         }
       } catch (error) {
         console.error("Error loading Profile:", error);
       }
     },
-
-    async deletetrainer() {
-      const confirmDelete = window.confirm("Are you sure you want to delete your account?");
-      if (confirmDelete) {
-      try {
-        const trainer_id = this.gettrainer_id;
-        const result = await this.$store.dispatch("Trainer/deleteAccount",trainer_id);
-        if (result.success) {
-          this.user = result.data;
-          alert("your account has been deleted successfully.")
-        } else {
-          alert(`Error: ${result.error}`); 
-        }
-      } catch (error) {
-        console.error("Error deleting Profile:", error);
-      }
-    }else {
-        alert("Account deletion was canceled.");
-      }
-    },
-
-    async addabout(){
-      try {
-        const payload={
-          trainer_id:this.gettrainer_id,
-          about:this.about,
-        }
-        const result = await this.$store.dispatch("Trainer/about", payload);
-        if (result.success) {
-          alert("About added successfully!");
-        } else {
-          alert(` failed: ${result.error}`);
-        }
-      } catch (error) {
-        alert("Unexpected error ");
-      }
-    },
-
     async showabout() {
       try {
-        const trainer_id = this.gettrainer_id;
-        
-        const result = await this.$store.dispatch("Trainer/showabout",trainer_id);
+        const result = await this.$store.dispatch("Trainer/showabout", this.gettrainer_id);
         if (result.success) {
           this.about = result.data;
-        } else {
-          alert(`Error: ${result.error}`); 
         }
       } catch (error) {
         console.error("Error loading about:", error);
       }
     },
-
+    async addabout() {
+      try {
+        const payload = {
+          trainer_id: this.gettrainer_id,
+          about: this.about,
+        };
+        const result = await this.$store.dispatch("Trainer/about", payload);
+        if (result.success) alert("About updated successfully!");
+      } catch {
+        alert("Failed to update About section.");
+      }
+    },
+    async deletetrainer() {
+      if (confirm("Are you sure you want to delete your account?")) {
+        try {
+          const result = await this.$store.dispatch("Trainer/deleteAccount", this.gettrainer_id);
+          if (result.success) alert("Account deleted.");
+        } catch (error) {
+          console.error("Error deleting trainer:", error);
+        }
+      }
+    },
+    editprofile() {
+      // Navigate or open modal for editing
+    },
   },
   mounted() {
     this.fetchTrainerProfile();
     this.showabout();
   },
-}
+};
 </script>
 
-
 <style scoped>
-.profile{
+.profile-wrapper {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #252525 0%, #282828 100%);
   display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  backdrop-filter: blur(2px);
   width: 100%;
-  height: 100%;
-  color: white;
-  justify-content: space-evenly;
-  
- 
- 
-  
 }
-.about{
-  width: 40%;
-  color: rgb(255, 255, 255);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: #067163;
+
+.profile-card {
+  background: rgba(75, 75, 75, 0.15);
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border-radius: 20px;
-  padding: 5px;
-  
-
-
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  padding: 30px;
+  gap: 40px;
+  flex-wrap: wrap;
 }
 
-.content{
-  display: flex;
-  width: 83%;
-  height: 100%;
-  justify-content: center;
+.left-section,
+.right-section {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 20px;
   padding: 20px;
-  flex-direction: column;
-  align-items: center;
-  background-color: rgb(255, 255, 255);
-
+  box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.1);
 }
 
-
-.heading{
- 
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
- 
-
-}
-.image{
-  width: 300px;
-  height: 510px;
-  background-color: rgb(0, 0, 0);
-  border-bottom-left-radius: 25px;
-  border-top-left-radius: 25px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* box-shadow: 0 1px 1px rgba(0,0,0,0.15), 0 2px 2px rgba(0,0,0,0.15), 0 4px 4px rgba(0,0,0,0.15), 0 8px 8px rgba(0,0,0,0.15); */
-
-}
-img{
-  width: 290px;
-  height: 300px;
-  
-}
-.details{
-  width: 400px;
-  height: 540px;
-  background-color: rgba(255, 255, 255, 0.923);
-  color: black;
-  padding: 5px;
+.left-section {
+  flex: 1;
+  min-width: 280px;
   display: flex;
   flex-direction: column;
-  border-radius: 25px;
- 
-  /* box-shadow: 0 1px 1px rgba(0,0,0,0.15), 0 2px 2px rgba(0,0,0,0.15), 0 4px 4px rgba(0,0,0,0.15), 0 8px 8px rgba(0,0,0,0.15); */
-
-}
-.details h3{
-  margin-bottom: 2px;
-}
-.details p{
-  margin-bottom: 15px;
-  background-color: #c8c8c8;
-  padding: 10px 20px;
-  border-radius: 20px;
+  align-items: center;
 }
 
-.action{
- display: flex;
- align-items: center;
- justify-content: center;
-}
-
-#editbtn{
-  margin-top:5px ;
-  background-color: rgb(255, 255, 255);
-  width: 150px;
-  height: 50px;
-  color: #000000;
-  margin-right: 20px;
-  border-radius: 25px;
-  border: 1px solid black;
-}
-#deletebtn{
-  background-color: rgb(255, 0, 0);
-  width: 150px;
-  height: 50px;
+.profile-icon {
   color: #ffffff;
-  border-radius: 25px;
-
-}
-#add{
-  width: 150px;
-  height: 50px;
-  background-color: rgb(10, 3, 41);
-  border-radius: 25px;
-
+  margin-bottom: 20px;
 }
 
+.about-text {
+  width: 100%;
+  margin-bottom: 20px;
+}
 
+.right-section {
+  flex: 1.2;
+  min-width: 320px;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #ffffff;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+.info-box {
+  display: flex;
+  justify-content: space-between;
+  background-color: rgba(255, 255, 255, 0.15);
+  padding: 10px 20px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgb(28, 28, 28);
+  font-weight: 500;
+  backdrop-filter: blur(8px);
+}
+
+.label {
+  font-weight: 500;
+}
+
+.value {
+  font-weight: 600;
+}
+
+.button-group {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.btn {
+  border: none;
+  padding: 10px 18px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn.primary {
+  background-color: rgb(0, 255, 115);
+  color: #000000;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.btn.primary:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.btn.outline {
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  color: #ffffff;
+}
+
+.btn.outline:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.btn.danger {
+  background-color: rgba(255, 25, 0, 0.7);
+  color: white;
+}
+
+.btn.danger:hover {
+  background-color: rgba(192, 57, 43, 0.8);
+}
 
 </style>

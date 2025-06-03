@@ -2,25 +2,21 @@
   <div>
     <!-- <h2>Admin Home</h2> -->
     <div class="head"></div>
-    <div class="container">
-      <div class="one">
-        <div class="item1">
-          <h1>
-            <v-icon>mdi-account-multiple</v-icon>Users: {{ users.length }}
-          </h1>
-        </div>
-        <div class="item1">
-          <h1>
-            <v-icon>mdi-account-multiple</v-icon>Trainers: {{ trainers.length }}
-          </h1>
-        </div>
+    <div class="one">
+      <div class="item1">
+        <h1><v-icon>mdi-account-multiple</v-icon>Users: {{ users.length }}</h1>
+      </div>
+      <div class="item1">
+        <h1>
+          <v-icon>mdi-account-multiple</v-icon>Trainers: {{ trainers.length }}
+        </h1>
       </div>
     </div>
 
     <div class="container2">
       <div class="request">
-        <h2>Trainer Join Requests</h2>
-        <!-- <div v-if="requests.length === 0">No Trainer Requests</div> -->
+        <h2>{{ requests.length }} Pending Trainer Join Requests</h2>
+        <div v-if="requests.length === 0">No Trainer Requests</div>
         <div class="requestbody title">
           <div class="requests">
             <p style="font-weight: bold">SL No</p>
@@ -29,10 +25,13 @@
             <p style="font-weight: bold">Name</p>
           </div>
           <div class="requests">
-            <p style="font-weight: bold">status</p>
+            <p style="font-weight: bold">view</p>
           </div>
-          <div class="requests btn">
-            <!-- <router-link to="/approve"><button id="viewbtn"><v-icon>mdi-eye-outline</v-icon>View</button></router-link> -->
+          <div class="requests">
+            <p style="font-weight: bold">Accept</p>
+          </div>
+          <div class="requests">
+            <p style="font-weight: bold">Reject</p>
           </div>
         </div>
         <div v-if="requests.length === 0" class="requestbody">
@@ -52,9 +51,9 @@
             <div class="requests">
               <p>{{ request.name }}</p>
             </div>
-            <div class="requests">
+            <!-- <div class="requests">
               <p class="status">{{ request.status }}</p>
-            </div>
+            </div> -->
             <div class="requests btn">
               <button
                 id="viewbtn"
@@ -63,7 +62,23 @@
                   trainerDetails(request.trainer_id);
                 "
               >
-                <v-icon>mdi-eye-outline</v-icon>View
+                <v-icon>mdi-eye-outline</v-icon>
+              </button>
+            </div>
+            <div class="requests">
+              <button
+                id="approvebtn"
+                @click="approveTrainer(trainer.trainer_id)"
+              >
+                <v-icon>mdi-check</v-icon>Approve
+              </button>
+            </div>
+            <div class="requests">
+              <button
+                id="declinebtn"
+                @click="rejectTrainer(trainer.trainer_id)"
+              >
+                <v-icon>mdi-close</v-icon>Reject
               </button>
             </div>
           </div>
@@ -92,7 +107,9 @@
         <div class="info certi">
           <h3>Certification</h3>
           <p>{{ trainer.certification }}</p>
-          <button id="showbtn"><v-icon>mdi-eye-outline</v-icon>View</button>
+          <button id="showbtn" @click="viewCertification = true">
+            <v-icon>mdi-eye-outline</v-icon>View
+          </button>
         </div>
         <div class="info">
           <h3>Experience</h3>
@@ -102,16 +119,26 @@
           <h3>Specialization</h3>
           <p>{{ trainer.specialisationName }}</p>
         </div>
-        <div class="info btns">
-          <button id="approvebtn" @click="approveTrainer(trainer.trainer_id)">
-            <v-icon>mdi-check</v-icon>Approve
-          </button>
-          <button id="declinebtn" @click="rejectTrainer(trainer.trainer_id)">
-            <v-icon>mdi-close</v-icon>Reject
-          </button>
-        </div>
+        <div class="info btns"></div>
       </div>
     </div>
+  </v-dialog>
+
+  <v-dialog v-model="viewCertification" max-width="600">
+    <v-card>
+      <v-card-title>Trainer Certification</v-card-title>
+      <v-card-text>
+        <v-img
+          :src="'data:image/jpeg;base64,' + trainer.cert"
+          aspect-ratio="1.7"
+          contain
+        ></v-img>
+      </v-card-text>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn color="primary" @click="viewCertification = false">Close</v-btn>
+      </v-card-actions>
+    </v-card>
   </v-dialog>
 </template>
 
@@ -130,6 +157,7 @@ export default {
         specialisationName: "",
       },
       viewTrainerDetails: false,
+      viewCertification: false,
       trainers: [],
       users: [],
       requests: [],
@@ -250,184 +278,216 @@ export default {
   },
 };
 </script>
-
 <style scoped>
+/* DASHBOARD OVERVIEW CARDS */
 .one {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-  width: 100%;
   justify-content: space-between;
-}
-
-.container2 {
-  margin-top: 20px;
-  padding: 0 10px;
+  padding: 10px;
 }
 
 .item1 {
   flex: 1 1 300px;
-  height: 200px;
-  background-color: rgba(241, 241, 241, 0.879);
-  border-radius: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px,
-    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
-  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 12px;
+  padding: 20px;
+  color: #f0f0f0;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
 }
 
 .item1:hover {
-  background-color: #000;
-  color: #fff;
-  box-shadow: 2px 5px 10px #000;
+  background-color: #29293d;
+  transform: translateY(-4px);
+}
+
+/* REQUESTS TABLE */
+.container2 {
+  /* margin-top: 5px; */
+  padding: 0 15px;
 }
 
 .request {
-  width: 100%;
-  padding: 10px;
-  background-color: rgba(241, 241, 241, 0.879);
-  border-radius: 4px;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px,
-    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 12px;
+  padding: 20px;
+  color: #f0f0f0;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.request h2 {
+  margin-bottom: 15px;
 }
 
 .requestbody {
   display: flex;
   flex-wrap: wrap;
-  margin: 10px 0;
-  border-bottom: 1px solid #ddd;
-  padding: 10px 0;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .requests {
-  flex: 1 1 25%;
+  flex: 1 1 15%;
+  text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
 }
 
 #viewbtn {
-  width: 90px;
-  height: 30px;
-  background-color: rgb(225, 225, 225);
-  color: rgb(47, 47, 47);
-  border-radius: 25px;
-  border: none;
+  color: #a9a9a9;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-weight: bold;
   cursor: pointer;
+  border: none;
+  transition: background-color 0.2s ease;
+}
+
+#viewbtn:hover {
+  color: #ffffff;
 }
 
 .title {
-  background-color: black;
-  color: white;
+  background-color: #111;
   font-weight: bold;
+  border-radius: 10px;
 }
 
+/* STATUS BADGE */
 .status {
-  background-color: #fff200;
+  background-color: #ffdd57;
+  color: #000;
+  padding: 6px 15px;
   border-radius: 20px;
-  width: 100px;
-  height: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  font-weight: 500;
 }
 
+/* DIALOG BOX */
 .box {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 20px;
   width: 100vw;
   min-height: 100vh;
-  position: relative;
-  padding: 20px;
-  box-sizing: border-box;
 }
 
 .details {
-  width: 90%;
-  max-width: 600px;
-  background: white;
+  background-color: #585858b3;
   border-radius: 20px;
-  padding: 20px;
-  box-shadow: rgba(50, 50, 93, 0.25) 0 13px 27px -5px,
-    rgba(0, 0, 0, 0.3) 0 8px 16px -8px;
+  padding: 25px;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  position: relative;
+  backdrop-filter: blur(6px);
+  color: white;
 }
 
 .info {
   display: flex;
+  margin: 15px 0;
   flex-wrap: wrap;
-  margin: 10px 0;
 }
 
 .info h3 {
   width: 150px;
   margin: 0;
-  text-align: center;
-  display: flex;
-  align-items: center;
 }
 
 .info p {
   flex: 1;
-  font-size: 18px;
-  /* border: 1px solid #000; */
+  background-color: #7373734b;
   border-radius: 30px;
-  padding: 8px 30px;
+  padding: 8px 20px;
+  font-size: 16px;
   margin: 0;
-  background-color: #ddd;
 }
 
-.btns {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-#approvebtn,
-#declinebtn {
-  width: 120px;
-  height: 40px;
+/* CERTIFICATION VIEW BUTTON */
+.certi button {
+  margin-left: 15px;
+  background-color: #ffffff;
+  color: #1e1e2f;
   border-radius: 20px;
+  padding: 5px 12px;
   border: none;
   cursor: pointer;
 }
 
-#approvebtn {
-  background-color: #2bd700;
-  color: #000;
-}
-
-#declinebtn {
-  background-color: rgb(189, 0, 0);
-  color: #fff;
-}
-
+/* DIALOG CLOSE BUTTON */
 #exit {
   position: absolute;
   top: 10px;
   right: 10px;
-  background: none;
+  background: transparent;
   border: none;
-  font-size: 18px;
   cursor: pointer;
 }
-.close{
-  top: 85px;
-  right:440px;
+
+.close {
   color: #ffffff;
+  right: 370px;
+  top: 70px;
 }
 
-/* RESPONSIVENESS */
+/* APPROVE/REJECT BUTTONS */
+.btns {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 25px;
+  flex-wrap: wrap;
+}
 
+#approvebtn,
+#declinebtn {
+  padding: 10px 25px;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+#approvebtn {
+  /* background-color: #6b6b6b72; */
+  color: #9c9c9c;
+  border: 1px solid rgb(0, 196, 0);
+}
+
+#declinebtn {
+  /* background-color: #dc3545; */
+  color: #a0a0a0;
+  border: 1px solid rgb(228, 0, 0);
+}
+#approvebtn:hover {
+  /* background-color: #6b6b6b72; */
+  color: #d1d1d1;
+  border: 1px solid rgb(0, 243, 0);
+  box-shadow: 0 6px 18px #000000;
+}
+
+#declinebtn:hover {
+  /* background-color: #dc3545; */
+  color: #cecece;
+  border: 1px solid red;
+  box-shadow: 0 6px 18px #000000;
+}
+
+/* RESPONSIVE DESIGN */
 @media (max-width: 768px) {
   .one {
     flex-direction: column;
-    align-items: center;
   }
 
   .item1 {
@@ -441,13 +501,11 @@ export default {
 
   .requests {
     width: 100%;
-    justify-content: center;
     margin: 5px 0;
   }
 
   .info {
     flex-direction: column;
-    align-items: flex-start;
   }
 
   .info h3,
@@ -457,12 +515,6 @@ export default {
 
   .btns {
     flex-direction: column;
-    align-items: center;
-  }
-
-  #exit {
-    right: 20px;
-    top: 20px;
   }
 }
 </style>

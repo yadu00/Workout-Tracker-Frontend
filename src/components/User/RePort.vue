@@ -20,7 +20,7 @@
       </div>
       <div class="weight">
         <p>Weight : {{ user.weight }} kg</p>
-        <router-link to="/updateweight" style="text-decoration: none; color: black;text-align: center;"
+        <router-link to="/bmi" style="text-decoration: none; color: black;text-align: center;"
           >
           <v-icon size="70px">mdi-chevron-right</v-icon>
         <p style="font-size: 25px;">update</p></router-link>
@@ -204,99 +204,139 @@ export default {
 <style scoped>
 .container {
   width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-.title {
-  width: 80%;
-  height: 75px;
-  background-color: rgb(155, 155, 155);
-  border-radius: 50px;
-  margin-bottom: 20px;
-  color: rgb(0, 0, 0);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  z-index: 999;
-}
-.reports {
-  width: 97%;
-  height: auto;
-  display: flex;
-  justify-content: space-around;
-}
-.section1 {
-  margin-top: 120px;
-  width: 48%;
-  height: 150px;
-  background-color: #d2cf01;
-  /* margin-bottom: 20px; */
+  min-height: 100vh;
+  padding: 20px;
+  /* background: #121212; Dark background */
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
 
-  border-radius: 20px;
-  color: rgb(0, 0, 0);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #eee;
+  justify-content: center;
+}
+
+.title {
+  width: 800px;
+  height: 80px;
+  margin-left: 800px;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: white;
+  box-shadow: 0 4px 12px rgba(79, 84, 200, 0.5);
+ 
+  transform: translateX(-50%);
+}
+
+.reports {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 130px;
+}
+
+.section1 {
+  flex: 1;
+  height: 160px;
+  background: #1f1f1f;
+  border-radius: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  color: #82c91e;
+  display: flex;
   flex-direction: column;
-  /* box-shadow: 0px 8px 16px 0px #00000033; */
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  transition: background 0.3s ease;
+  cursor: default;
+}
+.section1:hover {
+  background: #2a2a2a;
 }
 
 .section1 p {
-  font-size: xx-large;
-  font-weight: bold;
+  font-size: 1.25rem;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: #a8d08d;
 }
+
+.section1 h1 {
+  font-size: 3.5rem;
+  color: #e6f7d4;
+}
+
 .section2 {
-  width: 97%;
-  height: auto;
-  display: flex;
-  justify-content: space-around;
-  margin-top: 10px;
-}
-.section2 h1 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.section2 .height {
-  width: 48%;
-  height: 150px;
-  background-color: #d2d2d2;
-  /* margin-bottom: 20px; */
-
-  border-radius: 20px;
-  color: rgb(0, 0, 0);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-.section2 .weight {
-  width: 48%;
-  height: 150px;
-  background-color: #c3c4c4;
-  /* margin-bottom: 20px; */
-
-  border-radius: 20px;
-  color: rgb(0, 0, 0);
+  width: 100%;
+  max-width: 900px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.section2 .height,
+.section2 .weight {
+  flex: 1;
+  height: 160px;
+  border-radius: 20px;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.4);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+  color: #222;
+  background: #e3e3e3;
+  transition: box-shadow 0.3s ease;
+}
+
+.section2 .height {
+  background: #aa0000;
+  color: white;
+  box-shadow: 0 4px 20px rgba(74,144,226,0.5);
+}
+
+.section2 .height p {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.section2 .height h1 {
+  font-size: 2.8rem;
+  font-weight: 700;
+}
+
+.section2 .weight {
   flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .weight p {
-  width: 80%;
-  height: 100%;
-  font-size: 35px;
-  font-weight: bold;
+  flex-grow: 1;
+  font-size: 2.8rem;
+  font-weight: 700;
+  background: #d8d8d8;
+  color: #333;
+  border-radius: 20px 0 0 20px;
   text-align: center;
-  border-bottom-left-radius: 20px;
-  border-top-left-radius: 20px;
-  background-color: #c8c8c8;
+  padding: 0 10px;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 0;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
 }
+
+
+
 </style>

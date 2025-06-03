@@ -2,7 +2,9 @@
     <div class="Adminbody">
       <aside class="sidebar">
         <div class="sidebar-header">
-          <img :src="require('@/assets/img/adminlogo.png')" alt="" style="width: 100px;height: 100px;">
+          <!-- <img :src="require('@/assets/img/adminlogo.png')" alt="" style="width: 100px;height: 100px;"> -->
+                      <v-icon size="100px">mdi-account-tie</v-icon>
+
           <h1>{{  }}Admin</h1>
   
         </div>
@@ -57,29 +59,22 @@
   </script>
   
   <style scoped>
-  .v-main{
-    background-color: #747474;
-  /* padding-left: 20px; */
-  height: 100vh;
-  /* padding-top: 20px; */}
+  
   .Adminbody{
     background-color: rgb(255, 255, 255);
-    padding-left: 20px;
   height: 100vh;
   width: 100%;
-  padding-top: 20px;
   }
   
   .Adminbody .sidebar{
     position: fixed;
   width: 260px;
-  background-color: #000000;
+  background-color: #034e42;
   padding: 25px 20px;
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
-  height: 655px;
-  border-radius: 30px;
+  height: 100%;
   /* border-bottom-left-radius: 30px; */
     
   }
@@ -89,7 +84,7 @@
   
   
   .Adminbody .sidebar-links li a{
-    color: rgb(255, 255, 255);
+    color: rgb(204, 204, 204);
     display: flex;
     align-items: center;
     padding: 15px 10px;
@@ -103,20 +98,24 @@
   .Adminbody .sidebar-links{
     list-style: none;
     margin-top: 10px;
-    width: 260px;
+    
+    
    
   }
+  .Adminbody .sidebar-links li a:hover{
+  /* background-color: rgb(26, 26, 26); */
+  color: #000000;
+  border-radius: 4px;
+  background-color: #F6B17A;
+}
   
-  /* .Adminbody .sidebar-links li a:hover{
-    background-color: rgb(255, 255, 255);
-    color: rgb(16, 16, 16);
-    border-radius: 20px;
-  } */
+ 
   
   .Adminbody .sidebar-links li img{
     width: 30px;
     height: 30px;
     margin-right: 10px;
+    
   }
   .Adminbody .sidebar-header{
     display: flex;
@@ -148,25 +147,29 @@
   }
   
   #logout{
-    background-color: rgb(255, 0, 0);
-    width: 100px;
-    height: 35px;
+    background-color: rgb(255, 0, 43);
+    width: 150px;
+    height: 45px;
     color: rgb(255, 255, 255);
-    border-radius:25px ;
-    width: 100px;
+    border-radius:4px ;
+          box-shadow: 0 6px 18px #000000;
+
 
   }
   .main {
-    position: fixed;
-  width: calc(100% - 300px); /* 260px for sidebar + 20px margin */
-  background-color: rgb(255, 255, 255);
+  
+
+   position: fixed;
+  width: calc(100% - 270px); /* 260px for sidebar + 20px margin */
+    background: linear-gradient(135deg, #151515, #343437, #151519);
   overflow-y: auto;
-  border-top-right-radius: 30px;
-  border-bottom-right-radius: 30px;
+  /* border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px; */
   margin-left: 260px;
-  margin-right: 40px;
+
+  /* padding: 10px; */
+  height: 100%;
   padding: 10px;
-  height: 655px;
 }
 .main::-webkit-scrollbar{
   display: none;
@@ -181,38 +184,16 @@
 
 /* For exact match (useful for /dashboard vs /dashboard/details) */
 .sidebar-links .router-link-exact-active {
-  background-color: rgb(255, 255, 255);
+  background-color: #F6B17A;
   color: #000000 !important;
-  /* border-top-left-radius: 25px;
-  border-bottom-left-radius: 25px; */
-  border-top-left-radius: 20px;
-  border-bottom-left-radius: 20px;
+ border-radius: 4px;
   position: relative;
+        box-shadow: 0 6px 18px #000000;
+
   /* border-radius: 0px 0px 25px 0px; */
 
 }
-.sidebar-links .router-link-exact-active::after{
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 84.5%;
-  width: 20px;
-  height: 20px;
-  /* background-color: aqua; */
-  border-top-right-radius: 20px;
-  box-shadow: 5px -5px 0px 5px #ffffff;
-}
-.sidebar-links .router-link-exact-active::before{
-  content: "";
-  position: absolute;
-  top: -20px;
-  left: 84.5%;
-  width: 20px;
-  height: 20px;
-  /* background-color: aqua; */
-  border-bottom-right-radius: 20px;
-  box-shadow: 5px 5px 0px 5px #ffffff;
-}
+
 
 
   </style>

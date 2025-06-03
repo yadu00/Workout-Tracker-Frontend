@@ -32,6 +32,8 @@
     height: 100vh;
     text-align: center;
     color: rgb(0, 0, 0);
+      background: linear-gradient(135deg, #181818, #232326, #030303);
+
 
 
   }

@@ -100,94 +100,121 @@ export default {
 </script>
 
 
-
 <style scoped>
-.user-profile{
-  display: flex;
-  width: auto;
-  height: auto;
-  padding: 20px;
-  border-radius: 25px;
-  color: rgb(255, 255, 255);
- 
-  
-}
-h1{
-  color: white;
-}
-
-.profile-content{
-  display: flex;
-  justify-content: center;
-  padding: 20px;
-  flex-direction: column;
-  align-items: center;
-}
-
-.heading{
- 
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
- 
-
-}
-.image{
-  width: 300px;
-  height: 500px;
-  background-color: rgb(73, 73, 73);
-  border-bottom-left-radius: 25px;
-  border-top-left-radius: 25px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-}
-img{
-  width: 290px;
-  height: 300px;
-}
-.details{
-  width: 500px;
-  height: 500px;
-  background-color: rgba(147, 146, 146, 0.703);
-  color: black;
-  padding: 50px;
+.profile-content {
   display: flex;
   flex-direction: column;
-  border-bottom-right-radius: 25px;
-  border-top-right-radius: 25px;
+  align-items: center;
+  padding: 40px 20px;
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
 
+  /* background: linear-gradient(to right, #232526, #414345); */
+  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
 }
-.details h3{
-  margin-bottom: 2px;
-  margin-left: 20px;
+
+.heading {
+  margin-bottom: 30px;
 }
-.details p{
-  margin-left: 20px;
-  margin-bottom: 15px;
-  background-color: rgb(213, 213, 213);
-  padding: 10px 25px;
+
+.heading h1 {
+  font-size: 2.5rem;
+  color: #00e676;
+  border-bottom: 2px solid #00e676;
+  padding-bottom: 0.3rem;
+}
+
+.user-profile {
+  display: flex;
+  /* background-color: #2c2f33; */
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+
   border-radius: 20px;
-  font-size: large;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  max-width: 950px;
+  width: 100%;
+  flex-wrap: wrap;
 }
 
-.button{
+.image {
   width: 100%;
-  height: 50px;
+  max-width: 300px;
+  /* background-color: #1e1e1e; */
+
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 30px;
 }
 
+.image img {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid #00e676;
+}
 
-#deletebtn{
-  background-color: rgb(217, 1, 1);
-  width: 170px;
-  height: 50px;
-  color: #ffffff;
+.details {
+  flex: 1;
+  padding: 40px;
+  /* background-color: #333; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-left: 1px solid #444;
+}
+
+.details h3 {
+  font-size: 1rem;
+  color: #a0a0a0;
+  margin-bottom: 4px;
+  margin-top: 16px;
+}
+
+.details p {
+  background-color: #444;
+  border-radius: 12px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: #fff;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.details p span {
+  color: #00e676;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+}
+
+.button {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 30px;
+}
+
+#deletebtn {
+  background-color: #e53935;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 1rem;
   border-radius: 25px;
-
+  cursor: pointer;
+  transition: background 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
+#deletebtn:hover {
+  background-color: #b71c1c;
+}
 </style>
