@@ -90,7 +90,7 @@ export default {
       try {
         const trainer_id = this.gettrainer_id;
         const result = await this.$store.dispatch(
-          "Trainer/fetchUsers",
+          "Trainer/viewClients",
           trainer_id
         );
 

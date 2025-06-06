@@ -134,14 +134,17 @@ export default {
       const confirmDelete = window.confirm("Delete Exercise");
       if (confirmDelete) {
         try {
-          const trainer_id = this.gettrainer_id;
+          const payload={
+            trainer_id:this.gettrainer_id,
+            exercise_id:exercise_id
+          }
           const result = await this.$store.dispatch(
             "Trainer/deleteExercise",
-            trainer_id,
-            exercise_id
+           payload
           );
           if (result.success) {
             this.user = result.data;
+                this.fetchExercises();
             alert("Exercise deleted.");
           } else {
             alert(`Error: ${result.error}`);

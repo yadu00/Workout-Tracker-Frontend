@@ -146,7 +146,7 @@ export default {
 .loginbody {
   width: 100%;
   height: 100vh;
-  background: linear-gradient(135deg, #020202, #b52a00, #000000);
+  background: linear-gradient(135deg, #181818, #232326, #030303);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -177,7 +177,7 @@ export default {
   justify-content: center;
   align-items: center;
   margin-bottom: 30px;
-  color: #ffffff;
+  color: #ff0000;
   font-size: 2.5rem;
   text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.4);
 }
@@ -209,7 +209,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #000000;
+  color: #a6a59d;
   font-size: 2.5rem;
   text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.4);
 }
@@ -283,7 +283,7 @@ label {
   width: 100%;
   max-width: 200px;
   height: 50px;
-  background-color: #cf9800;
+  background-color: #ff0000c4;
   color: rgb(0, 0, 0);
   font-weight: bold;
   font-size: 1.2rem;
@@ -296,7 +296,7 @@ label {
 }
 
 .btn:hover {
-  background-color: #f3b200;
+  background-color: #ff0000;
 }
 
 .router {

@@ -43,7 +43,7 @@
       <button
         id="nextpage"
         @click="
-          addBmi();
+          submit();
           gotoselecttrainer();
         "
       >
@@ -82,29 +82,22 @@ export default {
       this.bmiStatus = "";
     },
 
-    async addBmi() {
+    async submit() {
       try {
-         const height = parseFloat(this.height);
-      const weight = parseFloat(this.weight);
-        if (!height || !weight || height <= 0 || weight <= 0) {
-        alert("Please enter valid height and weight.");
-        return;
-      }
         const payload = {
           user_id: this.getuser_id,
-          height: this.height,
           weight: this.weight,
+          height:this.height,
+          bmi: this.bmi,
         };
-
-        const result = await this.$store.dispatch("User/addBmi", payload);
-
+        const result = await this.$store.dispatch("User/logBmi", payload);
         if (result.success) {
-          // alert("Bmi Added successfully!");
+          alert("new Bmi added");
         } else {
-          alert(`Bmi Adding failed: ${result.error}`);
+          alert(`failed: ${result.error}`);
         }
       } catch (error) {
-        alert("Unexpected error. Please check console.");
+        alert("Unexpected error.Please check console.");
       }
     },
     calculateBmi() {

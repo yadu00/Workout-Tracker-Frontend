@@ -147,22 +147,6 @@ export default {
     },
 
     async signupTrainer() {
-      // const formData = new FormData();
-      //     formData.append("cert", this.selectedFile);
-      //     const trainerModel = new Blob(
-      //       [
-      //         JSON.stringify({
-      //           name: this.name,
-      //           email: this.email,
-      //           password: this.password,
-      //           certification: this.certification,
-      //           specialization_id:this.selectedspecialisation,
-      //           experienceYears:this.experienceYears
-      //         }),
-      //       ],
-      //       { type: "application/json" }
-      //     );
-      //     formData.append("trainerModel", trainerModel);
       try {
         if (this.passwordMismatch()) {
           alert("Passwords do not match!");

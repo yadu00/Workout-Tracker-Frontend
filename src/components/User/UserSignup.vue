@@ -127,7 +127,7 @@ export default {
   justify-content: center;
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
   color: rgb(0, 0, 0);
-  background: linear-gradient(135deg, #020202, #950000, #000000);
+  background: linear-gradient(135deg, #181818, #232326, #030303);
   font-family: Arial, Helvetica, sans-serif;
   background-size: cover;
 }

@@ -167,7 +167,7 @@ export default {
       try {
         const trainer_id = this.gettrainer_id;
         const result = await this.$store.dispatch(
-          "Trainer/fetchUsers",
+          "Trainer/viewClients",
           trainer_id
         );
 
@@ -357,7 +357,9 @@ export default {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease;
   margin-right: 5px;
+  
 }
+
 
 .calendar {
   width: 35%;
@@ -483,6 +485,12 @@ h2 {
   transition: transform 0.3s ease;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  overflow-y: scroll;
+
+}
+.payment::-webkit-scrollbar{
+  display: none;
 }
 
 .paytitle {
@@ -515,6 +523,7 @@ h2 {
 .title {
   width: 100%;
   display: flex;
+  
 }
 .content {
   width: 100%;
@@ -538,17 +547,17 @@ h2 {
   flex-direction: column;
   gap: 10px;
   width: 100%;
-  height: 100%; /* or set a fixed height like 400px */
-  overflow-y: auto;
+  height: 100%; 
+  overflow: hidden;
+  overflow-y: scroll;
   padding: 10px;
 
-  /* Hide scrollbar for WebKit browsers */
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
+
+
 }
 
 .section2::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+  display: none; 
 }
 
 .daycard {

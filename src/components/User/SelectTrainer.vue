@@ -79,7 +79,7 @@ export default {
   methods: {
     async loadTrainers() {
       try {
-        const result = await this.$store.dispatch("User/selectTrainers");
+        const result = await this.$store.dispatch("User/viewTrainers");
         if (result.success) {
           this.trainers = result.data;
           this.filteredTrainers = this.trainers;

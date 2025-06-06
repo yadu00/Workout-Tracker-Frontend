@@ -37,6 +37,7 @@ const router = createRouter({
     { path: '/pay',  component: () => import('./components/User/PayMent.vue'), },
 
      { path: '/paycomplete',  component: () => import('./components/User/PaymentComplete.vue'), },
+     { path: '/paynow',  component: () => import('./components/User/PayAgain.vue'), },
          
 
 

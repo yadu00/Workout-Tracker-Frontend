@@ -80,10 +80,10 @@ workoutName: "",
     ...mapGetters(["getuser_id"]), // Map the getter directly
   },
   methods: {
-    async loadWeekdays() {
+    async loadWeeklyWorkouts() {
       try {
         const payload = { user_id: this.getuser_id };
-        const result = await this.$store.dispatch("User/loadWeekdays", payload);
+        const result = await this.$store.dispatch("User/loadWeeklyWorkouts", payload);
 
           if (result.success) {
           this.daycards = result.data;
@@ -115,7 +115,7 @@ workoutName: "",
     },
   },
   mounted() {
-    this.loadWeekdays();
+    this.loadWeeklyWorkouts();
     this.fetchworkouttoday();
   },
 };

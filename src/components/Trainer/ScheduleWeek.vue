@@ -5,10 +5,12 @@
     </div>
     <div class="content">
       <div class="name">
-        <h2>Client Name : {{name}}</h2>
+        <h2>Client Name : {{ name }}</h2>
       </div>
       <div class="content-addbtn">
-        <button id="weekschedule" @click="workoutnameDialog = true">Schedule Day</button>
+        <button id="weekschedule" @click="workoutnameDialog = true">
+          Schedule Day
+        </button>
       </div>
 
       <div class="weeks">
@@ -16,11 +18,17 @@
           <!-- <h3>{{ week.weekNumber }}</h3> -->
 
           <div class="days">
-            <div v-for="(day, dayIndex) in daycards" :key="dayIndex" class="day-card">
+            <div
+              v-for="(day, dayIndex) in daycards"
+              :key="dayIndex"
+              class="day-card"
+            >
               <h4>{{ day.day }}</h4>
               <p>{{ day.workoutName }}</p>
               <p>{{ day.date }}</p>
-              <router-link :to="{ path: '/sch', query: { id: day.id, user_id: user_id } }">
+              <router-link
+                :to="{ path: '/sch', query: { id: day.id, user_id: user_id } }"
+              >
                 <button id="selectday">Schedule Workout</button>
               </router-link>
             </div>
@@ -33,29 +41,26 @@
     <v-dialog v-model="workoutnameDialog" max-width="500">
       <v-card>
         <v-card-title>Add Daily Workout</v-card-title>
-       <v-card-text>
-  <v-form @submit.prevent="addWeekDay">
-   
-     
-        <v-text-field 
-            v-model="form.date"
-            label="Date"
-            type="date"
-            outlined:max="maxDate"
-            required
-            variant="outlined"
+        <v-card-text>
+          <v-form @submit.prevent="addWeekDay">
+            <v-text-field
+              v-model="form.date"
+              label="Date"
+              type="date"
+              outlined:max="maxDate"
+              required
+              variant="outlined"
             ></v-text-field>
-    
 
-    <!-- Workout Name -->
-    <v-text-field
-      v-model="form.workoutName"
-      label="Workout Name"
-      required
-    ></v-text-field>
-  </v-form>
-</v-card-text>
- <v-card-actions>
+            <!-- Workout Name -->
+            <v-text-field
+              v-model="form.workoutName"
+              label="Workout Name"
+              required
+            ></v-text-field>
+          </v-form>
+        </v-card-text>
+        <v-card-actions>
           <v-btn color="red" text @click="workoutnameDialog = false"
             >Cancel</v-btn
           >
@@ -67,7 +72,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 
 export default {
   data() {
@@ -76,26 +81,24 @@ export default {
       daycards: [],
       currentWeek: 1,
       user_id: null,
-          datePickerMenu: false,
+      datePickerMenu: false,
 
       form: {
-        date: '',
-        workoutName: '',
+        date: "",
+        workoutName: "",
       },
       weeks: [], // Make sure this is defined if you loop through it
     };
   },
   computed: {
-    ...mapGetters(['gettrainer_id']),
+    ...mapGetters(["gettrainer_id"]),
     trainer_id() {
       return this.gettrainer_id;
     },
-   
   },
   created() {
     this.user_id = this.$route.query.user_id;
     this.name = this.$route.query.name;
-
   },
   methods: {
     async addWeekDay() {
@@ -104,33 +107,39 @@ export default {
           trainer_id: this.trainer_id,
           user_id: this.user_id,
           date: this.form.date,
-  workoutName: this.form.workoutName,
+          workoutName: this.form.workoutName,
         };
-        const result = await this.$store.dispatch('Trainer/dailyworkouts', payload);
+        const result = await this.$store.dispatch(
+          "Trainer/weeklyworkout",
+          payload
+        );
         if (result.success) {
           this.workoutnameDialog = false;
           this.loadWeekdays(); // Refresh list
-          alert('Day added successfully!');
+          alert("Day added successfully!");
         } else {
           alert(`Failed: ${result.error}`);
         }
       } catch (error) {
-        console.error('Error adding week:', error);
-        alert('Unexpected error while adding the week.');
+        console.error("Error adding week:", error);
+        alert("Unexpected error while adding the week.");
       }
     },
 
     async loadWeekdays() {
       try {
         const payload = { user_id: this.user_id };
-        const result = await this.$store.dispatch('Trainer/loaddaylyworkouts', payload);
+        const result = await this.$store.dispatch(
+          "Trainer/loaddaylyworkouts",
+          payload
+        );
         if (result.success) {
           this.daycards = result.data;
         } else {
           alert(`Error: ${result.error}`);
         }
       } catch (error) {
-        console.error('Error loading weeks:', error);
+        console.error("Error loading weeks:", error);
       }
     },
   },
@@ -140,8 +149,6 @@ export default {
 };
 </script>
 
-
-
 <style scoped>
 .body {
   min-height: 100vh;
@@ -149,7 +156,7 @@ export default {
   display: flex;
   flex-direction: column;
   padding: 40px 20px;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: "Segoe UI", sans-serif;
   color: #f4f4f4;
 }
 
@@ -160,7 +167,7 @@ export default {
   color: #ffffff;
   text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
 }
-.name{
+.name {
   margin-left: 150px;
   margin-bottom: 50px;
 }
@@ -178,7 +185,6 @@ export default {
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  
 }
 
 .week-container h3 {
@@ -191,7 +197,6 @@ export default {
   display: flex;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 16px;
-  
 }
 
 .day-card {
@@ -206,7 +211,6 @@ export default {
   justify-content: center;
   gap: 8px;
   color: #ffffff;
-  
 }
 
 .day-card:hover {
@@ -233,11 +237,11 @@ export default {
 #selectday:hover {
   background-color: #c80000;
 }
-#weekschedule{
-   background-color: #2793d6;
-   width: 150px;
-   height: 40px;
-   margin-bottom: 10px;
-   border-radius: 4px;
+#weekschedule {
+  background-color: #2793d6;
+  width: 150px;
+  height: 40px;
+  margin-bottom: 10px;
+  border-radius: 4px;
 }
 </style>

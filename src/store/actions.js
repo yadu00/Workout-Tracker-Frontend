@@ -36,14 +36,14 @@ export default{
         const response = await axios.post(`${rootGetters.getUrl}/api/trainer/login-trainer`, payload);
         if (response.status >= 200 && response.status < 300) {
           commit('settrainer_id', response.data.trainer_id);
-          commit('settrainer_data', response.data); // Commit all data
-          return response.data; // Return the full response data
+          commit('settrainer_data', response.data); 
+          return response.data; 
         } else {
           throw new Error("Login failed");
         }
       } catch (error) {
         console.error("Login error:", error);
-        throw error; // Re-throw to handle in component
+        throw error; 
       }
     },
 }

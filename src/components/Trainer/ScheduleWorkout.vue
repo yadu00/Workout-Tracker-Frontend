@@ -39,16 +39,16 @@
           </div>
           <div class="names">
             <div class="info">
-             <template v-if="exercise.workoutStatus === 'completed'">
-      ✅ Completed
-    </template>
-    <template v-else-if="exercise.workoutStatus === 'partially done'">
-      🟡 Partially Done
-      <v-icon @click="toggleWorkoutStatus(index)">mdi-eye-outline</v-icon>
-    </template>
-    <template v-else>
-      ❌ Not Done
-    </template>
+              <template v-if="exercise.workoutStatus === 'completed'">
+                ✅ Completed
+              </template>
+              <template v-else-if="exercise.workoutStatus === 'partially done'">
+                🟡 Partially Done
+                <v-icon @click="toggleWorkoutStatus(index)"
+                  >mdi-eye-outline</v-icon
+                >
+              </template>
+              <template v-else> ❌ Not Done </template>
             </div>
           </div>
         </div>
@@ -155,7 +155,6 @@ export default {
   created() {
     this.id = this.$route.query.id;
     this.user_id = this.$route.query.user_id;
-    // Get user_id from URL
   },
   methods: {
     toggleWorkoutStatus(index) {
@@ -252,6 +251,30 @@ export default {
         }
       } catch (error) {
         console.error("Error loading exercises:", error);
+      }
+    },
+    async deleteWorkout(workout_id) {
+      const confirmDelete = window.confirm("Delete Workout");
+      if (confirmDelete) {
+        try {
+          const payload = {
+            trainer_id: this.gettrainer_id,
+            workout_id: workout_id,
+          };
+          const result = await this.$store.dispatch(
+            "Trainer/deleteExercise",
+            payload
+          );
+          if (result.success) {
+            this.user = result.data;
+            this.fetchExercises();
+            alert("Workout deleted.");
+          } else {
+            alert(`Error: ${result.error}`);
+          }
+        } catch (error) {
+          console.error("Error deleting Workout:", error);
+        }
       }
     },
   },
