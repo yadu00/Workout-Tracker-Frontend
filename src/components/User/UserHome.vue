@@ -180,13 +180,10 @@ export default {
   },
   data() {
     return {
-      // heightMarks: Array.from({ length: 251 }, (_, i) => i), // Height range: 0 to 250
-      // weightMarks: Array.from({ length: 251 }, (_, i) => i), // Weight range: 0 to 250
-      // selectedHeightMark: 150,
-      // selectedWeightMark: 50,
+     
 
-      weightHistory: [80, 78, 77, 76, 74], // example weights
-      targetWeight: 70,
+      weightHistory: [], 
+      targetWeight: '',
 
       user: {
         name: "",
@@ -226,7 +223,6 @@ export default {
     };
   },
   mounted() {
-    // this.checkFirstLogin();
     this.updateCalendar();
     this.viewBmi();
     this.fetchProfile();
@@ -236,17 +232,10 @@ export default {
     this.SubscribedPlan();
   },
   computed: {
-    ...mapGetters(["getuser_id"]), // Map the getter directly
+    ...mapGetters(["getuser_id"]), 
   },
   methods: {
-    // checkFirstLogin() {
-    //   const userKey = `firstLogin_${this.$store.state.auth?.user_id}`;
-    //   if (localStorage.getItem(userKey) === "true") {
-    //     this.$router.push("/welcome");
-    //   } else {
-    //     this.$router.push("/userHome");
-    //   }
-    // },
+    
     logout() {
       this.$store.commit("logout");
       this.$router.push("/userlogin");
@@ -307,6 +296,7 @@ export default {
         console.error("Error loading Trainers:", error);
       }
     },
+    
     async fetchTodaysWorkout() {
       try {
         const today = new Date();
@@ -540,8 +530,11 @@ export default {
   /* margin: 20px; */
   padding-left: 50px;
 }
+.div1 h1{
+  width: 50%;
+}
 .div1 .icons {
-  width: 80%;
+  width: 50%;
   display: flex;
   justify-content: end;
 }

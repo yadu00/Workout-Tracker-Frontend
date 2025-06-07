@@ -2,7 +2,11 @@
   <div class="Trainerbody">
     <aside class="navbar">
       <div class="navbar-title">
-        <img :src="require('@/assets/logo.png')" alt="" style="width: 30px; height: 30px;">
+        <img
+          :src="require('@/assets/logo.png')"
+          alt=""
+          style="width: 30px; height: 30px"
+        />
       </div>
       <ul class="navbar-links">
         <li>
@@ -15,7 +19,7 @@
             <v-icon size="40px">mdi-weight-lifter</v-icon>Exercises
           </router-link>
         </li>
-        
+
         <li>
           <router-link to="/ScheduleWorkouts">
             <v-icon size="40px">mdi-account-multiple-outline</v-icon>Clients
@@ -26,12 +30,6 @@
             <v-icon size="40px">mdi-account-circle-outline</v-icon>Profile
           </router-link>
         </li>
-        <li>
-          <router-link to="/TrainerPayments">
-            <v-icon size="40px">mdi-credit-card</v-icon>Payments
-          </router-link>
-        </li>
-
       </ul>
       <div class="user-profile mt-auto p-4">
         <!-- <img :src="require('@/assets/img/logout.png')" alt="Logout"> -->
@@ -47,22 +45,21 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 export default {
   computed: {
-    ...mapGetters(['gettrainer_id']),  // Map the getter directly
+    ...mapGetters(["gettrainer_id"]),
   },
   methods: {
-  logout() {
-    this.$store.commit('logout');         // Reset Vuex state + sessionStorage
-    this.$router.push('/Trainerlogin');          // Redirect to login page
-  }
-}
-}
+    logout() {
+      this.$store.commit("logout");
+      this.$router.push("/Trainerlogin");
+    },
+  },
+};
 </script>
 
 <style scoped>
-
 .Trainerbody {
   /* display: flex; */
   background-color: rgb(255, 255, 255);
@@ -70,47 +67,30 @@ export default {
   height: 100vh;
   width: 100%;
   /* padding-top: 20px; */
-  
-
-
-
 }
 
 .navbar {
   position: fixed;
   width: 260px;
-  background-color: #ff8800;  
+  background-color: #ff8800;
   padding: 25px 20px;
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
   height: 695px;
-  
-  
-
 }
 
 .maincontent {
-  /* 260px for sidebar + 20px margin */
   background-color: #252525;
-  /* background: linear-gradient(135deg, #171717, #2a2727, #0c0c0c); */
 
-
-   position: fixed;
-  width: calc(100% - 270px); /* 260px for sidebar + 20px margin */
+  position: fixed;
+  width: calc(100% - 270px);
   overflow-y: auto;
-  /* border-top-right-radius: 30px;
-  border-bottom-right-radius: 30px; */
-  margin-left: 260px;
 
-  /* padding: 10px; */
+  margin-left: 260px;
   height: 100%;
   padding: 10px;
 }
-
-
-
-
 
 /* Sidebar Links */
 .navbar-links li a {
@@ -123,24 +103,17 @@ export default {
   gap: 0 20px;
   margin-top: 15px;
   padding-left: 30px;
-  
-  
-
 }
 
 .navbar-links {
   list-style: none;
   /* margin-top: 10px; */
-  
 }
 
 .navbar-links li a:hover {
   background-color: #414141;
   color: rgb(255, 255, 255);
   border-radius: 4px;
-   
-  
- 
 }
 
 .navbar-links li img {
@@ -168,7 +141,7 @@ export default {
   margin-right: 15px;
 }
 
-#logoutbtn{
+#logoutbtn {
   text-align: center;
   background-color: rgb(245, 0, 0);
   color: aliceblue;
@@ -176,16 +149,14 @@ export default {
   border: none;
   height: 45px;
   width: 150px;
-          box-shadow: 0 6px 18px #000000;
-
+  box-shadow: 0 6px 18px #000000;
 
   /* cursor: pointer; */
 }
 
-#logoutbtn:hover{
+#logoutbtn:hover {
   background-color: #f60000;
 }
-
 
 /* For exact match (useful for /dashboard vs /dashboard/details) */
 .navbar-links .router-link-exact-active {
@@ -193,12 +164,8 @@ export default {
   color: #ffffff !important;
   border-radius: 4px;
   position: relative;
-          box-shadow: 0 6px 18px #000000;
+  box-shadow: 0 6px 18px #000000;
 
   /* border-radius: 0px 0px 25px 0px; */
-
 }
-
-
-
 </style>

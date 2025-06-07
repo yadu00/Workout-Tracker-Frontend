@@ -73,7 +73,7 @@ export default {
     async viewTrainer() {
       try {
         const trainer_id=this.trainer_id;
-        const result = await this.$store.dispatch("Trainer/fetchTrainerProfile", trainer_id);
+        const result = await this.$store.dispatch("User/TrainerProfile", trainer_id);
         if (result.success) {
           this.trainer = result.data;
         } else {
@@ -126,7 +126,7 @@ export default {
     //         if (verifyRes.data === "Payment Verified") {
     //           this.$router.push("/paycomplete");
     //         } else {
-    //           alert("❌ Payment verification failed");
+    //           alert("Payment verification failed");
     //         }
     //       },
 

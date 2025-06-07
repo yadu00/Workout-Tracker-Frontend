@@ -16,14 +16,16 @@
     <div class="section2">
       <div class="height">
         <p>Height</p>
-        <h1>{{ user.height }} cm</h1>
+        <h1>{{ user.height }} Cm</h1>
       </div>
-      <div class="weight">
-        <p>Weight : {{ user.weight }} kg</p>
-        <router-link to="/bmi" style="text-decoration: none; color: black;text-align: center;"
-          >
-          <v-icon size="70px">mdi-chevron-right</v-icon>
-        <p style="font-size: 25px;">update</p></router-link>
+      <div class="height">
+        <p>Weight</p>
+        <h1>{{ user.weight }} kg</h1>
+      </div>
+      <div class="button">
+        <button id="updatebtn" @click="gotoupdateBmi">Update<v-icon size="70px">mdi-chevron-right</v-icon>
+</button>
+        
         
       </div>
     </div>
@@ -55,6 +57,9 @@ export default {
   },
 
   methods: {
+    gotoupdateBmi(){
+  this.$router.push('/bmi')    
+    },
     updateSelectedHeight() {
       this.$nextTick(() => {
         const middleLinePosition =
@@ -293,14 +298,16 @@ export default {
   justify-content: center;
   padding: 20px;
   color: #222;
-  background: #e3e3e3;
+  background: #04040436;
   transition: box-shadow 0.3s ease;
+    box-shadow: 0 4px 20px rgb(0, 0, 0);
+
 }
 
 .section2 .height {
-  background: #aa0000;
-  color: white;
-  box-shadow: 0 4px 20px rgba(74,144,226,0.5);
+  background: #04040436;
+  color: rgb(175, 175, 175);
+    box-shadow: 0 4px 20px rgb(0, 0, 0);
 }
 
 .section2 .height p {
@@ -314,18 +321,33 @@ export default {
   font-weight: 700;
 }
 
-.section2 .weight {
+.button {
+  width: 30%;
+  display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  background: #04040436;
+  color: rgb(0, 0, 0);
+    box-shadow: 0 4px 20px rgb(0, 0, 0);
+      border-radius: 20px;
+
+}
+#updatebtn{
+  width: 100%;
+  height: 100%;
+  background-color: #82c91e;
+  border-radius: 20px;
+     font-size: 30px;
+
 }
 
 .weight p {
   flex-grow: 1;
-  font-size: 2.8rem;
+  font-size: 1.8rem;
   font-weight: 700;
-  background: #d8d8d8;
-  color: #333;
+  /* background: #d8d8d8; */
+  color: #c0c0c0;
   border-radius: 20px 0 0 20px;
   text-align: center;
   padding: 0 10px;

@@ -5,6 +5,7 @@
       <h3>No of Exercises: {{ exercises.length }}</h3>
       <h4>Date : {{ exercises[0].date }}</h4>
     </div>
+      <p v-else>No Exercise found.</p>
 
     <div class="section2">
       <div class="card" v-for="(exercise, index) in exercises" :key="index">
@@ -12,7 +13,7 @@
           <div class="info">
             <h4>Exercise: {{ exercise.excercise_name }}</h4>
           </div>
-           <div class="info">
+          <div class="info">
             <h4>Focus Area: {{ exercise.focusarea }}</h4>
           </div>
           <div class="info">
@@ -58,19 +59,22 @@
             v-if="exercise.workoutStatus === 'partially done'"
             class="partially done-inputs"
           >
-            <input class="input"
+            <input
+              class="input"
               type="number"
               v-model.number="exercise.setsDone"
               placeholder="Sets done"
               min="0"
             />
-            <input  class="input"
+            <input
+              class="input"
               type="number"
               v-model.number="exercise.repsDone"
               placeholder="Reps done"
               min="0"
             />
-             <input  class="input"
+            <input
+              class="input"
               type="text"
               v-model.number="exercise.remarks"
               placeholder="Remarks"
@@ -83,6 +87,7 @@
         <div class="info"><h4>Rest 30 Seconds</h4></div>
       </div>
     </div>
+    
   </div>
 </template>
 
@@ -145,7 +150,8 @@ export default {
             exercise.workoutStatus === "partially done"
               ? exercise.repsDone
               : null,
-              remarks:exercise.workoutStatus === "partially done"
+          remarks:
+            exercise.workoutStatus === "partially done"
               ? exercise.remarks
               : null,
         };
@@ -297,20 +303,18 @@ export default {
   display: flex;
   gap: 15px;
   flex-wrap: wrap;
-  
 }
 
 .partially\ done-inputs input {
   flex: 1 1 100px;
   justify-content: space-evenly;
- 
 }
-.input{
+.input {
   margin-right: 20px;
 }
 .input::placeholder {
   color: #c0c0c0; /* Change to any color you want */
-  opacity: 1;   /* Ensure color shows up in all browsers */
+  opacity: 1; /* Ensure color shows up in all browsers */
 }
 
 .log-form button {

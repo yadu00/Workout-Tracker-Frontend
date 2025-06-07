@@ -3,31 +3,35 @@
     <div class="heading">
       <h1>Scheduled Workouts</h1>
     </div>
-    <div class="weeks">
+    <div class="today">
       <h1>Today's Workout</h1>
-       <div class="day-card" v-if="day && day.workoutName">
-          <!-- <div
+      <div class="today-container">
+        <div class="today-card" v-if="day && day.workoutName">
+        <!-- <div
             v-for="(day, dayIndex) in day"
             :key="dayIndex"
             class="day-card"
           > -->
-            <h4>{{ day.day }}</h4>
-            <p>{{ day.workoutName }}</p>
-            <p>{{ day.date }}</p>
-            <router-link
-              :to="{
-                path: '/viewExercises',
-                query: { id: day.id },
-              }"
-            >
-              <button id="selectday">View Workout</button>
-            </router-link>
-        </div>
-        <div v-else>
-    <p>No workout added today.</p>
-  </div>
+        <h4>{{ day.day }}</h4>
+        <p>{{ day.workoutName }}</p>
+        <p>{{ day.date }}</p>
+        <router-link
+          :to="{
+            path: '/viewExercises',
+            query: { id: day.id },
+          }"
+        >
+          <button id="selectday">View Workout</button>
+        </router-link>
+      </div>
+      <div v-else>
+        <p>No workout added today.</p>
+      </div>
+      </div>
+      
+      
     </div>
-    
+
     <div class="weeks">
       <h1>All Workout</h1>
       <div class="week-container">
@@ -66,14 +70,12 @@ export default {
       user_id: null,
       date: "",
       workoutName: "",
-      daycards:[], 
-      day:{
-date:'',
-workoutName: "",
+      daycards: [],
+      day: {
+        date: "",
+        workoutName: "",
       },
-      today: new Date()
-        
-      
+      today: new Date(),
     };
   },
   computed: {
@@ -83,32 +85,37 @@ workoutName: "",
     async loadWeeklyWorkouts() {
       try {
         const payload = { user_id: this.getuser_id };
-        const result = await this.$store.dispatch("User/loadWeeklyWorkouts", payload);
+        const result = await this.$store.dispatch(
+          "User/loadWeeklyWorkouts",
+          payload
+        );
 
-          if (result.success) {
+        if (result.success) {
           this.daycards = result.data;
         } else {
           alert(`Error: ${result.error}`);
         }
-         
-        
       } catch (error) {
         console.error("Error loading weeks:", error);
       }
     },
-    
+
     async fetchworkouttoday() {
       try {
-        const payload = { user_id: this.getuser_id ,date : this.today.toISOString().split('T')[0]};
-        const result = await this.$store.dispatch("User/fetchworkouttoday", payload);
+        const payload = {
+          user_id: this.getuser_id,
+          date: this.today.toISOString().split("T")[0],
+        };
+        const result = await this.$store.dispatch(
+          "User/fetchworkouttoday",
+          payload
+        );
 
-          if (result.success) {
+        if (result.success) {
           this.day = result.data;
         } else {
           alert(`Error: ${result.error}`);
         }
-         
-        
       } catch (error) {
         console.error("Error loading weeks:", error);
       }
@@ -139,6 +146,15 @@ workoutName: "",
   text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
 }
 
+.today {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  padding-left: 15px;
+}
+.today h1{
+  text-align: center;
+}
 .weeks {
   display: flex;
   flex-direction: column;
@@ -146,7 +162,7 @@ workoutName: "",
 }
 
 .week-container {
-  background: rgba(255, 255, 255, 0.07);
+  background: rgba(70, 70, 70, 0.07);
   border-radius: 15px;
   padding: 20px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
@@ -165,6 +181,25 @@ workoutName: "",
   display: flex;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 16px;
+}
+.today-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.today-card {
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s ease, background 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  color: #ffffff;
+  width: 265px;
 }
 
 .day-card {

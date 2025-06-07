@@ -1,56 +1,54 @@
 <template>
   <div class="container">
-    <h2>Trainers</h2>
-    <table v-if="trainers.length">
+    <h2>Payments</h2>
+    <table v-if="payments.length">
       <thead>
         <tr>
           <th>Sl.No</th>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Specialization</th>
-
-          <th>Certification</th>
-          <th>Experience (years)</th>
-          <th>Action</th>
+          <th>Client</th>
+          <th>Trainer</th>
+          <th>Amount</th>
+          <th>PaymentDate</th>
+          <!-- <th>Subscription Start</th>
+          <th>Subscription End</th> -->
+          <th>Razor Pay Id</th>
+          <th>Status</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(trainer, index) in trainers" :key="trainer.id">
+        <tr v-for="(payment, index) in payments" :key="payment.id">
           <td data-label="Sl.No">{{ index + 1 }}</td>
-          <td data-label="Name">{{ trainer.name }}</td>
-          <td data-label="Email">{{ trainer.email }}</td>
-          <td data-label="Specialization">{{ trainer.specialisationName }}</td>
+          <td data-label="TrainerId">{{ payment.user }}</td>
+          <td data-label="Name">{{ payment.trainer }}</td>
+          <td data-label="Email">{{ payment.amount }}</td>
+          <td data-label="Certification">{{ payment.payment_date }}</td>
+          <!-- <td data-label="Experience">{{ payment.subscriptionStart }}</td>
+          <td data-label="Experience">{{ payment.subscriptionEnd }}</td> -->
 
-          <td data-label="Certification">{{ trainer.certification }}</td>
-          <td data-label="Experience">{{ trainer.experienceYears }}</td>
-          <td data-label="Action">
-            <button @click="deleteTrainer(trainer.trainer_id)">Delete</button>
-          </td>
+          <td data-label="Experience">{{ payment.razorpay_payment_id }}</td>
+
+          <td data-label="Experience">{{ payment.status }}</td>
         </tr>
       </tbody>
     </table>
 
-    <p v-else>No trainers found.</p>
+    <p v-else>No Payment details found.</p>
   </div>
 </template>
 
 <script>
-import { mapActions } from "vuex";
-
 export default {
   data() {
     return {
-      trainers: [],
+      payments: [],
     };
   },
   methods: {
-    ...mapActions(["fetchTrainers"]),
-
-    async loadTrainers() {
+    async loadpayments() {
       try {
-        const result = await this.$store.dispatch("Admin/fetchTrainers");
+        const result = await this.$store.dispatch("Admin/fetchPayments");
         if (result.success) {
-          this.trainers = result.data;
+          this.payments = result.data;
         } else {
           alert(`Error: ${result.error}`);
         }
@@ -58,27 +56,9 @@ export default {
         console.error("Error loading Trainers:", error);
       }
     },
-    async deleteTrainer(trainer_id) {
-      try {
-        const confirmation = confirm("Delete Trainer");
-        if (!confirmation) return;
-        const result = await this.$store.dispatch(
-          "Admin/deleteTrainerAccount",
-          trainer_id
-        );
-        if (result.success) {
-          alert("Account deleted ");
-          this.loadTrainers();
-        } else {
-          alert("Error deleting account");
-        }
-      } catch (error) {
-        console.error("Error loading Profile:", error);
-      }
-    },
   },
   mounted() {
-    this.loadTrainers();
+    this.loadpayments();
   },
 };
 </script>

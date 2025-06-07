@@ -34,7 +34,7 @@ const router = createRouter({
 
     { path: '/chart',  component: () => import('./components/User/ChartView.vue'), },
 
-    { path: '/pay',  component: () => import('./components/User/PayMent.vue'), },
+    { path: '/pay',  component: () => import('./components/User/ViewTrainerProfile.vue'), },
 
      { path: '/paycomplete',  component: () => import('./components/User/PaymentComplete.vue'), },
      { path: '/paynow',  component: () => import('./components/User/PayAgain.vue'), },
@@ -105,9 +105,10 @@ const router = createRouter({
           component: () => import("@/components/Admin/ViewTrainers.vue"),
         },
         {
-          path: "/PayMents",
-          component: () => import("@/components/Admin/PayMents.vue"),
+          path: "/adminPayments",
+          component: () => import("@/components/Admin/ViewPayments.vue"),
         },
+         
         
       ],
     },

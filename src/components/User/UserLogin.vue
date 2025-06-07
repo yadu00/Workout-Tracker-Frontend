@@ -100,24 +100,22 @@ export default {
 
     if (response) {
       this.snackbar = true;
-
-      // ✅ Get user_id from Vuex store
-      const userId = this.$store.state.auth?.user_id;
-      if (!userId) {
+      const user_id = this.getuser_id;
+      if (!user_id) {
         console.error("User ID not set in store.");
         return;
       }
 
-      const userKey = `firstLogin_${userId}`;
+      const userKey = `firstLogin_${user_id}`;
 
       if (!localStorage.getItem(userKey)) {
-        localStorage.setItem(userKey, "true"); // Mark as first login
+        localStorage.setItem(userKey, "true"); 
         setTimeout(() => {
           this.$router.push("/welcome");
         }, 1000);
       } else {
         setTimeout(() => {
-          this.$router.push(`/userHome?user=${userId}`);
+          this.$router.push(`/userHome?user=${user_id}`);
         }, 1000);
       }
     } else {

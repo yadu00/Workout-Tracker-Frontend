@@ -65,6 +65,29 @@ export default {
     }
   },
 
+  //view trainer
+  async TrainerProfile({ rootGetters },trainer_id) {
+    try {
+      const response = await axios.get(
+        `${rootGetters.getUrl}/api/user/ViewTrainer`, {
+          params: { trainer_id },
+        }
+      );
+
+      if (response.status >= 200 && response.status < 300) {
+        return { success: true, data: response.data };
+      } else {
+        return { success: false, error: "Unexpected response status" };
+      }
+    } catch (error) {
+      console.error("Error fetching trainers:", error);
+      return {
+        success: false,
+        error: error.message || "An error occurred while fetching trainers.",
+      };
+    }
+  },
+
   //view specializations
   async loadSpecializations({ rootGetters }) {
     try {

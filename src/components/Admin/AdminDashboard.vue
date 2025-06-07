@@ -68,7 +68,7 @@
             <div class="requests">
               <button
                 id="approvebtn"
-                @click="approveTrainer(trainer.trainer_id)"
+                @click="approveTrainer(request.trainer_id)"
               >
                 <v-icon>mdi-check</v-icon>Approve
               </button>
@@ -76,7 +76,7 @@
             <div class="requests">
               <button
                 id="declinebtn"
-                @click="rejectTrainer(trainer.trainer_id)"
+                @click="rejectTrainer(request.trainer_id)"
               >
                 <v-icon>mdi-close</v-icon>Reject
               </button>
@@ -129,7 +129,7 @@
       <v-card-title>Trainer Certification</v-card-title>
       <v-card-text>
         <v-img
-          :src="'data:image/jpeg;base64,' + trainer.cert"
+          :src="'data:image/jpeg;base64,' + trainer.certificationImage"
           aspect-ratio="1.7"
           contain
         ></v-img>
@@ -254,7 +254,7 @@ export default {
           trainer_id: trainer_id,
           statusId: 3,
         };
-        const result = await this.$store.dispatch("Admin/Reject", payload);
+        const result = await this.$store.dispatch("Admin/Approve", payload);
         if (result.success) {
           alert("Rejected");
           this.fetchTrainerRequests();

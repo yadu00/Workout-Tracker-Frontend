@@ -141,6 +141,8 @@ mounted() {
 }
 .paytitle {
  display: flex;
+   color: rgb(159, 159, 159);
+
   flex-wrap: wrap;
   padding: 12px 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);

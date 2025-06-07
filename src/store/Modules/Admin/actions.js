@@ -163,4 +163,21 @@ async Reject({ rootGetters }, payload) {
   }
 },
 
+//view payments
+      async fetchPayments({ rootGetters }) {
+        try {
+    
+          const response = await axios.get(`${rootGetters.getUrl}/api/admin/viewPaymentDetails`);
+    
+          if (response.status >= 200 && response.status < 300) {
+            return { success: true, data: response.data };
+          }
+        } catch (error) {
+          return { 
+            success: false, 
+            error: error.response?.data?.message || "Failed to fetch Payments." 
+          };
+        }
+      },
+
 }

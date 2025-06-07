@@ -24,11 +24,11 @@
             <v-icon size="40px">mdi-account-multiple</v-icon>Trainers
           </router-link>
         </li>
-        <!-- <li>
-          <router-link>
+        <li>
+          <router-link to="/adminPayments">
             <v-icon size="40px">mdi-credit-card</v-icon>Payments
           </router-link>
-        </li> -->
+        </li>
         </ul>
         <div class="user-profile mt-auto p-4">
           <!-- <v-icon size="40px">mdi-logout</v-icon> -->

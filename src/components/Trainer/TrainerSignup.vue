@@ -1,125 +1,124 @@
 <template>
-  <div class="box1">
-    <div class="signupbox">
-      <h1>Sign Up</h1>
-      <v-text-field
-        v-model="user.name"
-        label="Name"
-        variant="outlined"
-        prepend-inner-icon="mdi-account-outline"
-        dense
-        hide-details
-        color="yellow"
-        class="input-field"
-      />
-      <v-text-field
-        v-model="user.email"
-        label="Email"
-        variant="outlined"
-        prepend-inner-icon="mdi-email-outline"
-        dense
-        hide-details
-        color="yellow"
-        class="input-field"
-      />
+  <div class="register-page">
+    <div class="register-container">
+      <h1 class="title">Trainer Registration</h1>
+      <div class="form-columns">
+        <!-- Left Column -->
+        <div class="form-column">
+          <v-text-field
+            v-model="user.name"
+            label="Full Name"
+            variant="outlined"
+            prepend-inner-icon="mdi-account-outline"
+            class="input-field"
+            color="primary"
+            density="comfortable"
+          />
+          <v-text-field
+            v-model="user.email"
+            label="Email"
+            variant="outlined"
+            prepend-inner-icon="mdi-email-outline"
+            class="input-field"
+            color="primary"
+            density="comfortable"
+          />
+          <v-text-field
+            v-model="user.mobile"
+            label="Mobile"
+            variant="outlined"
+            prepend-inner-icon="mdi-email-outline"
+            class="input-field"
+            color="primary"
+            density="comfortable"
+          />
+          <v-text-field
+            v-model="user.password"
+            label="Password"
+            type="password"
+            variant="outlined"
+            prepend-inner-icon="mdi-lock-outline"
+            class="input-field"
+            color="primary"
+            density="comfortable"
+          />
+          <v-text-field
+            v-model="user.confirmpassword"
+            label="Confirm Password"
+            type="password"
+            variant="outlined"
+            prepend-inner-icon="mdi-lock-check-outline"
+            class="input-field"
+            color="primary"
+            density="comfortable"
+          />
+        </div>
 
-      <v-text-field
-        v-model="user.password"
-        label="Password"
-        variant="outlined"
-        type="password"
-        prepend-inner-icon="mdi-lock-outline"
-        dense
-        hide-details
-        color="yellow"
-        class="input-field"
-      ></v-text-field>
-       <v-text-field
-        v-model="user.confirmpassword"
-        label="Confirm Password"
-        variant="outlined"
-        type="password"
-        prepend-inner-icon="mdi-lock-outline"
-        dense
-        hide-details
-        color="yellow"
-        class="input-field"
-      ></v-text-field>
-      <v-text-field
-        v-model="user.certification"
-        label="Certification"
-        variant="outlined"
-        prepend-inner-icon="mdi-file-certificate-outline"
-        dense
-        hide-details
-        color="yellow"
-        class="input-field"
-      ></v-text-field>
-      <v-text-field
-        v-model="user.experienceYears"
-        label="Experience"
-        variant="outlined"
-        type="number"
-        prepend-inner-icon="mdi-briefcase-outline"
-        dense
-        hide-details
-        color="yellow"
-        class="input-field"
-      ></v-text-field>
-      <v-file-input
-        v-model="photo"
-        label="Upload Photo"
-        prepend-icon="mdi-camera"
-        accept="image/*"
-        dense
-        hide-details
-        color="yellow"
-        class="input-field"
-      />
-      <!-- <v-select
-      id="e"
-      v-model="selectedspecialisation"
-      :items="Viewspecialisation"
-      item-title="specialization_name"
-      item-value="specialization_name"
-      label="Specialization"
-      return-object
-      variant="outlined"
-      prepend-inner-icon="mdi-application"
-  dense
-  hide-details
-  color="yellow"
-  class="input-field"
-    ></v-select> -->
-      <div class="form">
-        <v-select
-          v-model="user.specialization_id"
-          :items="Viewspecialisation"
-          item-title="specialization_name"
-          item-value="specialization_id"
-          label="Select Specialization"
-          class="select"
-          outlined
-          dense
-          required
-        ></v-select>
+        <!-- Right Column -->
+        <div class="form-column">
+          <v-text-field
+            v-model="user.certification"
+            label="Certification"
+            variant="outlined"
+            prepend-inner-icon="mdi-file-certificate-outline"
+            class="input-field"
+            color="primary"
+            density="comfortable"
+          />
+          <v-file-input
+            v-model="photo"
+            label="Upload Certification Image"
+            prepend-icon="mdi-camera"
+            accept="image/*"
+            variant="outlined"
+            class="input-field"
+            color="primary"
+            density="comfortable"
+          />
+          <v-text-field
+            v-model="user.experienceYears"
+            label="Years of Experience"
+            type="number"
+            variant="outlined"
+            prepend-inner-icon="mdi-briefcase-outline"
+            class="input-field"
+            color="primary"
+            density="comfortable"
+          />
+
+          <v-select
+            v-model="user.specialization_id"
+            :items="Viewspecialisation"
+            item-title="specialization_name"
+            item-value="specialization_id"
+            label="Select Specialization"
+            variant="outlined"
+            class="input-field"
+            color="primary"
+            density="comfortable"
+          ></v-select>
+        </div>
       </div>
-      <div class="buttons">
-        <button @click="signupTrainer" class="regbtn">REGISTER</button>
 
-        <router-link to="/Trainerlogin"
-          ><h5 style="text-align: center; color: white">
-            Already Registered? Login
-          </h5></router-link
+      <div class="form-actions">
+        <v-btn
+          color="primary"
+          class="register-btn"
+          size="large"
+          rounded
+          @click="signupTrainer"
         >
+          Register
+        </v-btn>
+        <router-link to="/Trainerlogin" class="login-link">
+          Already registered? Log in
+        </router-link>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions } from "vuex";
-
 export default {
   data() {
     return {
@@ -127,67 +126,52 @@ export default {
         name: "",
         email: "",
         password: "",
+        confirmpassword: "",
         certification: "",
         experienceYears: "",
         specialization_id: "",
-                confirmpassword: "",
-
       },
-      selectedspecialisation: "",
+      photo: null,
       Viewspecialisation: [],
     };
   },
   methods: {
-    ...mapActions(["signupTrainer"]),
-    passwordMismatch() {
-      return (
-        this.user.confirmpassword.trim() !== "" &&
-        this.user.password.trim() !== this.user.confirmpassword.trim()
-      );
-    },
-
     async signupTrainer() {
-      try {
-        if (this.passwordMismatch()) {
-          alert("Passwords do not match!");
-          return;
-        }
-        const formData = new FormData();
-        formData.append(
-          "trainerModel",
-          new Blob([JSON.stringify(this.user)], { type: "application/json" })
-        );
-        if (this.photo) {
-          formData.append("cert", this.photo);
-        }
-        const result = await this.$store.dispatch(
-          "Trainer/signupTrainer",
-          formData
-        );
-        if (result.success) {
-          alert("Trainer signed up successfully!");
-          this.$router.push("/trainerlogin");
-        } else {
-          alert(`Signup failed: ${result.error}`);
-        }
-      } catch (error) {
-        alert("Unexpected error during sign-up. Please check console.");
+      if (this.user.password !== this.user.confirmpassword) {
+        alert("Passwords do not match!");
+        return;
+      }
+      const mobilePattern = /^[6-9]\d{9}$/;
+      if (!mobilePattern.test(this.user.mobile)) {
+        alert("Please enter a valid 10-digit mobile number starting with 6-9!");
+        return;
+      }
+      const formData = new FormData();
+      formData.append(
+        "trainerModel",
+        new Blob([JSON.stringify(this.user)], { type: "application/json" })
+      );
+      if (this.photo) {
+        formData.append("certificationImage", this.photo);
+      }
+
+      const result = await this.$store.dispatch(
+        "Trainer/signupTrainer",
+        formData
+      );
+      if (result.success) {
+        alert("Trainer registered successfully!");
+        this.$router.push("/Trainerlogin");
+      } else {
+        alert(`Signup failed: ${result.error}`);
       }
     },
-
     async fetchspecialisation() {
-      try {
-        const result = await this.$store.dispatch(
-          "Trainer/fetchspecialisation"
-        );
-        if (result.success) {
-          this.Viewspecialisation = result.data;
-          console.log(result);
-        } else {
-          alert(`Error: ${result.error}`);
-        }
-      } catch (error) {
-        console.error("Error loading specialisation:", error);
+      const result = await this.$store.dispatch("Trainer/fetchspecialisation");
+      if (result.success) {
+        this.Viewspecialisation = result.data;
+      } else {
+        console.error("Specialization fetch failed.");
       }
     },
   },
@@ -198,99 +182,70 @@ export default {
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Audiowide&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
-* {
-  padding: 0;
-  margin: 0;
-  font-family: "Roboto", sans-serif;
-}
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
 
-.roboto-<uniquifier>{
-  font-family: "Roboto", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: <weight>;
-  font-style: normal;
-  font-variation-settings: "wdth" 100;
-}
-.box1 {
-  width: 100%;
-  height: 100%;
+.register-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #171717, #141317, #000000);
   display: flex;
-  flex-direction: row;
-  align-items: center;
   justify-content: center;
-  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: rgb(255, 255, 255);
-    background: linear-gradient(135deg, #051230, #0c0095, #000000);
+  align-items: center;
+  font-family: "Poppins", sans-serif;
 }
-.signupbox {
-  display: flex;
-  flex-direction: column;
-  width: 550px;
-  height: 680px;
-  padding-left: 40px;
-  padding-right: 40px;
-  padding-top: 10px;
 
-  background-color: rgba(35, 35, 38, 0.547);
-  color: #ffffff;
+.register-container {
+  background: linear-gradient(135deg, #051230, #242424, #000000);
   border-radius: 20px;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  max-width: 1000px;
+  width: 100%;
+  color: white;
 }
 
-h1 {
+.title {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  color: #00ff08;
+  font-weight: 600;
 }
 
-.buttons {
+.form-columns {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 200px;
+  gap: 40px;
+  flex-wrap: wrap;
 }
 
-.regbtn {
-  width: 150px;
-  height: 50px;
-  background-color: #d9ff00;
-  color: #000;
-  font-size: larger;
-  font-weight: bold;
-  border-radius: 25px;
-              box-shadow: 0 6px 18px #000000;
-
-}
-.regbtn:hover{
-    background-color: rgb(221, 206, 0);
-
+.form-column {
+  flex: 1;
+  min-width: 250px;
 }
 
 .input-field {
-  background-color: rgba(75, 75, 75, 0.08);
-  border-radius: 12px;
-  margin-bottom: 18px;
-  transition: all 0.3s ease;
+  margin-bottom: 20px;
 }
 
-.input-field:hover {
-  background-color: rgba(0, 0, 0, 0.1);
-  border-color: #d9ff00;
+.form-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
 }
 
-.input-field input {
-  color: white !important;
+.register-btn {
+  width: 200px;
+  font-weight: bold;
+  letter-spacing: 1px;
 }
 
-.input-field .v-label {
-  color: #ffffff !important;
+.login-link {
+  margin-top: 20px;
+  color: #c2c2c2;
+  text-decoration: none;
+  font-size: 0.95rem;
 }
-.select {
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.1);
-  border-color: #d9ff00;
-  color: wheat;
+
+.login-link:hover {
+  color: #000;
 }
 </style>
