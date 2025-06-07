@@ -87,7 +87,7 @@ export default {
         date: "",
         workoutName: "",
       },
-      weeks: [], // Make sure this is defined if you loop through it
+      weeks: [],
     };
   },
   computed: {
@@ -115,7 +115,7 @@ export default {
         );
         if (result.success) {
           this.workoutnameDialog = false;
-          this.loadWeekdays(); // Refresh list
+          this.loadWeekdays(); 
           alert("Day added successfully!");
         } else {
           alert(`Failed: ${result.error}`);

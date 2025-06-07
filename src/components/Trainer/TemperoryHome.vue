@@ -9,12 +9,12 @@
 import { mapGetters } from 'vuex';
 export default {
   computed: {
-    ...mapGetters(['gettrainer_id']),  // Map the getter directly
+    ...mapGetters(['gettrainer_id']),  
   },
   methods: {
   logout() {
-    this.$store.commit('logout');         // Reset Vuex state + sessionStorage
-    this.$router.push('/Trainerlogin');          // Redirect to login page
+    this.$store.commit('logout');         
+    this.$router.push('/Trainerlogin');         
   }
 }
 }
@@ -28,8 +28,8 @@ export default {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    color: black;
-  }
+color: rgb(161, 161, 161);
+      background: linear-gradient(135deg, #181818, #232326, #030303);  }
   #logout {
     width: 150px;
     height: 30px;

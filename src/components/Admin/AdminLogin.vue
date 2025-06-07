@@ -79,9 +79,8 @@ export default {
   methods: {
     async login() {
       if (!this.username || !this.password) {
-        this.snackbar2 = true; // Show snackbar on success
+        this.snackbar2 = true; 
         setTimeout(() => {
-          // Redirect after a delay
         }, 1000);
         return;
       }
@@ -95,9 +94,9 @@ export default {
         const response = await this.$store.dispatch("loginAdmin", payload);
 
         if (response) {
-          this.snackbar = true; // Show snackbar on success
+          this.snackbar = true; 
           setTimeout(() => {
-            this.$router.push("/adminHome"); // Redirect after a delay
+            this.$router.push("/adminHome"); 
           }, 1000);
         } else {
           alert(response.message || "Invalid credentials.");

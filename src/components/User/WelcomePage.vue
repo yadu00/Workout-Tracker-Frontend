@@ -10,7 +10,7 @@
   export default {
     computed: {
       userId() {
-        return this.$store.state.auth?.user_id; // Access user_id from Vuex store
+        return this.$store.state.auth?.user_id; 
       }
     },
     methods: {
@@ -31,7 +31,7 @@
     align-items: center;
     height: 100vh;
     text-align: center;
-    color: rgb(0, 0, 0);
+    color: rgb(161, 161, 161);
       background: linear-gradient(135deg, #181818, #232326, #030303);
 
 

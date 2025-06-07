@@ -55,12 +55,6 @@ export default {
       }
     },
 
-    // async deleteUser(userId) {
-    //   if (confirm("Are you sure you want to delete this user?")) {
-    //     console.log("Delete user with ID:", userId);
-        
-    //   }
-    // },
     async deleteuser(user_id){
       try{
         const confirmation = confirm("Delete User");

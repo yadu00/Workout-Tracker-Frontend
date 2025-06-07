@@ -74,7 +74,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["getuser_id"]), // Map the getter directly
+    ...mapGetters(["getuser_id"]), 
   },
   methods: {
     async loadTrainers() {
@@ -140,7 +140,6 @@ export default {
       }
     },
 
-    // ✅ Method to select a trainer
     selectTrainer(trainer) {
       localStorage.setItem("trainerSelected", JSON.stringify(trainer)); // Save trainer data
       this.$router.push("/dashboard"); // Redirect after selection

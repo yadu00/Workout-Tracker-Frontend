@@ -79,18 +79,18 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["gettrainer_id"]), // Map the getter directly
+    ...mapGetters(["gettrainer_id"]), 
   },
   methods: {
     async fetchExercises() {
       try {
-        const trainer_id = this.gettrainer_id; // Replace with actual trainer ID
+        const trainer_id = this.gettrainer_id;
         const result = await this.$store.dispatch(
           "Trainer/fetchExercise",
           trainer_id
         );
 
-        console.log("Fetched Exercises:", result); // Debugging log
+        console.log("Fetched Exercises:", result); 
 
         if (result.success && Array.isArray(result.data)) {
           this.exercises = result.data;
@@ -105,7 +105,7 @@ export default {
     async addExercise() {
       if (this.newExercise.exercise_name && this.newExercise.focusarea) {
         try {
-          const trainer_id = this.gettrainer_id; // Replace with actual trainer ID
+          const trainer_id = this.gettrainer_id; 
           const payload = { ...this.newExercise, trainer_id };
 
           const result = await this.$store.dispatch(
@@ -115,7 +115,7 @@ export default {
           console.log("Sending payload:", payload);
 
           if (result.success) {
-            this.fetchExercises(); // Refresh exercises list
+            this.fetchExercises(); 
             this.addExerciseDialog = false;
             this.newExercise = {
               exercise_name: "",

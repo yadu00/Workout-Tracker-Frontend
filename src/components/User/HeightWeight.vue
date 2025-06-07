@@ -66,7 +66,7 @@ export default {
   },
   computed: {
     userId() {
-      return this.$store.state.auth?.user_id; // Access user_id from Vuex store
+      return this.$store.state.auth?.user_id; 
     },
     ...mapGetters(["getuser_id"]),
   },

@@ -158,7 +158,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["gettrainer_id"]), // Map the getter directly
+    ...mapGetters(["gettrainer_id"]),
   },
   methods: {
     ...mapActions(["fetchUsers"]),
@@ -183,13 +183,13 @@ export default {
 
     async fetchExercises() {
       try {
-        const trainer_id = this.gettrainer_id; // Replace with actual trainer ID
+        const trainer_id = this.gettrainer_id;
         const result = await this.$store.dispatch(
           "Trainer/fetchExercise",
           trainer_id
         );
 
-        console.log("Fetched Exercises:", result); // Debugging log
+        console.log("Fetched Exercises:", result);
 
         if (result.success && Array.isArray(result.data)) {
           this.exercises = result.data;
@@ -219,9 +219,7 @@ export default {
       }
     },
 
-    // scheduleWorkout(user_id) {
-    //   this.$store.dispatch("User/goToScheduleWorkout", user_id);
-    // },
+  
 
     updateCalendar() {
       const firstDay = new Date(

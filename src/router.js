@@ -125,10 +125,7 @@ const router = createRouter({
           path: "/TrainerViewUsers",
           component: () => import("@/components/Trainer/TrainerDashboard.vue"),
         },
-        {
-          path: "/TrainerPayments",
-          component: () => import("@/components/Trainer/PayMents.vue"),
-        },
+        
         {
           path: "/ScheduleWorkouts",
           component: () => import("@/components/Trainer/ViewClents.vue"),

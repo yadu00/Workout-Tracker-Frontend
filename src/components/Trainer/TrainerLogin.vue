@@ -109,7 +109,6 @@ export default {
     
     this.snackbar = true;
     
-    // Wait briefly for state to update and snackbar to show
     setTimeout(() => {
       if (responseData.statusID === 1) {
         this.$router.push("/temp"); 

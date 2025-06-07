@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- <h2>Admin Home</h2> -->
     <div class="head"></div>
     <div class="one">
       <div class="item1">

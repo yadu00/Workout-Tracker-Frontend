@@ -39,7 +39,7 @@
 import { mapGetters } from "vuex";
 export default {
   computed: {
-    ...mapGetters(["getuser_id"]), // Map the getter directly
+    ...mapGetters(["getuser_id"]), 
   },
   data() {
     return {

@@ -65,16 +65,24 @@
         </div>
         <div class="trainercards">
                 <div class="trainercard">
-
+                <v-icon size="250px">mdi-account-circle-outline</v-icon>
+                <h1>TRAINER</h1>
+                <h2>WEIGHT LOSS</h2>
                 </div>
                 <div class="trainercard">
-                    
+                <v-icon size="250px">mdi-account-circle-outline</v-icon>
+                <h1>TRAINER</h1>
+                <h2>STRENGTH</h2>
                 </div>
                 <div class="trainercard">
-                    
+                <v-icon size="250px">mdi-account-circle-outline</v-icon>
+                <h1>TRAINER</h1>
+                <h2>FITNESS</h2>
                 </div>
                 <div class="trainercard">
-                    
+                <v-icon size="250px">mdi-account-circle-outline</v-icon>
+                <h1>TRAINER</h1>
+                <h2>CARDIO</h2>
                 </div>
             </div>
     </div>
@@ -327,10 +335,12 @@ export default {
     height: 400px;
     margin: 10px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.315);
     border-radius: 25px;
+    color: #515151;
 }
 .section4{
     width: 100%;
@@ -349,12 +359,15 @@ export default {
     justify-content: center;
     align-items: center;
     color: rgb(158, 158, 158);
+    margin-bottom: 20px;
 }
 .section4 .contents{
     width: 80%;
     height: 200px;
-    background-color: #4d4d4d61;
-    color: #e3e3e3;
+    background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
     border-radius: 20px;
     padding: 25px;
     font-size: 20px;
@@ -370,7 +383,6 @@ export default {
     background-color: #000000;
     font-size: x-large;
     color: white;
-    border: 2px solid black;
     border-radius: 20px;
     outline: none;
     transition: transform 0.3s ease-in-out;

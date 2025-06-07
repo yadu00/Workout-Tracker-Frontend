@@ -44,7 +44,7 @@ export default {
         alert("Please select a rating before submitting.");
       } else {
         alert(`You rated: ${this.selectedRating} star(s)`);
-        // You can now emit or send this rating to your backend
+        
       }
     },
   },

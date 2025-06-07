@@ -81,7 +81,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["gettrainer_id"]), // Map the getter directly
+    ...mapGetters(["gettrainer_id"]),
   },
   methods: {
     ...mapActions(["fetchUsers"]),

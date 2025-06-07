@@ -46,12 +46,12 @@
 
   export default {
     computed: {
-    ...mapGetters(['getadmin_id']),  // Map the getter directly
+    ...mapGetters(['getadmin_id']), 
   },
   methods:{
     logout() {
-    this.$store.commit('logout');         // Reset Vuex state + sessionStorage
-    this.$router.push('/adminlogin');          // Redirect to login page
+    this.$store.commit('logout');       
+    this.$router.push('/adminlogin');        
   }
   }
   

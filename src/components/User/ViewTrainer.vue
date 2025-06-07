@@ -66,7 +66,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getuser_id"]), // Map the getter directly
+    ...mapGetters(["getuser_id"]),
   },
   methods: {
     async viewTrainer() {
