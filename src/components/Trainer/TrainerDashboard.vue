@@ -93,7 +93,6 @@
       <div class="payment">
         <div class="title">
           <h1>Subscribed Clients</h1>
-          
         </div>
         <div class="paytitle head">
           <div class="paymenthead">
@@ -106,19 +105,25 @@
             <p style="font-weight: bold">Expiry</p>
           </div>
         </div>
-        <div class="paytitle" v-for="(clients) in subscibedClients"
-            :key="clients.id">
+        <div
+          class="paytitle"
+          v-for="clients in subscibedClients"
+          :key="clients.id"
+        >
           <div class="paymenthead">
-            <p style="font-weight: bold">{{clients.name}}</p>
+            <p style="font-weight: bold">{{ clients.name }}</p>
           </div>
           <div class="paymenthead">
-            <p style="font-weight: bold">{{clients.subscriptionStart.split('T')[0]}}</p>
+            <p style="font-weight: bold">
+              {{ clients.subscriptionStart.split("T")[0] }}
+            </p>
           </div>
           <div class="paymenthead">
-            <p style="font-weight: bold">{{clients.subscriptionEnd.split('T')[0]}}</p>
+            <p style="font-weight: bold">
+              {{ clients.subscriptionEnd.split("T")[0] }}
+            </p>
           </div>
         </div>
-        
       </div>
     </div>
   </div>
@@ -154,7 +159,7 @@ export default {
       firstDay: 0,
       totalDays: 0,
       trainer: [],
-      subscibedClients:[],
+      subscibedClients: [],
     };
   },
   computed: {
@@ -219,8 +224,6 @@ export default {
       }
     },
 
-  
-
     updateCalendar() {
       const firstDay = new Date(
         this.selectedYear,
@@ -270,7 +273,6 @@ export default {
         console.error("Error loading Profile:", error);
       }
     },
-    
   },
   mounted() {
     this.loadUsers();
@@ -355,9 +357,7 @@ export default {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease;
   margin-right: 5px;
-  
 }
-
 
 .calendar {
   width: 35%;
@@ -485,25 +485,24 @@ h2 {
   flex-direction: column;
   overflow: hidden;
   overflow-y: scroll;
-
 }
-.payment::-webkit-scrollbar{
+.payment::-webkit-scrollbar {
   display: none;
 }
 
 .paytitle {
- display: flex;
+  display: flex;
   flex-wrap: wrap;
   padding: 12px 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
-.head{
+.head {
   background-color: #111;
   font-weight: bold;
   border-radius: 10px;
 }
-.paymenthead{
-   flex: 1 1 15%;
+.paymenthead {
+  flex: 1 1 15%;
   text-align: center;
   display: flex;
   justify-content: center;
@@ -511,7 +510,7 @@ h2 {
 }
 
 .paymentbody {
- flex: 1 1 15%;
+  flex: 1 1 15%;
   text-align: center;
   display: flex;
   justify-content: center;
@@ -521,7 +520,6 @@ h2 {
 .title {
   width: 100%;
   display: flex;
-  
 }
 .content {
   width: 100%;
@@ -545,17 +543,14 @@ h2 {
   flex-direction: column;
   gap: 10px;
   width: 100%;
-  height: 100%; 
+  height: 100%;
   overflow: hidden;
   overflow-y: scroll;
   padding: 10px;
-
-
-
 }
 
 .section2::-webkit-scrollbar {
-  display: none; 
+  display: none;
 }
 
 .daycard {
