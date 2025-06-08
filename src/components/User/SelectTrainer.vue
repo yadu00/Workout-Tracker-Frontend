@@ -90,6 +90,7 @@ export default {
         console.error("Error loading Trainers:", error);
       }
     },
+    //load trainers according to specialization
     async loadSpecTrainers() {
       try {
         const specialization_id = Number(this.selectedSpecialization);
