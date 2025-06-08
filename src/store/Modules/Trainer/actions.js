@@ -83,7 +83,8 @@ export default {
     try {
       const response = await axios.post(
         `${rootGetters.getUrl}/api/trainer/addExcercises`,
-        payload
+         payload,
+        { headers: { "Content-Type": "multipart/form-data" } }
       );
 
       if (response.status >= 200 && response.status < 300) {
@@ -153,7 +154,7 @@ export default {
         {
           params: {
             user_id: payload.user_id,
-            id: payload.id,
+            workoutdayId: payload.workoutdayId,
           },
         }
       );

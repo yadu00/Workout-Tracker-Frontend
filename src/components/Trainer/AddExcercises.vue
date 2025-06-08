@@ -7,6 +7,9 @@
     <v-divider></v-divider>
     <div class="title">
       <div class="names">
+        <p style="font-weight: bold">Image</p>
+      </div>
+      <div class="names">
         <p style="font-weight: bold">Exercise</p>
       </div>
       <div class="names">
@@ -21,6 +24,11 @@
     <div v-if="exercises.length">
       <div v-for="(exercise, index) in exercises" :key="index" class="card">
         <div class="listcard">
+          <v-img
+          :src="'data:image/jpeg;base64,' + exercise.exerciseImage"
+          aspect-ratio="1.7"
+          contain
+        ></v-img>
           <div class="names">
             <p>{{ exercise.exercise_name }}</p>
           </div>
@@ -55,6 +63,16 @@
           <input type="text" v-model="newExercise.exercise_name" />
           <p>Focus Area</p>
           <input type="text" v-model="newExercise.focusarea" />
+          <v-file-input
+            v-model="photo"
+            label="Upload Exercise  Image"
+            prepend-icon="mdi-camera"
+            accept="image/*"
+            variant="outlined"
+            class="input-field"
+            color="primary"
+            density="comfortable"
+          />
         </div>
         <button class="Addbutton" @click="addExercise">
           <v-icon>mdi-plus</v-icon>ADD
@@ -75,6 +93,7 @@ export default {
         exercise_description: "",
         focusarea: "",
       },
+      photo: null,
       exercises: [],
     };
   },
@@ -105,12 +124,21 @@ export default {
     async addExercise() {
       if (this.newExercise.exercise_name && this.newExercise.focusarea) {
         try {
-          const trainer_id = this.gettrainer_id; 
+           const trainer_id = this.gettrainer_id; 
           const payload = { ...this.newExercise, trainer_id };
+            const formData = new FormData();
+formData.append(
+        "excerciseDetailsModel",
+        new Blob([JSON.stringify(payload)], { type: "application/json" })
+      );
+      if (this.photo) {
+        formData.append("exerciseImage", this.photo);
+      }
+         
 
           const result = await this.$store.dispatch(
             "Trainer/uploadExercise",
-            payload
+            formData
           );
           console.log("Sending payload:", payload);
 

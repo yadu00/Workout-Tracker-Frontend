@@ -117,7 +117,7 @@ export default {
         };
         const result = await this.$store.dispatch("User/logBmi", payload);
         if (result.success) {
-          alert("new Bmi added");
+          alert("Bmi added");
         } else {
           alert(`failed: ${result.error}`);
         }

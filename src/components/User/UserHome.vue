@@ -299,11 +299,13 @@ export default {
     
     async fetchTodaysWorkout() {
       try {
-        const today = new Date();
-        const payload = {
-          user_id: this.getuser_id,
-          date: today.toISOString().split("T")[0],
-        };
+       const today = new Date();
+const localDate = today.toLocaleDateString("en-CA"); // YYYY-MM-DD
+
+const payload = {
+  user_id: this.getuser_id,
+  date: localDate,
+};
 
         const result = await this.$store.dispatch(
           "User/fetchTodaysWorkout",
@@ -324,10 +326,13 @@ export default {
     },
     async workouttoday() {
       try {
-        const payload = {
-          user_id: this.getuser_id,
-          date: new Date().toISOString().split("T")[0],
-        };
+        const today = new Date();
+const localDate = today.toLocaleDateString("en-CA");
+
+const payload = {
+  user_id: this.getuser_id,
+  date: localDate,
+};
         const result = await this.$store.dispatch(
           "User/fetchworkouttoday",
           payload

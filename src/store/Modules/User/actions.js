@@ -43,6 +43,25 @@ export default {
       };
     }
   },
+  //view Gender
+  async listGender({ rootGetters }) {
+    try {
+      const response = await axios.get(
+        `${rootGetters.getUrl}/api/admin/viewGender`
+      );
+      if (response.status >= 200 && response.status < 300) {
+        return { success: true, data: response.data };
+      } else {
+        return { success: false, error: "Unexpected response status" };
+      }
+    } catch (error) {
+      console.error("Error viewing Bmi:", error);
+      return {
+        success: false,
+        error: error.message || "An error occurred while viewing Bmi.",
+      };
+    }
+  },
 
   //view trainers
   async viewTrainers({ rootGetters }) {
@@ -210,7 +229,7 @@ export default {
         {
           params: {
             user_id: payload.user_id,
-            id: payload.id,
+            workoutdayId: payload.workoutdayId,
           },
         }
       );

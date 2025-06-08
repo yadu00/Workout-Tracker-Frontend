@@ -6,7 +6,11 @@
     <div class="today">
       <h1>Today's Workout</h1>
       <div class="today-container">
-        <div class="today-card" v-if="day && day.workoutName">
+        <div 
+  class="today-card" 
+  :class="{ completed: day.status === 2 }"
+  v-if="day && day.workoutName"
+>
         <!-- <div
             v-for="(day, dayIndex) in day"
             :key="dayIndex"
@@ -15,14 +19,19 @@
         <h4>{{ day.day }}</h4>
         <p>{{ day.workoutName }}</p>
         <p>{{ day.date }}</p>
+        <p v-if="day.status === 2" class="status-label">✔️ Completed</p>
         <router-link
-          :to="{
-            path: '/viewExercises',
-            query: { id: day.id },
-          }"
-        >
-          <button id="selectday">View Workout</button>
-        </router-link>
+  :to="{
+    path: '/viewExercises',
+    query: {
+      workoutdayId: day.workoutdayId || 'null',
+     
+    }
+  }"
+>
+  <button id="selectday">View Workout</button>
+</router-link>
+
       </div>
       <div v-else>
         <p>No workout added today.</p>
@@ -38,22 +47,29 @@
         <!-- <h3>{{ week.weekNumber }}</h3> -->
 
         <div class="days">
-          <div
-            v-for="(day, dayIndex) in daycards"
-            :key="dayIndex"
-            class="day-card"
-          >
+          <div 
+  v-for="(day, dayIndex) in daycards"
+  :key="dayIndex"
+  class="day-card"
+  :class="{ completed: day.status === 2 }"
+>
+
             <h4>{{ day.day }}</h4>
             <p>{{ day.workoutName }}</p>
             <p>{{ day.date }}</p>
-            <router-link
-              :to="{
-                path: '/viewExercises',
-                query: { id: day.id },
-              }"
-            >
-              <button id="selectday">View Workout</button>
-            </router-link>
+            <p v-if="day.status === 2" class="status-label">✔️ Completed</p>
+           <router-link
+  :to="{
+    path: '/viewExercises',
+    query: {
+      workoutdayId: day.workoutdayId || 'null',
+     
+    }
+  }"
+>
+  <button id="selectday">View Workout</button>
+</router-link>
+
           </div>
         </div>
       </div>
@@ -102,10 +118,13 @@ export default {
 
     async fetchworkouttoday() {
       try {
-        const payload = {
-          user_id: this.getuser_id,
-          date: this.today.toISOString().split("T")[0],
-        };
+        const today = new Date();
+const localDate = today.toLocaleDateString("en-CA"); // YYYY-MM-DD
+
+const payload = {
+  user_id: this.getuser_id,
+  date: localDate,
+};
         const result = await this.$store.dispatch(
           "User/fetchworkouttoday",
           payload
@@ -241,4 +260,12 @@ export default {
 #selectday:hover {
   background-color: #c80000;
 }
+
+.completed {
+  background-color: #0000009e !important; 
+  color: rgb(110, 110, 110);
+  border: 2px solid #0e0e0e;
+  box-shadow: 0 0 10px #000000;
+}
+
 </style>

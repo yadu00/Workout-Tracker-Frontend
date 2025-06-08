@@ -153,7 +153,7 @@ export default {
     },
   },
   created() {
-    this.id = this.$route.query.id;
+    this.workoutdayId = this.$route.query.workoutdayId;
     this.user_id = this.$route.query.user_id;
   },
   methods: {
@@ -182,7 +182,7 @@ export default {
           user_id: Number(this.user_id),
           exercise_id: Number(this.selectedExercise.exercise_id),
           equipments: this.newExercise.equipments,
-          id: Number(this.id),
+          workoutdayId: Number(this.workoutdayId),
           sets: Number(this.newExercise.sets),
           reps: this.newExercise.reps,
           weights: this.newExercise.weights,
@@ -230,7 +230,7 @@ export default {
       try {
         const payload = {
           user_id: this.user_id,
-          id: this.id,
+          workoutdayId: this.workoutdayId,
         };
 
         const result = await this.$store.dispatch(

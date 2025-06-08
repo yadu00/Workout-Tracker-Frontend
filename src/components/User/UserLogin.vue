@@ -91,29 +91,23 @@ export default {
   }
 
   try {
-    const payload = {
-      email: this.email,
-      password: this.password,
-    };
+    const payload = { email: this.email, password: this.password };
 
+    // The loginUser action returns the full response including firstLogin
     const response = await this.$store.dispatch("loginUser", payload);
 
-    if (response) {
+    if (response && response.user_id) {
       this.snackbar = true;
-      const user_id = this.getuser_id;
-      if (!user_id) {
-        console.error("User ID not set in store.");
-        return;
-      }
+      const user_id = response.user_id;
+      const firstLogin = response.firstLogin;
 
-      const userKey = `firstLogin_${user_id}`;
-
-      if (!localStorage.getItem(userKey)) {
-        localStorage.setItem(userKey, "true"); 
+      if (firstLogin) {
+        // First time login: redirect to welcome page
         setTimeout(() => {
           this.$router.push("/welcome");
         }, 1000);
       } else {
+        // Not first time: go to user home with user_id query param
         setTimeout(() => {
           this.$router.push(`/userHome?user=${user_id}`);
         }, 1000);
@@ -126,6 +120,7 @@ export default {
     console.error(error);
   }
 }
+
 
   },
 };

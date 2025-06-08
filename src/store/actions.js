@@ -8,7 +8,7 @@ export default{
         if (response.status >= 200 && response.status < 300) {
           console.log(response);
           commit('setuser_id', response.data.user_id); 
-          return true;
+return response.data;
         } else {
           console.error("Login failed");
           return false;

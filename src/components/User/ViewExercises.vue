@@ -10,6 +10,14 @@
     <div class="section2">
       <div class="card" v-for="(exercise, index) in exercises" :key="index">
         <div class="cards">
+          <div class="info image">
+           <v-img
+          :src="'data:image/jpeg;base64,' + exercise.exerciseImage"
+          aspect-ratio="1.5"
+          contain
+        ></v-img>
+          </div>
+           
           <div class="info">
             <h4>Exercise: {{ exercise.excercise_name }}</h4>
           </div>
@@ -81,7 +89,7 @@
             />
           </div>
 
-          <button @click="logworkout(exercise)">Submit</button>
+          <button @click="logworkout(exercise)" :disabled="!exercise.workoutStatus">Submit</button>
         </div>
 
         <div class="info"><h4>Rest 30 Seconds</h4></div>
@@ -106,15 +114,16 @@ export default {
     ...mapGetters(["getuser_id"]), // Map the getter directly
   },
   created() {
-    this.id = this.$route.query.id;
+    this.workoutdayId = this.$route.query.workoutdayId;
     // Get user_id from URL
   },
   methods: {
     async fetchWorkout() {
+      
       try {
         const payload = {
           user_id: this.getuser_id,
-          id: this.id,
+          workoutdayId: this.workoutdayId,
         };
 
         const result = await this.$store.dispatch("User/fetchWorkout", payload);

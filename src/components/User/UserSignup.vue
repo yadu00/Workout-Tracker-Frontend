@@ -3,56 +3,63 @@
     <form @submit.prevent="register">
       <div class="signupbox">
         <h1>Sign Up</h1>
-        <div class="form">
-          <h3 class="h3heading">Name</h3>
-          <input
+        
+          
+
+     
+        <div class="form-column">
+          <v-text-field
             v-model="user.name"
-            class="fields"
-            type="text"
-            placeholder="Enter your name"
-            required
+            label="Full Name"
+            variant="outlined"
+            prepend-inner-icon="mdi-account-outline"
+            class="input-field"
+            color="primary"
+            density="comfortable"
           />
-        </div>
-        <div class="form">
-          <h3 class="h3heading">Email</h3>
-          <input
+          <v-text-field
             v-model="user.email"
-            class="fields"
-            type="email"
-            placeholder="Enter your email"
-            required
+            label="Email"
+            variant="outlined"
+            prepend-inner-icon="mdi-email-outline"
+            class="input-field"
+            color="primary"
+            density="comfortable"
           />
-        </div>
-        <div class="form">
-          <h3 class="h3heading">Password</h3>
-          <input
+          <v-text-field
             v-model="user.password"
-            class="fields"
+            label="Password"
             type="password"
-            placeholder="Enter your password"
-            required
-            minlength="6"
+            variant="outlined"
+            prepend-inner-icon="mdi-lock-outline"
+            class="input-field"
+            color="primary"
+            density="comfortable"
           />
-        </div>
-        <div class="form">
-          <h3 class="h3heading">Confirm Password</h3>
-          <input
+          <v-text-field
             v-model="user.confirmpassword"
-            class="fields"
+            label="Confirm Password"
             type="password"
-            placeholder="Confirm password"
-            required
-            minlength="6"
+            variant="outlined"
+            prepend-inner-icon="mdi-lock-check-outline"
+            class="input-field"
+            color="primary"
+            density="comfortable"
           />
+
+          <v-select
+            v-model="user.gender_id"
+            :items="gender"
+            item-title="genderName"
+            item-value="gender_id"
+            label="Select Gender"
+            variant="outlined"
+            class="input-field"
+            color="primary"
+            density="comfortable"
+          ></v-select>
         </div>
-        <div class="form">
-          <h3 class="h3heading">Gender</h3>
-          <select v-model="user.gender_id" class="select" required>
-            <option value="" disabled>Select your gender</option>
-            <option value="1">male</option>
-            <option value="2">female</option>
-          </select>
-        </div>
+        
 
         <div class="buttons">
           <button class="btn1" @click="signupUser">SIGN UP</button>
@@ -81,6 +88,7 @@ export default {
         gender_id: "",
         confirmpassword: "",
       },
+      gender:[],
     };
   },
   methods: {
@@ -94,10 +102,10 @@ export default {
 
     async signupUser() {
       try {
-        if (this.passwordMismatch()) {
-          alert("Passwords do not match!");
-          return;
-        }
+        if (this.user.password !== this.user.confirmpassword) {
+        alert("Passwords do not match!");
+        return;
+      }
         const result = await this.$store.dispatch("User/signupUser", this.user);
         if (result.success) {
           alert("User signed up successfully!");
@@ -109,7 +117,22 @@ export default {
         alert("Unexpected error during sign-up. Please check console.");
       }
     },
+    async listGender() {
+      try {
+        const result = await this.$store.dispatch("User/listGender");
+        if (result.success) {
+          this.gender = result.data;
+        } else {
+          alert(`Error: ${result.error}`);
+        }
+      } catch (error) {
+        console.error("Error loading gender:", error);
+      }
+    },
   },
+  mounted(){
+    this.listGender();
+  }
 };
 </script>
 
@@ -141,12 +164,16 @@ export default {
   padding: 20px;
   color: #f0f0f0;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease;
 }
 .form {
   display: flex;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
   align-items: center;
+  flex-direction: column;
+}
+h3{
+  width: 100%;
+  text-align: start;
 }
 h1 {
   text-align: center;
@@ -158,7 +185,7 @@ h1 {
   font-size: 2.5rem;
   text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.4);
 }
-.h3heading {
+.heading {
   margin-bottom: 5px;
   width: 50%;
   font-weight: 100;
@@ -170,7 +197,7 @@ h1 {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 200px;
+  height: 100px;
 }
 
 .btn1 {
@@ -230,4 +257,34 @@ select:focus {
   color: rgb(255, 255, 255);
   transform: scale(1.02);
 }
+.fields {
+  width: 100%;
+  padding: 12px 16px;
+  margin-bottom: 1.2rem;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.fields:focus {
+  border-color: #00bfff;
+  background-color: rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 5px rgba(0, 191, 255, 0.7);
+}
+
+.fields:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-color: #00bfff;
+  color: #ffffff;
+}
+
+input::placeholder {
+  color: #cccccc;
+  font-style: italic;
+}
+
 </style>

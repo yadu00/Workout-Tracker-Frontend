@@ -18,19 +18,29 @@
           <!-- <h3>{{ week.weekNumber }}</h3> -->
 
           <div class="days">
-            <div
-              v-for="(day, dayIndex) in daycards"
-              :key="dayIndex"
-              class="day-card"
-            >
+            <div 
+  v-for="(day, dayIndex) in daycards"
+  :key="dayIndex"
+  class="day-card"
+  :class="{ completed: day.status === 2 }"
+>
               <h4>{{ day.day }}</h4>
               <p>{{ day.workoutName }}</p>
               <p>{{ day.date }}</p>
+                          <p v-if="day.status === 2" class="status-label">✔️ Completed</p>
+
               <router-link
-                :to="{ path: '/sch', query: { id: day.id, user_id: user_id } }"
-              >
-                <button id="selectday">Schedule Workout</button>
-              </router-link>
+  :to="{
+    path: '/sch',
+    query: {
+      workoutdayId: day.workoutdayId || 'null',
+      user_id: user_id
+    }
+  }"
+>
+  <button id="selectday">Schedule Workout</button>
+</router-link>
+
             </div>
           </div>
         </div>
@@ -243,5 +253,11 @@ export default {
   height: 40px;
   margin-bottom: 10px;
   border-radius: 4px;
+}
+.completed {
+  background-color: #0000009e !important; 
+  color: rgb(110, 110, 110);
+  border: 2px solid #0e0e0e;
+  box-shadow: 0 0 10px #000000;
 }
 </style>
