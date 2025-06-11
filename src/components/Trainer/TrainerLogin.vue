@@ -140,12 +140,12 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #051230, #242424, #000000);
+      background: linear-gradient(135deg, #181818, #232326, #030303);
   padding: 1rem;
 }
 
 .loginbox {
-  background-color: #1212126c;
+    background: linear-gradient(135deg, #181818, #232326, #030303);
   color: #ffffff;
   border-radius: 20px;
   padding: 2rem;

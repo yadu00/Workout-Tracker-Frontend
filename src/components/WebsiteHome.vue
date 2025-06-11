@@ -338,13 +338,13 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.315);
+    background-color: rgba(228, 228, 228, 0.559);
     border-radius: 25px;
-    color: #515151;
+    color: #2b2b2b;
 }
 .section4{
     width: 100%;
-    height: 300px;
+    height: 350px;
     color: rgb(203, 203, 203);
     display: flex;
     justify-content: center;

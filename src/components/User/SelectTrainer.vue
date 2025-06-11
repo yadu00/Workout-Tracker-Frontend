@@ -141,10 +141,7 @@ export default {
       }
     },
 
-    selectTrainer(trainer) {
-      localStorage.setItem("trainerSelected", JSON.stringify(trainer)); // Save trainer data
-      this.$router.push("/dashboard"); // Redirect after selection
-    },
+  
 
     async showabout(trainer) {
       try {
